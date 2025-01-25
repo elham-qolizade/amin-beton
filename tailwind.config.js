@@ -2,7 +2,9 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+   
+    },
     container: {
       center: true,
     },   colors: {
@@ -12,8 +14,9 @@ export default {
       'white':'#ffff',
       'black': '#000',
       'Eerie-Black':'#1C1B1B',
-      'orange':'#f27121',
-      'red':'#EB4D4D'
+      'Bokara-Grey':'#292826',
+      'School-Bus':' #FDD700',
+      'b-gray':'#1F1F1F',
     },
   },
   plugins: [],
