@@ -1,6 +1,12 @@
 import logo from "../assets//images/84c17d4db54552e3ecc58781c8cefc7a.png";
+import { useNavigate } from "react-router-dom";
 
 function HeaderNav() {
+  const navigate = useNavigate();
+
+  const handleUserClick = () => {
+    navigate("/LoginForm");
+  };
   return (
     <div className="bg-Eerie-Black opacity-80">
       <div className="container flex flex-row items-center justify-between px-4 py-4">
@@ -22,6 +28,8 @@ function HeaderNav() {
             height="24"
             src="https://img.icons8.com/material-rounded/24/FFFFFF/user-male-circle.png"
             alt="User Profile Icon"
+            className="cursor-pointer"
+            onClick={handleUserClick}
           />
         </div>
       </div>
