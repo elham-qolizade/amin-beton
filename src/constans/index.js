@@ -6,6 +6,7 @@ import product2 from "../assets/images/833eb3f1ed14ecb9a6dfb717f9e3f826.jpg";
 import product3 from "../assets/images/833eb3f1ed14ecb9a6dfb717f9e3f826.jpg";
 import product4 from "../assets/images/833eb3f1ed14ecb9a6dfb717f9e3f826.jpg";
 
+
  export const products = [
   { id: 1, image: product1, title: "محصول اول", isMain: true },
   { id: 2, image: product2, title: "محصول دوم", isMain: false },
@@ -35,6 +36,16 @@ export const slider = [
         backgroundImage: pic2,
       },
   ];
+  export const Project = [
+    { name: "projectName", placeholder: "نام پروژه" },
+    { name: "projectCode", placeholder: "کد پستی پروژه" },
+    { name: "permitNumber", placeholder: "شماره پرونده" },
+    { name: "registrationplate", placeholder: "پلاک ثبتی پروژه" },
+    { name: "supervisingEngineer", placeholder: "مهندس ناظر" },
+    { name: "User", placeholder: "کاربری" },
+    { name: "Manufacturer", placeholder: "سازنده" },
+    { name: "Employer", placeholder: "کارفرما" },
+  ]
 
   
 

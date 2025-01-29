@@ -20,7 +20,7 @@ const Input = ({
       onChange={onChange}
       maxLength={maxLength}
       // اضافه کردن maxLength اگر لازم باشد
-      className={`w-full  ltr-input bg-Bokara-Grey p-1 pl-4 text-left border border-white text-white focus:outline-none focus:ring-2 focus:ring-School-Bus ${className}`}
+      className={`w-full  ltr-input bg-Bokara-Grey p-1 pl-4  border border-white text-white focus:outline-none focus:ring-2 focus:ring-School-Bus ${className}`}
     />
   );
 };
