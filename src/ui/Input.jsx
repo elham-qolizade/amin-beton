@@ -13,14 +13,13 @@ const Input = ({
   return (
     <input
       type={type}
-      id={id} // اضافه کردن id به ورودی
-      name={name} // اضافه کردن name به ورودی
+      id={id}
+      name={name}
       placeholder={placeholder}
       value={value}
       onChange={onChange}
       maxLength={maxLength}
-      // اضافه کردن maxLength اگر لازم باشد
-      className={`w-full  ltr-input bg-Bokara-Grey p-1 pl-4  border border-white text-white focus:outline-none focus:ring-2 focus:ring-School-Bus ${className}`}
+      className={`w-full  ltr-input bg-Bokara-Grey p-1 pl-4  border border-l-Looking-Glass text-white focus:outline-none focus:ring-2 focus:ring-School-Bus ${className}`}
     />
   );
 };

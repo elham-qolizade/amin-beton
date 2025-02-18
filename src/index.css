@@ -155,3 +155,76 @@ body {
 
   grid-row: span 1 / span 1;
 }
+.custom-calendar {
+  background-color: #1c1c1e; /* پس‌زمینه اصلی تقویم */
+  color: white; /* متن سفید */
+  border-radius: 12px; /* گوشه‌های گرد */
+  padding: 10px;
+  font-family: "Vazir", sans-serif; /* فونت فارسی */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* سایه */
+}
+
+.custom-calendar .react-calendar__tile {
+  background: none;
+  color: white;
+  border-radius: 8px;
+  padding: 10px;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.custom-calendar .react-calendar__tile:hover {
+  background-color: #343434; /* پس‌زمینه خاکستری هنگام هاور */
+  cursor: pointer;
+}
+
+.custom-calendar .react-calendar__tile--active {
+  background-color: #FFB703; /* رنگ زرد برای روز انتخاب‌شده */
+  color: black; /* متن مشکی برای روز انتخاب‌شده */
+}
+
+.custom-calendar .react-calendar__month-view__weekdays {
+  color: #FFD700; /* رنگ نام روزهای هفته */
+  font-weight: bold;
+}
+
+.custom-calendar .react-calendar__navigation button {
+  color: white; /* رنگ دکمه‌های ناوبری */
+  background: none;
+  border: none;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.custom-calendar .react-calendar__navigation button:hover {
+  color: #FFB703; /* رنگ زرد هنگام هاور */
+}
+.custom-calendar {
+  background-color: #1e1e1e !important; /* پس‌زمینه دارک */
+  border-radius: 10px;
+}
+
+.custom-calendar .Calendar__day {
+  background-color: #2a2a2a !important;
+  color: #fff !important;
+  border-radius: 8px;
+}
+
+.custom-calendar .Calendar__day.-selected {
+  background-color: #ffd700 !important; /* رنگ طلایی برای انتخاب */
+  color: #000 !important;
+}
+
+.custom-calendar .Calendar__monthArrow {
+  filter: invert(1);
+}
+ .Calendar__yearSelectorItem  {
+  background-color: #333; /* یا هر رنگ دلخواه */
+}
+.Calendar__monthSelectorItem{
+  background-color: #333;
+}

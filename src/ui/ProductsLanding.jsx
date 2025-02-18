@@ -1,23 +1,22 @@
 import React from "react";
-import { products } from "../constans"; // فرض می‌کنیم که داده‌ها از این فایل وارد می‌شوند
+import { products } from "../constans";
 
 export default function ProductsLanding() {
   return (
     <div className="flex items-center justify-center min-h-screen p-10 pt-24 bg-Bokara-Grey">
-      <div className="grid grid-cols-7 gap-4">
-        {/* محصولات سمت چپ */}
-        <div className="grid col-span-2 grid-rows-5 gap-4 text-white">
+      <div className="grid grid-cols-1 sm:grid-cols-7 gap-4 w-full">
+        <div className="grid grid-rows-1 sm:grid-rows-5 gap-4 text-white sm:col-span-2">
           {products
             .filter((product) => !product.isMain)
             .map((product, index) => (
               <div
                 key={product.id}
-                className={`product-card child-${index + 1}`} // اضافه کردن کلاس child-X
+                className={`product-card child-${index + 1}`}
               >
                 <img
                   src={product.image}
                   alt={product.title}
-                  className="product-image"
+                  className="product-image w-full h-auto"
                 />
                 <div className="product-overlay">
                   <h4 className="product-title">{product.title}</h4>
@@ -26,19 +25,18 @@ export default function ProductsLanding() {
             ))}
         </div>
 
-        {/* محصولات سمت راست */}
-        <div className="grid col-span-5 grid-rows-2 gap-5 text-white">
+        <div className="grid grid-rows-1 sm:grid-rows-2 gap-5 text-white sm:col-span-5">
           {products
             .filter((product) => product.isMain)
             .map((product, index) => (
               <div
                 key={product.id}
-                className={`product-card h-96 child-${index + 3}`} // اضافه کردن کلاس child-X
+                className={`product-card h-auto sm:h-96 child-${index + 3}`}
               >
                 <img
                   src={product.image}
                   alt={product.title}
-                  className="product-image"
+                  className="product-image w-full h-auto"
                 />
                 <div className="product-overlay">
                   <h3

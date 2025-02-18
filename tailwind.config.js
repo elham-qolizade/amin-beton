@@ -18,6 +18,7 @@ export default {
       'School-Bus':' #FDD700',
       'b-gray':'#1F1F1F',
       'Looking-Glass':'#878584',
+      'red':"#FF0000"
     },
   },
   plugins: [],
