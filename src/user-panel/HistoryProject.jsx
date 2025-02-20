@@ -17,9 +17,9 @@ export default function HistoryProject() {
 
       <div className="flex flex-col pt-10 bg-b-gray">
         {/* دایره پیشرفت در موبایل بالاتر از همه نمایش داده می‌شود */}
-        <div className="flex justify-center mb-6 md:hidden order-first">
+        {/* <div className="flex justify-center mb-6 md:hidden order-first">
           <ProgressCircle className="w-60 h-60" percentage={14} />
-        </div>
+        </div> */}
 
         {/* اطلاعات خرید */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-b-gray">
@@ -38,12 +38,12 @@ export default function HistoryProject() {
             {/* دانلود پیش فاکتور و فاکتور */}
             <div className="flex flex-col gap-2 py-6 text-white border-b border-white">
               <span>پیش فاکتور</span>
-              <ButtonProjectComponent className="text-sm px-3 py-2 md:text-base md:px-5 md:py-3">
+              <ButtonProjectComponent className="hover:bg-School-Bus">
                 دانلود پیش فاکتور
               </ButtonProjectComponent>
 
               <span>فاکتور</span>
-              <ButtonProjectComponent className="text-sm px-3 py-2 md:text-base md:px-5 md:py-3">
+              <ButtonProjectComponent className="">
                 دانلود فاکتور
               </ButtonProjectComponent>
             </div>
@@ -58,19 +58,19 @@ export default function HistoryProject() {
               </ul>
 
               <div className="flex flex-col gap-2 mt-4">
-                <ButtonProjectComponent className="text-sm px-3 py-2 md:text-base md:px-5 md:py-3">
-                  دانلود فایل
-                </ButtonProjectComponent>
-                <ButtonProjectComponent className="text-sm px-3 py-2 md:text-base md:px-5 md:py-3">
-                  دانلود گزارش
-                </ButtonProjectComponent>
+                <ButtonProjectComponent>دانلود فایل</ButtonProjectComponent>
+                <ButtonProjectComponent>دانلود گزارش</ButtonProjectComponent>
               </div>
             </div>
           </div>
 
           {/* دایره پیشرفت فقط در دسکتاپ در کنار اطلاعات باقی بماند */}
           <div className="hidden md:flex justify-center">
-            <ProgressCircle className="w-60 h-60" percentage={14} />
+            <ProgressCircle
+              className="w-60 h-60"
+              percentage={14}
+              style={{ stroke: "School-Bus", zIndex: 10 }}
+            />
           </div>
         </div>
 

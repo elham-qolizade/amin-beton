@@ -11,7 +11,7 @@ export default function ProductsLanding() {
             .map((product, index) => (
               <div
                 key={product.id}
-                className={`product-card child-${index + 1}`}
+                className={`product-card h-14 sm:h-96 child-${index + 1} `}
               >
                 <img
                   src={product.image}
@@ -19,7 +19,9 @@ export default function ProductsLanding() {
                   className="product-image w-full h-auto"
                 />
                 <div className="product-overlay">
-                  <h4 className="product-title">{product.title}</h4>
+                  <h4 className="font-bold md:text-3xl  text-xl text-School-Bus">
+                    {product.title}
+                  </h4>
                 </div>
               </div>
             ))}
@@ -31,7 +33,7 @@ export default function ProductsLanding() {
             .map((product, index) => (
               <div
                 key={product.id}
-                className={`product-card h-auto sm:h-96 child-${index + 3}`}
+                className={`product-card h-96 sm:h-96 child-${index + 3}`}
               >
                 <img
                   src={product.image}
@@ -40,7 +42,7 @@ export default function ProductsLanding() {
                 />
                 <div className="product-overlay">
                   <h3
-                    className={`product-title ${
+                    className={`md:text-3xl text-xl font-bold text-School-Bus product-title ${
                       product.id === 1 ? "yellow" : ""
                     }`}
                   >

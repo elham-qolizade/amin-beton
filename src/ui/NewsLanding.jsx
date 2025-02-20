@@ -23,7 +23,7 @@ export default function NewsLanding() {
           />
         </div>
         <div className="flex flex-row items-center justify-center gap-3 mt-4">
-          <span className="text-School-Bus">همه اخبار</span>
+          <span className="text-School-Bus text-lg md:text-2xl">همه اخبار</span>
           <FaArrowLeftLong className="text-School-Bus" />
         </div>
       </div>

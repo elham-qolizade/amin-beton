@@ -24,8 +24,8 @@ export default function Hero() {
         background: `url(${backgroundImage}) center center / cover no-repeat`,
       }}
     >
-      <HeaderNav />
-      <div className="container flex items-center justify-center  mx-auto ">
+      <HeaderNav className="" />
+      <div className="container md:py-20 flex items-center justify-center  mx-auto ">
         <Swiper
           spaceBetween={30}
           centeredSlides={true}
@@ -38,21 +38,31 @@ export default function Hero() {
           }}
           onSlideChange={handleSlideChange}
           modules={[Autoplay, Pagination]}
-          className="pt-48 mySwiper w-full"
+          className="w-full pt-10 p-0" // حذف padding اضافی
         >
           {slider.map((slide, index) => (
-            <SwiperSlide key={index} className="pb-10">
-              <div className="flex flex-col sm:flex-row items-center justify-center pb-12 text-white">
-                <div className="text-center sm:text-left w-full sm:w-1/2">
-                  <h2 className="text-2xl sm:text-5xl ps-10 whitespace-nowrap">
-                    {slide.title}
-                  </h2>
+            <SwiperSlide
+              key={index}
+              className="flex pb-10 sm:p-0 items-center justify-center"
+            >
+              <div className="flex flex-col sm:flex-row items-center justify-center text-white">
+                <div className="text-start pb-10 sm:pb-0  sm:text-left w-full sm:w-1/2">
+                  <h1 className="text-School-Bus text-2xl font-medium ps-10 sm:hidden ">
+                    امین بتن
+                  </h1>
+                  <h2 className="text-xl sm:text-5xl ps-10">{slide.title}</h2>
                 </div>
 
-                <div className="flex flex-col gap-4 sm:gap-10 px-4 sm:px-10 sm:ps-40 w-full sm:w-1/2">
-                  <span className="text-base sm:text-xl">{slide.p1}</span>
-                  <span className="text-base sm:text-xl">{slide.p2}</span>
-                  <span className="text-base sm:text-xl">{slide.p3}</span>
+                <div className="flex flex-col  pb-10 sm:pb-0  gap-2 sm:gap-10 px-4 sm:px-10 sm:ps-40 w-full sm:w-1/2">
+                  <span className="text-start  text-sm sm:text-xl sm:text-center ">
+                    {slide.p1}
+                  </span>
+                  <span className="text-start text-sm sm:text-xl sm:text-center">
+                    {slide.p2}
+                  </span>
+                  <span className="text-start text-sm sm:text-xl sm:text-center">
+                    {slide.p3}
+                  </span>
                 </div>
               </div>
             </SwiperSlide>

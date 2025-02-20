@@ -10,7 +10,6 @@
 background-position: center center ;
 background-repeat: no-repeat;
 
-  min-height: 110vh;
 }
 
 @font-face {
@@ -80,6 +79,7 @@ body {
 
 .product-card:hover {
   transform: scale(1.05);
+  cursor: pointer;
 }
 
 .product-image {
@@ -97,71 +97,15 @@ body {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.product-title {
-  font-size: 1.875rem;
-  font-weight: bold;
-
-}
 
 
-.product-card.child-1 .product-title {
-
-  font-size: 2rem;
-
-
-}
-
-.product-card.child-1 {
-  background-color: #4a5568; 
-  grid-row: span 3 / span 3;
-  height: 30rem;
-  
-}
-
-
-.product-card.child-2 .product-title {
-
-  font-size: 1.75rem;
-  overflow: hidden;
-  position: relative;
-
-}
-
-.product-card.child-2 {
-  background-color: #2d3748;
-  grid-row: span 2 / span 2;
-  height: 19rem;
-}
-
-
-.product-card.child-3 .product-title {
- 
-  font-size: 2rem;
-}
-
-.product-card.child-3 {
-  background-color: #1a202c; 
-  grid-row: span 1 / span 1;
-}
-
-
-.product-card.child-4 .product-title {
- /* text-teal-400 */
-  font-size: 2rem;
-}
-
-.product-card.child-4 {
-  background-color: #4c566a; 
-
-  grid-row: span 1 / span 1;
-}
 .custom-calendar {
-  background-color: #1c1c1e; /* پس‌زمینه اصلی تقویم */
-  color: white; /* متن سفید */
-  border-radius: 12px; /* گوشه‌های گرد */
+  background-color: #1c1c1e; 
+  color: white; 
+  border-radius: 12px; 
   padding: 10px;
-  font-family: "Vazir", sans-serif; /* فونت فارسی */
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* سایه */
+  font-family: "Vazir", sans-serif; 
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .custom-calendar .react-calendar__tile {
@@ -178,22 +122,22 @@ body {
 }
 
 .custom-calendar .react-calendar__tile:hover {
-  background-color: #343434; /* پس‌زمینه خاکستری هنگام هاور */
+  background-color: #343434; 
   cursor: pointer;
 }
 
 .custom-calendar .react-calendar__tile--active {
-  background-color: #FFB703; /* رنگ زرد برای روز انتخاب‌شده */
-  color: black; /* متن مشکی برای روز انتخاب‌شده */
+  background-color: #FFB703; 
+  color: black; 
 }
 
 .custom-calendar .react-calendar__month-view__weekdays {
-  color: #FFD700; /* رنگ نام روزهای هفته */
+  color: #FFD700; 
   font-weight: bold;
 }
 
 .custom-calendar .react-calendar__navigation button {
-  color: white; /* رنگ دکمه‌های ناوبری */
+  color: white; 
   background: none;
   border: none;
   font-size: 18px;
@@ -201,10 +145,10 @@ body {
 }
 
 .custom-calendar .react-calendar__navigation button:hover {
-  color: #FFB703; /* رنگ زرد هنگام هاور */
+  color: #FFB703; 
 }
 .custom-calendar {
-  background-color: #1e1e1e !important; /* پس‌زمینه دارک */
+  background-color: #1e1e1e !important;
   border-radius: 10px;
 }
 
@@ -215,7 +159,7 @@ body {
 }
 
 .custom-calendar .Calendar__day.-selected {
-  background-color: #ffd700 !important; /* رنگ طلایی برای انتخاب */
+  background-color: #ffd700 !important; 
   color: #000 !important;
 }
 
@@ -223,8 +167,32 @@ body {
   filter: invert(1);
 }
  .Calendar__yearSelectorItem  {
-  background-color: #333; /* یا هر رنگ دلخواه */
+  background-color: #333;
 }
 .Calendar__monthSelectorItem{
   background-color: #333;
+}
+
+/* تنظیم ارتفاع برابر برای موبایل */
+.product-card {
+  height: 20rem; /* مقدار ثابت برای موبایل */
+}
+
+/* تنظیمات برای حالت دسکتاپ */
+@media (min-width: 640px) { /* sm: */
+  .product-card.child-1 {
+    height: 30rem;
+    grid-row: span 3 / span 3;
+  }
+
+  .product-card.child-2 {
+    height: 19rem;
+    grid-row: span 2 / span 2;
+  }
+
+  .product-card.child-3,
+  .product-card.child-4 {
+    height: 24rem;
+    grid-row: span 1 / span 1;
+  }
 }

@@ -8,10 +8,10 @@ import product4 from "../assets/images/833eb3f1ed14ecb9a6dfb717f9e3f826.jpg";
 
 
  export const products = [
-  { id: 1, image: product1, title: "محصول اول", isMain: true },
-  { id: 2, image: product2, title: "محصول دوم", isMain: false },
-  { id: 3, image: product3, title: "محصول سوم", isMain: true },
-  { id: 4, image: product4, title: "محصول چهارم", isMain: false },
+  { id: 1, image: product1, title: "دال های بتنی پیش ساخته", isMain: true },
+  { id: 2, image: product2, title: "بلوک های بتنی", isMain: false },
+  { id: 3, image: product3, title: "لوله های بتنی", isMain: true },
+  { id: 4, image: product4, title: "جداول بتنی", isMain: false },
 ];
 export const slider = [
     {
