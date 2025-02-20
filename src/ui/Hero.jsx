@@ -25,7 +25,7 @@ export default function Hero() {
       }}
     >
       <HeaderNav />
-      <div className="container flex items-center justify-center pt-20 mx-auto mt-20">
+      <div className="container flex items-center justify-center  mx-auto ">
         <Swiper
           spaceBetween={30}
           centeredSlides={true}
