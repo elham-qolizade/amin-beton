@@ -11,7 +11,8 @@ import HistoryProject from "./user-panel/HistoryProject";
 import SaleProject from "./Sales/SaleProject";
 import SecendSalePage from "./Sales/SecendSalePage";
 import UserForm from "./Sales/UserForm ";
-
+import AboutBluck from "./pages/AboutBluck";
+import NewsLanding from "./ui/NewsLanding";
 const queryClient = new QueryClient();
 
 function App() {
@@ -29,6 +30,8 @@ function App() {
             <Route path="/SecendSalePage" element={<SecendSalePage />} />
             <Route path="/UserForm" element={<UserForm />} />{" "}
             <Route path="/LoginForm" element={<LoginForm />} />
+            <Route path="/AboutBluck" element={<AboutBluck />} />
+            <Route path="/NewsLanding" element={<NewsLanding />} />
           </Routes>
         </ApiProvider>
       </QueryClientProvider>

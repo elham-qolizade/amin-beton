@@ -25,7 +25,7 @@ export default function Hero() {
       }}
     >
       <HeaderNav className="" />
-      <div className="container md:py-20 flex items-center justify-center  mx-auto ">
+      <div className="container flex items-center justify-center mx-auto md:py-20 ">
         <Swiper
           spaceBetween={30}
           centeredSlides={true}
@@ -38,29 +38,31 @@ export default function Hero() {
           }}
           onSlideChange={handleSlideChange}
           modules={[Autoplay, Pagination]}
-          className="w-full pt-10 p-0" // حذف padding اضافی
+          className="w-full p-0 pt-10" // حذف padding اضافی
         >
           {slider.map((slide, index) => (
             <SwiperSlide
               key={index}
-              className="flex pb-10 sm:p-0 items-center justify-center"
+              className="flex items-center justify-center pb-10 sm:pb-40"
             >
-              <div className="flex flex-col sm:flex-row items-center justify-center text-white">
-                <div className="text-start pb-10 sm:pb-0  sm:text-left w-full sm:w-1/2">
-                  <h1 className="text-School-Bus text-2xl font-medium ps-10 sm:hidden ">
+              <div className="flex flex-col items-center justify-center text-white sm:flex-row">
+                <div className="w-full pb-10 text-start sm:pb-0 sm:text-center sm:w-1/2">
+                  <h1 className="text-2xl font-medium text-School-Bus ps-10 sm:ps-0 sm:hidden ">
                     امین بتن
                   </h1>
-                  <h2 className="text-xl sm:text-5xl ps-10">{slide.title}</h2>
+                  <h2 className="text-xl sm:text-5xl sm:ps-0 ps-10">
+                    {slide.title}
+                  </h2>
                 </div>
 
-                <div className="flex flex-col  pb-10 sm:pb-0  gap-2 sm:gap-10 px-4 sm:px-10 sm:ps-40 w-full sm:w-1/2">
-                  <span className="text-start  text-sm sm:text-xl sm:text-center ">
+                <div className="flex flex-col w-full gap-2 pb-10 text-start sm:pb-0 sm:gap-10 sm:px-10 sm:w-1/2">
+                  <span className="text-sm text-start sm:text-xl sm:text-center ">
                     {slide.p1}
                   </span>
-                  <span className="text-start text-sm sm:text-xl sm:text-center">
+                  <span className="text-sm text-start sm:text-xl sm:text-center">
                     {slide.p2}
                   </span>
-                  <span className="text-start text-sm sm:text-xl sm:text-center">
+                  <span className="text-sm text-start sm:text-xl sm:text-center">
                     {slide.p3}
                   </span>
                 </div>

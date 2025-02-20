@@ -5,7 +5,7 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 
 export default function NewsLanding() {
   return (
-    <div className="py-20 bg-Bokara-Grey">
+    <div id="news-section" className="py-20 bg-Bokara-Grey">
       <div className="flex flex-col gap-10 px-4 sm:px-0">
         <div>
           <h2 className="text-4xl font-medium text-white font-custom">اخبار</h2>

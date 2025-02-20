@@ -13,16 +13,17 @@ background-repeat: no-repeat;
 }
 
 @font-face {
-  font-family: "Iranian-Sans";
-  src: url("./assets/font/A-Iranian-Sans/Iranian-Sans.ttf") format(".ttf");
+  font-family: "Peyda-Black";
+  src: url("./assets/font/Peyda/01-Standard/TTF/Peyda-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 body {
-  font-family: "Iranian-Sans", sans-serif;
+  font-family: "Peyda-Black", sans-serif;
   direction: rtl;
 }
+
 
 
 @layer base {
