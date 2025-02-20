@@ -17,13 +17,14 @@ export default function Footer() {
         </ul>
       </div>
 
-      <div className="pb-10 text-white border-b-2 md:pb-20 md:border-none">
+      <div className="pb-4 text-white border-b-2 ">
         <img
           className="mb-2 w-[200px] h-[150px] md:w-[260px] md:h-[190px]"
           src={pic}
           alt="کارخانه"
         />
         <span>آدرس کارخانه</span>
+        <p className="pt-2 text-right">آدرس آدرس آدرس آدرس آدرس آدرس</p>
       </div>
 
       <div className="flex flex-row-reverse items-center gap-2 pb-10 text-white md:pb-60">
