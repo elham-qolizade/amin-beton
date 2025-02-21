@@ -38,10 +38,14 @@ export default function HistoryProject() {
             {/* دانلود پیش فاکتور و فاکتور */}
             <div className="flex flex-col gap-2 py-6 text-white border-b border-white">
               <span>پیش فاکتور</span>
-              <ButtonProject className="">دانلود پیش فاکتور</ButtonProject>
+              <ButtonProject className="py-1 md:w-40">
+                دانلود پیش فاکتور
+              </ButtonProject>
 
               <span>فاکتور</span>
-              <ButtonProject className="">دانلود فاکتور</ButtonProject>
+              <ButtonProject className="py-1 md:w-40">
+                دانلود فاکتور
+              </ButtonProject>
             </div>
 
             {/* آزمایشگاه */}
@@ -54,8 +58,12 @@ export default function HistoryProject() {
               </ul>
 
               <div className="flex flex-col gap-2 mt-4">
-                <ButtonProject>دانلود فایل</ButtonProject>
-                <ButtonProject>دانلود گزارش</ButtonProject>
+                <ButtonProject className="py-1 md:w-40">
+                  دانلود فایل
+                </ButtonProject>
+                <ButtonProject className="py-1 md:w-40">
+                  دانلود گزارش
+                </ButtonProject>
               </div>
             </div>
           </div>
