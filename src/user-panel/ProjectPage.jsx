@@ -9,8 +9,8 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-Bokara-Grey min-h-screen">
-      <div className="container pb-28  ">
+    <div className="min-h-screen bg-Bokara-Grey">
+      <div className="container pb-28 ">
         <HeaderNav className="bg-Armor-Wash" />
         <ProjectHeading
           title="پنل کاربری"
@@ -22,23 +22,26 @@ export default function Dashboard() {
           ]}
           date="1402/11/10"
         />
-        <div className="flex flex-col md:flex-row justify-between px-4 py-6 mt-4 border-b border-white">
-          <ul className="hidden md:flex flex-wrap gap-4 text-white cursor-pointer text-sm md:text-base">
+        <div className="flex flex-col justify-between px-4 py-6 mt-4 border-b border-white md:flex-row">
+          <ul className="flex-wrap hidden gap-4 text-sm text-white cursor-pointer md:flex md:text-base">
             <li className="border-b hover:text-School-Bus">پروژه های من</li>
             <li className="border-b hover:text-School-Bus">پیگیری سفارش</li>
             <li className="border-b hover:text-School-Bus">پشتیبانی</li>
           </ul>
           <div className="mt-4 md:mt-0">
-            <ButtonProject onClick={() => navigate("/Addproject")}>
+            <ButtonProject
+              className=" md:w-36"
+              onClick={() => navigate("/Addproject")}
+            >
               افزودن پروژه
             </ButtonProject>
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 md:p-10 md:px-32">
+        <div className="grid grid-cols-1 gap-4 p-4 px-8 md:grid-cols-2 md:p-10 md:px-32">
           {projects.map((project) => (
             <div
               key={project.id}
-              className="relative flex items-center justify-center rounded-lg shadow-lg h-40 md:h-60"
+              className="relative flex items-center justify-center h-40 rounded-lg shadow-lg md:h-60"
             >
               <span
                 className={`absolute text-sm md:text-3xl font-bold ${project.color}`}
@@ -47,10 +50,10 @@ export default function Dashboard() {
               </span>
               <img
                 src={project.image}
-                className="product-image w-full h-full object-cover rounded-lg"
+                className="object-cover w-full h-full rounded-lg product-image"
               />
               {project.description && (
-                <span className="absolute text-xs md:text-lg text-white bottom-2 px-2">
+                <span className="absolute px-2 text-xs text-white md:text-lg bottom-2">
                   {project.description}
                 </span>
               )}

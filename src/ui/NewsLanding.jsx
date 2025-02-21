@@ -5,12 +5,12 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 
 export default function NewsLanding() {
   return (
-    <div id="news-section" className="py-20 bg-Bokara-Grey">
+    <div id="news-section" className="px-4 py-20 bg-Bokara-Grey">
       <div className="flex flex-col gap-10 px-4 sm:px-0">
         <div>
           <h2 className="text-4xl font-medium text-white font-custom">اخبار</h2>
         </div>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-10 mt-10">
+        <div className="flex flex-col items-center justify-center gap-10 mt-10 sm:flex-row">
           <img
             className="w-full sm:w-[260px] h-auto sm:h-[138px] object-cover"
             src={pic1}
@@ -23,7 +23,7 @@ export default function NewsLanding() {
           />
         </div>
         <div className="flex flex-row items-center justify-center gap-3 mt-4">
-          <span className="text-School-Bus text-lg md:text-2xl">همه اخبار</span>
+          <span className="text-lg text-School-Bus md:text-2xl">همه اخبار</span>
           <FaArrowLeftLong className="text-School-Bus" />
         </div>
       </div>

@@ -265,7 +265,7 @@ const LoginForm = () => {
             className="w-full p-2 text-left text-white bg-gray-700 border rounded placeholder:text-left border-Looking-Glass focus:border-yellow-400 md:w-3/4"
             onChange={formik.handleChange}
             value={formik.values.phoneNumber}
-            placeholder={"******09"}
+            placeholder={"--------09"}
             dir="ltr"
           />
           {formik.errors.phoneNumber && (

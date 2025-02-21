@@ -16,7 +16,7 @@ export default function OrdersPage() {
     window.innerWidth < 768 ? filteredPurchases.slice(0, 2) : purchases;
 
   return (
-    <div className="bg-Bokara-Grey min-h-screen overflow-x-hidden">
+    <div className="min-h-screen overflow-x-hidden bg-Bokara-Grey">
       <div className="container mx-auto ">
         <HeaderNav className="bg-Armor-Wash" />
         <ProjectHeading
@@ -26,20 +26,20 @@ export default function OrdersPage() {
         />
 
         {/* دکمه‌های بالای لیست خرید */}
-        <div className="flex flex-row justify-between px-4 my-10 gap-4">
-          <div className="flex flex-col sm:flex-row gap-4 md:items-center">
-            <h2 className="md:text-2xl text-lg text-white">
+        <div className="flex flex-row justify-between gap-4 px-4 my-10">
+          <div className="flex flex-col gap-4 sm:flex-row md:items-center">
+            <h2 className="text-lg text-white md:text-2xl">
               لیست خریدهای پروژه
             </h2>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col gap-4 sm:flex-row">
               <ButtonProject
-                className="w-36 h-8 px-0 py-0 text-sm"
+                className="text-sm w-36"
                 onClick={() => navigate("/SaleProject")}
               >
-                <span className="pl-2 text-xl">+</span> خرید برای این پروژه
+                <span className="text-xl ">+</span> خرید برای این پروژه
               </ButtonProject>
               <ButtonProject
-                className="w-36 h-8 px-0 py-0 text-sm"
+                className=""
                 onClick={() => navigate("/HistoryProject")}
               >
                 تاریخچه خریدهای پروژه
@@ -47,7 +47,7 @@ export default function OrdersPage() {
             </div>
           </div>
           <ButtonProject
-            className="self-center md:self-auto w-36 h-8 px-0 py-0 text-sm"
+            className="self-center h-8 px-0 py-0 text-sm md:self-auto w-36"
             onClick={() => navigate("/ProjectPage")}
           >
             بازگشت به صفحه پروژه‌ها
@@ -55,14 +55,14 @@ export default function OrdersPage() {
         </div>
 
         {/* لیست خریدها */}
-        <div className="flex flex-col items-center py-10">
-          <div className="grid w-full max-w-4xl grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="flex flex-col items-center px-6 py-10">
+          <div className="grid w-full max-w-4xl grid-cols-1 gap-6 md:grid-cols-2">
             {visiblePurchases.map((purchase) => (
               <div
                 key={purchase.id}
-                className="flex flex-col md:flex-row w-full gap-4 px-5 py-8 text-white bg-gray-800 border rounded-lg shadow-lg cursor-pointer md:gap-20"
+                className="flex flex-col w-full gap-4 px-5 py-8 text-white bg-gray-800 border rounded-sm cursor-pointer md:flex-row md:gap-20"
               >
-                <div className="flex flex-col flex-1 gap-2 text-center md:text-right">
+                <div className="flex flex-col flex-1 gap-2 text-start md:text-right">
                   <div className="flex justify-between md:gap-10">
                     <h2 className="font-bold hover:text-yellow-500">
                       {purchase.floor}
@@ -73,7 +73,7 @@ export default function OrdersPage() {
                   <p>{purchase.delivery}</p>
                   <p>{purchase.order}</p>
                 </div>
-                <div className="flex flex-col items-center justify-center text-center">
+                <div className="flex flex-col justify-center md:items-center text-start">
                   <p>{purchase.details}</p>
                   <p>{purchase.number}</p>
                 </div>

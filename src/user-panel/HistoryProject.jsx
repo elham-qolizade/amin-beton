@@ -3,7 +3,7 @@ import ProgressCircle from "../ui/ProgressCircl";
 import HeaderNav from "../ui/HeadingNav";
 import ProjectHeading from "../ui/projectHeading";
 import { VehicleTracking } from "../constans/index";
-import ButtonProjectComponent from "../ui/ButtonProject";
+import ButtonProject from "../ui/ButtonProject";
 import MapComponent from "../ui/MapComponent";
 export default function HistoryProject() {
   return (
@@ -38,12 +38,10 @@ export default function HistoryProject() {
             {/* دانلود پیش فاکتور و فاکتور */}
             <div className="flex flex-col gap-2 py-6 text-white border-b border-white">
               <span>پیش فاکتور</span>
-              <ButtonProjectComponent>دانلود پیش فاکتور</ButtonProjectComponent>
+              <ButtonProject className="">دانلود پیش فاکتور</ButtonProject>
 
               <span>فاکتور</span>
-              <ButtonProjectComponent className="">
-                دانلود فاکتور
-              </ButtonProjectComponent>
+              <ButtonProject className="">دانلود فاکتور</ButtonProject>
             </div>
 
             {/* آزمایشگاه */}
@@ -56,8 +54,8 @@ export default function HistoryProject() {
               </ul>
 
               <div className="flex flex-col gap-2 mt-4">
-                <ButtonProjectComponent>دانلود فایل</ButtonProjectComponent>
-                <ButtonProjectComponent>دانلود گزارش</ButtonProjectComponent>
+                <ButtonProject>دانلود فایل</ButtonProject>
+                <ButtonProject>دانلود گزارش</ButtonProject>
               </div>
             </div>
           </div>

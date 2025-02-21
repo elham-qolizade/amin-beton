@@ -9,8 +9,8 @@ const ButtonProjectComponent = ({
 }) => {
   return (
     <button
-      className={`md:w-48 md:h-10 md:px-4 text-Looking-Glass md:text-lg transition duration-300 border border-Looking-Glass rounded 
-                 hover:bg-School-Bus hover:border-white hover:text-white ${className}`}
+      className={`md:w-44   text-center font-medium  text-sm  text-Looking-Glass  transition  border border-Looking-Glass  
+             hover:border-School-Bus   hover:text-School-Bus whitespace-nowrap ${className}`}
       onClick={onClick}
       type={type}
     >

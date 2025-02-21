@@ -55,7 +55,7 @@ export default function Hero() {
                   </h2>
                 </div>
 
-                <div className="flex flex-col w-full gap-2 pb-10 text-start sm:pb-0 sm:gap-10 sm:px-10 sm:w-1/2">
+                <div className="flex flex-col w-full gap-2 px-4 pb-10 text-start sm:pb-0 sm:gap-10 sm:px-10 sm:w-1/2">
                   <span className="text-sm text-start sm:text-xl sm:text-center ">
                     {slide.p1}
                   </span>

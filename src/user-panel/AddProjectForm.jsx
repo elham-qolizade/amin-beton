@@ -74,14 +74,18 @@ const ProjectForm = () => {
       <div className="w-full max-w-4xl p-8 border rounded-lg bg-Bokara-Grey border-School-Bus">
         {/* هدر */}
         <div className="flex flex-col items-center justify-center pb-6 text-School-Bus">
-          <div className="flex items-center gap-2">
-            <span className="text-4xl font-bold text-yellow-400">امین</span>
+          <div className="flex items-center gap-1 md:gap-2 ">
+            <span className="text-sm font-bold text-yellow-400 md:text-4xl">
+              امین
+            </span>
             <img className="w-12 h-12" src={logo} alt="Company Logo" />
-            <span className="text-4xl font-bold text-yellow-400">بتن</span>
+            <span className="text-sm font-bold text-yellow-400 md:text-4xl">
+              بتن
+            </span>
           </div>
         </div>
 
-        <h2 className="mb-6 text-2xl font-semibold text-center text-School-Bus">
+        <h2 className="mb-6 text-sm font-semibold text-center md:text-2xl text-School-Bus">
           ثبت پروژه جدید
         </h2>
 
