@@ -19,7 +19,7 @@ const Input = ({
       value={value}
       onChange={onChange}
       maxLength={maxLength}
-      className={`w-full  ltr-input bg-Bokara-Grey p-1 pl-4  border border-l-Looking-Glass text-white focus:outline-none focus:ring-2 focus:ring-School-Bus ${className}`}
+      className={`w-full  ltr-input bg-Bokara-Grey p-1 pl-4  border border-l-Looking-Glass text-white focus:outline-none focus:ring-1 focus:ring-School-Bus ${className}`}
     />
   );
 };

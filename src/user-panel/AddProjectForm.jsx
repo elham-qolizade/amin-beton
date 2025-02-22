@@ -70,10 +70,10 @@ const ProjectForm = () => {
   }, [getInitialValues]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-4 bg-gray-900">
-      <div className="w-full max-w-4xl p-8 border rounded-lg bg-Bokara-Grey border-School-Bus">
+    <div className="flex items-center justify-center min-h-screen bg-gray-900">
+      <div className="w-full p-8 border rounded-lg bg-Bokara-Grey border-School-Bus">
         {/* هدر */}
-        <div className="flex flex-col items-center justify-center pb-6 text-School-Bus">
+        <div className="container flex flex-col items-center justify-center pb-6 text-School-Bus">
           <div className="flex items-center gap-1 md:gap-2 ">
             <span className="text-sm font-bold text-yellow-400 md:text-4xl">
               امین
@@ -163,7 +163,7 @@ const ProjectForm = () => {
             <ButtonProject
               type="submit"
               onClick={() => navigate("/OrdersPage ")}
-              className="w-56 py-2 font-semibold bg-yellow-500 rounded hover:bg-yellow-600"
+              className="py-2 font-semibold bg-yellow-500 rounded md:w-64 hover:bg-yellow-600"
             >
               افزودن پروژه
             </ButtonProject>

@@ -9,7 +9,7 @@ import Addproject from "./user-panel/AddProjectForm";
 import OrdersPage from "./user-panel/OrdersPage";
 import HistoryProject from "./user-panel/HistoryProject";
 import SaleProject from "./Sales/SaleProject";
-import SecendSalePage from "./Sales/SecendSalePage";
+import SecondSalePage from "./Sales/SecendSalePage";
 import UserForm from "./Sales/UserForm ";
 import AboutBluck from "./pages/AboutBluck";
 import NewsLanding from "./ui/NewsLanding";
@@ -21,15 +21,15 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <ApiProvider>
           <Routes>
-            <Route path="/OrdersPage" element={<OrdersPage />} />
             <Route path="/" element={<Home />} />
+            <Route path="/LoginForm" element={<LoginForm />} />
+            <Route path="/OrdersPage" element={<OrdersPage />} />
             <Route path="/HistoryProject" element={<HistoryProject />} />
             <Route path="/Addproject" element={<Addproject />} />
             <Route path="/ProjectPage" element={<ProjectPage />} />
             <Route path="/SaleProject" element={<SaleProject />} />
-            <Route path="/SecendSalePage" element={<SecendSalePage />} />
+            <Route path="/SecondSalePage" element={<SecondSalePage />} />
             <Route path="/UserForm" element={<UserForm />} />{" "}
-            <Route path="/LoginForm" element={<LoginForm />} />
             <Route path="/AboutBluck" element={<AboutBluck />} />
             <Route path="/NewsLanding" element={<NewsLanding />} />
           </Routes>

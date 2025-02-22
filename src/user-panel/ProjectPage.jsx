@@ -9,8 +9,8 @@ export default function Dashboard() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-Bokara-Grey">
-      <div className="container pb-28 ">
+    <div className="w-full min-h-screen bg-Bokara-Grey">
+      <div className="pb-28">
         <HeaderNav className="bg-Armor-Wash" />
         <ProjectHeading
           title="پنل کاربری"
@@ -22,29 +22,29 @@ export default function Dashboard() {
           ]}
           date="1402/11/10"
         />
-        <div className="flex flex-col justify-between px-4 py-6 mt-4 border-b border-white md:flex-row">
+        <div className="container flex flex-col justify-between py-6 mt-4 border-b border-white md:flex-row">
           <ul className="flex-wrap hidden gap-4 text-sm text-white cursor-pointer md:flex md:text-base">
             <li className="border-b hover:text-School-Bus">پروژه های من</li>
             <li className="border-b hover:text-School-Bus">پیگیری سفارش</li>
             <li className="border-b hover:text-School-Bus">پشتیبانی</li>
           </ul>
-          <div className="mt-4 md:mt-0">
+          <div className="flex items-center justify-center mt-4 md:mt-0">
             <ButtonProject
-              className=" md:w-36"
+              className="py-1 w-36"
               onClick={() => navigate("/Addproject")}
             >
               افزودن پروژه
             </ButtonProject>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-4 p-4 px-8 md:grid-cols-2 md:p-10 md:px-32">
+        <div className="grid grid-cols-1 gap-4 p-4 px-8 cursor-pointer md:grid-cols-2 md:p-10 md:px-32">
           {projects.map((project) => (
             <div
               key={project.id}
               className="relative flex items-center justify-center h-40 rounded-lg shadow-lg md:h-60"
             >
               <span
-                className={`absolute text-sm md:text-3xl font-bold ${project.color}`}
+                className={`absolute text-lg md:text-3xl font-medium ${project.color}`}
               >
                 {project.title}
               </span>

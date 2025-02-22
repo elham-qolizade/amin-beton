@@ -275,7 +275,7 @@ const LoginForm = () => {
           )}
         </div>
       ) : (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col items-center gap-4">
           <label
             htmlFor="phoneNumber"
             className="text-base font-medium md:text-lg"

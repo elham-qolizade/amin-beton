@@ -7,11 +7,13 @@ const CustomCalendar = () => {
   const [shift, setShift] = useState("morning");
 
   return (
-    <div className="flex flex-col items-center w-full gap-6 text-white bg-Bokara-Grey">
-      <h2 className="mb-4 text-xl">تاریخ بتن‌ریزی</h2>
+    <div className="flex flex-col items-center w-full gap-6 p-4 text-white bg-Bokara-Grey">
+      <h2 className="mb-4 text-xl md:text-2xl">تاریخ بتن‌ریزی</h2>
 
-      <div className="flex flex-row items-center gap-6 text-white bg-Bokara-Grey">
-        <div className="mx-auto w-fit">
+      {/* کانتینر اصلی - ردیفی در دسکتاپ و ستونی در موبایل */}
+      <div className="flex flex-col items-start w-full gap-8 md:items-center md:justify-center md:flex-row">
+        {/* بخش تقویم */}
+        <div className="w-full max-w-xs md:max-w-md">
           <Calendar
             value={selectedDay}
             onChange={setSelectedDay}
@@ -22,26 +24,30 @@ const CustomCalendar = () => {
           />
         </div>
 
-        <div className="flex flex-col items-center gap-3 ">
-          <span className="">شیفت کاری</span>
-          <label className="flex items-center gap-2">
+        {/* بخش انتخاب شیفت */}
+        <div className="flex flex-col items-start gap-4 md:items-center">
+          <span className="text-lg md:text-xl">شیفت کاری</span>
+
+          <label className="flex items-center gap-2 cursor-pointer">
             <input
               type="radio"
               name="shift"
               value="night"
               checked={shift === "night"}
               onChange={() => setShift("night")}
+              className="w-4 h-4"
             />
             شب
           </label>
 
-          <label className="flex items-center gap-2">
+          <label className="flex items-center gap-2 cursor-pointer">
             <input
               type="radio"
               name="shift"
               value="morning"
               checked={shift === "morning"}
               onChange={() => setShift("morning")}
+              className="w-4 h-4"
             />
             صبح
           </label>

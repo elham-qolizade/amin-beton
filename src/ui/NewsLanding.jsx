@@ -8,7 +8,9 @@ export default function NewsLanding() {
     <div id="news-section" className="px-4 py-20 bg-Bokara-Grey">
       <div className="flex flex-col gap-10 px-4 sm:px-0">
         <div>
-          <h2 className="text-4xl font-medium text-white font-custom">اخبار</h2>
+          <h2 className="text-4xl font-medium text-center text-white font-custom">
+            اخبار
+          </h2>
         </div>
         <div className="flex flex-col items-center justify-center gap-10 mt-10 sm:flex-row">
           <img

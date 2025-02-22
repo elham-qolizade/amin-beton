@@ -6,76 +6,69 @@ function HeaderNav() {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handleUserClick = () => {
-    navigate("/LoginForm");
-  };
-  const handleNewsClick = () => {
-    const newsSection = document.getElementById("news-section"); // گرفتن بخش اخبار
-    if (newsSection) {
-      newsSection.scrollIntoView({ behavior: "smooth" }); // اسکرول نرم به بخش اخبار
-    }
-  };
-  const scrollToSection = (sectionId) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const handleUserClick = () => navigate("/LoginForm");
+
   return (
-    <div className="bg-Eerie-Black opacity-80">
-      <div className="container relative flex flex-row items-center justify-between px-4 py-4">
-        {/* دکمه همبرگر یا بستن برای موبایل */}
+    <header className="top-0 left-0 right-0 z-50 items-center bg-black md:bg-Eerie-Black md:opacity-80">
+      <div className="container relative flex items-center justify-between py-4">
+        {/* دکمه همبرگر برای موبایل */}
         <button
-          className="text-2xl text-white md:hidden focus:outline-none"
+          className="z-50 text-2xl text-white md:hidden focus:outline-none"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
-          {isMenuOpen ? "×" : "☰"} {/* تغییر آیکون بر اساس وضعیت منو */}
+          {isMenuOpen ? "×" : "☰"}
         </button>
 
-        {/* لوگو در مرکز */}
-        <div className="absolute flex flex-row items-center gap-1 text-lg font-medium text-white transform -translate-x-1/2 left-1/2 md:transform-none">
+        {/* منو */}
+        <nav
+          className={`fixed top-0 right-0 z-10  h-full w-1/3 bg-black p-6 shadow-lg transform transition-transform duration-300 ease-in-out md:static md:w-auto md:h-auto md:bg-transparent md:p-0 md:shadow-none ${
+            isMenuOpen ? "translate-x-0" : "translate-x-full"
+          } md:translate-x-0`}
+          style={{ willChange: "transform" }}
+        >
+          {/* <button
+            className="z-50 text-2xl text-white md:hidden focus:outline-none"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? "×" : ""}
+          </button> */}
+          <ul className="flex flex-col gap-10 pt-12 text-white md:p-0 md:flex-row md:gap-6">
+            <li
+              className="cursor-pointer hover:text-yellow-500"
+              onClick={() => navigate("/")}
+            >
+              خانه
+            </li>
+            <li
+              className="cursor-pointer hover:text-yellow-500"
+              onClick={() => navigate("/contact")}
+            >
+              تماس با ما
+            </li>
+            <li
+              className="cursor-pointer hover:text-yellow-500"
+              onClick={() => navigate("/about")}
+            >
+              درباره ما
+            </li>
+            <li
+              className="cursor-pointer hover:text-yellow-500"
+              onClick={() => navigate("/about")}
+            >
+              اخبار
+            </li>
+          </ul>
+        </nav>
+
+        {/* لوگو بدون تأثیر از منو */}
+        <div className="absolute flex items-center gap-2 text-lg font-medium text-white transform -translate-x-1/2 left-1/2">
           <span>امین</span>
           <img className="w-10 h-10" src={logo} alt="Company Logo" />
           <span>بتن</span>
         </div>
 
-        {/* منو */}
-        <ul
-          className={`${
-            isMenuOpen ? "translate-x-0" : "translate-x-full"
-          } flex flex-col md:flex-row md:gap-2 bg-Eerie-Black opacity-80 gap-10 
-  w-1/2 text-lg font-medium text-white flex-1 md:top-0 top-16 right-0 
-  md:w-auto p-4  md:bg-transparent absolute transition-transform 
-  duration-300 ease-in-out md:translate-x-0 md:absolute`}
-        >
-          <li
-            onClick={() => navigate("/")}
-            className="inline-block px-3 py-1 cursor-pointer hover:text-School-Bus"
-          >
-            خانه
-          </li>
-          <li
-            onClick={() => scrollToSection("contact-section")}
-            className="inline-block px-3 py-1 cursor-pointer hover:text-School-Bus"
-          >
-            تماس با ما
-          </li>
-          <li
-            onClick={() => navigate("/AboutBluck")}
-            className="inline-block px-3 py-1 cursor-pointer hover:text-School-Bus"
-          >
-            درباره ما
-          </li>
-          <li
-            onClick={handleNewsClick}
-            className="inline-block px-3 py-1 cursor-pointer hover:text-School-Bus"
-          >
-            اخبار
-          </li>
-        </ul>
-
-        {/* آیکون کاربر در سمت چپ */}
-        <div className="flex justify-end flex-1">
+        {/* آیکون کاربر */}
+        <div className="z-50">
           <img
             width="24"
             height="24"
@@ -86,7 +79,7 @@ function HeaderNav() {
           />
         </div>
       </div>
-    </div>
+    </header>
   );
 }
 
