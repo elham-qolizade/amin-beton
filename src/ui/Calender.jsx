@@ -7,13 +7,15 @@ const CustomCalendar = () => {
   const [shift, setShift] = useState("morning");
 
   return (
-    <div className="flex flex-col items-center w-full gap-6 p-4 text-white bg-Bokara-Grey">
-      <h2 className="mb-4 text-xl md:text-2xl">تاریخ بتن‌ریزی</h2>
-
+    <div className="flex flex-col items-center w-full text-white bg-Bokara-Grey">
       {/* کانتینر اصلی - ردیفی در دسکتاپ و ستونی در موبایل */}
-      <div className="flex flex-col items-start w-full gap-8 md:items-center md:justify-center md:flex-row">
+      <div className="flex flex-col container justify-start items-start w-full gap-8 md:items-center md:justify-center md:flex-row">
         {/* بخش تقویم */}
-        <div className="w-full max-w-xs md:max-w-md">
+        <div className="">
+          <h2 className="mb-4 text-xl text-center md:text-2xl">
+            تاریخ بتن‌ریزی
+          </h2>
+
           <Calendar
             value={selectedDay}
             onChange={setSelectedDay}
