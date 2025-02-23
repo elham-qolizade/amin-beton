@@ -23,7 +23,7 @@ export default function Dashboard() {
           date="1402/11/10"
         />
         <div className="container flex flex-col justify-between py-6 mt-4 border-b border-white md:flex-row">
-          <ul className="flex-wrap hidden gap-4 text-sm text-white cursor-pointer md:flex md:text-base">
+          <ul className="flex-wrap hidden gap-4 text-sm text-white cursor-pointer md:flex md:text-sm">
             <li className="border-b hover:text-School-Bus">پروژه های من</li>
             <li className="border-b hover:text-School-Bus">پیگیری سفارش</li>
             <li className="border-b hover:text-School-Bus">پشتیبانی</li>
@@ -37,7 +37,7 @@ export default function Dashboard() {
             </ButtonProject>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-4 p-4 px-8 cursor-pointer md:grid-cols-2 md:p-10 md:px-32">
+        <div className="grid grid-cols-1 gap-4 px-8 cursor-pointer md:grid-cols-2 py-10 md:px-32">
           {projects.map((project) => (
             <div
               key={project.id}
