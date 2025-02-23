@@ -3,9 +3,9 @@ import { products } from "../constans";
 
 export default function ProductsLanding() {
   return (
-    <div className="flex items-center justify-center min-h-screen p-10 pt-24 bg-Bokara-Grey">
-      <div className="grid grid-cols-1 sm:grid-cols-7 gap-4 w-full">
-        <div className="grid grid-rows-1 sm:grid-rows-5 gap-4 text-white sm:col-span-2">
+    <div className="flex items-center justify-center pt-10 min-h-screen  md:pt-24 bg-Bokara-Grey">
+      <div className="grid container grid-cols-1 sm:grid-cols-7 gap-4 ">
+        <div className="grid grid-rows-1 px-10 md:p-o sm:grid-rows-5 gap-4 text-white sm:col-span-2">
           {products
             .filter((product) => !product.isMain)
             .map((product, index) => (
@@ -27,7 +27,7 @@ export default function ProductsLanding() {
             ))}
         </div>
 
-        <div className="grid grid-rows-1 sm:grid-rows-2 gap-5 text-white sm:col-span-5">
+        <div className="grid grid-rows-1 px-10 md:p-0 sm:grid-rows-2 gap-5 text-white sm:col-span-5">
           {products
             .filter((product) => product.isMain)
             .map((product, index) => (
