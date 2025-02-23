@@ -26,7 +26,6 @@ const CustomCalendar = () => {
           />
         </div>
 
-        {/* بخش انتخاب شیفت */}
         <div className="flex flex-col items-start gap-4 md:items-center">
           <span className="text-lg md:text-xl">شیفت کاری</span>
 
@@ -37,7 +36,7 @@ const CustomCalendar = () => {
               value="night"
               checked={shift === "night"}
               onChange={() => setShift("night")}
-              className="w-4 h-4"
+              className="w-4 h-4 text-School-Bus focus:ring-School-Bus accent-School-Bus"
             />
             شب
           </label>
@@ -49,7 +48,7 @@ const CustomCalendar = () => {
               value="morning"
               checked={shift === "morning"}
               onChange={() => setShift("morning")}
-              className="w-4 h-4"
+              className="w-4 h-4 text-School-Bus focus:ring-School-Bus accent-School-Bus"
             />
             صبح
           </label>

@@ -43,83 +43,93 @@ const UserForm = () => {
   });
 
   return (
-    <form
-      onSubmit={formik.handleSubmit}
-      className="flex flex-col items-center justify-center gap-10 py-10 text-white bg-gray-800 border-2 bg-Bokara-Grey border-School-Bus"
-    >
-      <div className="flex flex-row items-center gap-2 text-3xl text-School-Bus">
-        <span className="">امین</span>
-        <img className="h-12" src={logo} alt="Company Logo" />
-        <span className="">بتن</span>
-      </div>
-
-      <div className="flex flex-col items-center w-2/3 space-y-4">
-        <label htmlFor="fullName" className="self-start text-lg font-medium">
-          نام و نام خانوادگی
-        </label>
-        <Input
-          id="fullName"
-          name="fullName"
-          className="p-2 text-right text-white bg-gray-700 border rounded placeholder:text-right border-Looking-Glass focus:border-yellow-400"
-          onChange={formik.handleChange}
-          value={formik.values.fullName}
-          placeholder="نام و نام خانوادگی"
-        />
-        {formik.errors.fullName && (
-          <div className="text-red">{formik.errors.fullName}</div>
-        )}
-
-        <label
-          htmlFor="nationalCode"
-          className="self-start text-lg font-medium"
+    <div className="border-2 h-screen flex items-center justify-center bg-Bokara-Grey border-School-Bus">
+      <div className="gap-10 container px-4 flex text-white">
+        <form
+          onSubmit={formik.handleSubmit}
+          className="flex w-full justify-center items-center gap-10 flex-col"
         >
-          کد ملی
-        </label>
-        <Input
-          id="nationalCode"
-          name="nationalCode"
-          className="p-2 text-right text-white bg-gray-700 border rounded placeholder:text-right border-Looking-Glass focus:border-yellow-400"
-          onChange={formik.handleChange}
-          value={formik.values.nationalCode}
-          placeholder="کد ملی"
-        />
-        {formik.errors.nationalCode && (
-          <div className="text-red">{formik.errors.nationalCode}</div>
-        )}
+          <div className="flex flex-row items-center gap-2 text-3xl text-School-Bus">
+            <span className="">امین</span>
+            <img className="h-12" src={logo} alt="Company Logo" />
+            <span className="">بتن</span>
+          </div>
 
-        <label htmlFor="phoneNumber" className="self-start text-lg font-medium">
-          شماره همراه
-        </label>
-        <Input
-          id="phoneNumber"
-          name="phoneNumber"
-          className="p-2 text-left text-white bg-gray-700 border rounded placeholder:text-right border-Looking-Glass focus:border-yellow-400"
-          onChange={formik.handleChange}
-          value={formik.values.phoneNumber}
-          placeholder="شماره همراه"
-          dir="ltr"
-        />
-        {formik.errors.phoneNumber && (
-          <div className="text-red">{formik.errors.phoneNumber}</div>
-        )}
+          <div className="flex flex-col items-center w-full space-y-4">
+            <label
+              htmlFor="fullName"
+              className="self-start text-lg font-medium"
+            >
+              نام و نام خانوادگی
+            </label>
+            <Input
+              id="fullName"
+              name="fullName"
+              className="p-2 text-right text-white bg-gray-700 border rounded placeholder:text-right border-Looking-Glass focus:border-yellow-400"
+              onChange={formik.handleChange}
+              value={formik.values.fullName}
+              placeholder="نام و نام خانوادگی"
+            />
+            {formik.errors.fullName && (
+              <div className="text-red">{formik.errors.fullName}</div>
+            )}
+
+            <label
+              htmlFor="nationalCode"
+              className="self-start text-lg font-medium"
+            >
+              کد ملی
+            </label>
+            <Input
+              id="nationalCode"
+              name="nationalCode"
+              className="p-2 text-right text-white bg-gray-700 border rounded placeholder:text-right border-Looking-Glass focus:border-yellow-400"
+              onChange={formik.handleChange}
+              value={formik.values.nationalCode}
+              placeholder="کد ملی"
+            />
+            {formik.errors.nationalCode && (
+              <div className="text-red">{formik.errors.nationalCode}</div>
+            )}
+
+            <label
+              htmlFor="phoneNumber"
+              className="self-start text-lg font-medium"
+            >
+              شماره همراه
+            </label>
+            <Input
+              id="phoneNumber"
+              name="phoneNumber"
+              className="p-2 text-left text-white bg-gray-700 border rounded placeholder:text-right border-Looking-Glass focus:border-yellow-400"
+              onChange={formik.handleChange}
+              value={formik.values.phoneNumber}
+              placeholder="شماره همراه"
+              dir="ltr"
+            />
+            {formik.errors.phoneNumber && (
+              <div className="text-red">{formik.errors.phoneNumber}</div>
+            )}
+          </div>
+          <div className="flex items-center p-3 mt-2 text-sm text-white bg-black rounded-md">
+            <span className="ml-2">⚠️</span>
+            <span>
+              همکاران ما در واحد فروش پس از بررسی اطلاعات شما در سریع‌ترین زمان
+              ممکن با شما تماس خواهند گرفت.
+            </span>
+          </div>
+
+          <Button
+            type="submit"
+            className="py-2 font-semibold text-gray-900 bg-yellow-500 rounded px-28"
+          >
+            ثبت اطلاعات
+          </Button>
+
+          <ToastContainer />
+        </form>
       </div>
-      <div className="flex items-center p-3 mt-2 text-sm text-white bg-black rounded-md">
-        <span className="ml-2">⚠️</span>
-        <span>
-          همکاران ما در واحد فروش پس از بررسی اطلاعات شما در سریع‌ترین زمان ممکن
-          با شما تماس خواهند گرفت.
-        </span>
-      </div>
-
-      <Button
-        type="submit"
-        className="py-2 font-semibold text-gray-900 bg-yellow-500 rounded px-28"
-      >
-        ثبت اطلاعات
-      </Button>
-
-      <ToastContainer />
-    </form>
+    </div>
   );
 };
 

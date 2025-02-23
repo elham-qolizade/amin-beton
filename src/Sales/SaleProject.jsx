@@ -57,7 +57,10 @@ export default function SaleProject() {
           خرید برای پروژه "نام پروژه"
         </h2>
 
-        <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className="flex flex-col items-center justify-center gap-6"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <Select
             {...register("type")}
             options={[
@@ -97,14 +100,13 @@ export default function SaleProject() {
           </div>
 
           {/* دکمه ادامه */}
-          <div className="flex items-center justify-center ">
-            <ButtonProject
-              className="w-full py-2 mt-8 md:px-40"
-              onClick={() => navigate("/SecondSalePage")}
-            >
-              ادامه
-            </ButtonProject>
-          </div>
+
+          <ButtonProject
+            className="w-full py-2 mt-8 md:w-4/5 md:px-40"
+            onClick={() => navigate("/SecondSalePage")}
+          >
+            ادامه
+          </ButtonProject>
         </form>
       </div>
     </div>
