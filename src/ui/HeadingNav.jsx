@@ -21,32 +21,32 @@ function HeaderNav() {
 
         {/* منو */}
         <nav
-          className={`fixed top-0 right-0 z-10 h-full w-4/5 bg-black p-6 shadow-lg transform transition-transform duration-300 ease-in-out md:static md:w-auto md:h-auto md:bg-transparent md:p-0 md:shadow-none ${
+          className={`fixed top-0 right-0 z-10 h-full w-1/3 bg-black p-6 shadow-lg transform transition-transform duration-300 ease-in-out md:static md:w-auto md:h-auto md:bg-transparent md:p-0 md:shadow-none ${
             isMenuOpen ? "translate-x-0" : "translate-x-full"
           } md:translate-x-0`}
           style={{ willChange: "transform" }}
         >
-          <ul className="flex flex-col gap-10 pt-12 text-white md:p-0 md:flex-row md:gap-6">
+          <ul className="flex flex-col gap-10 pt-12 text-white md:p-0 md:flex-row md:gap-6 ">
             <li
-              className="cursor-pointer hover:text-yellow-500"
+              className="cursor-pointer  hover:text-School-Bus  "
               onClick={() => navigate("/")}
             >
               خانه
             </li>
             <li
-              className="cursor-pointer hover:text-yellow-500"
+              className="cursor-pointer  hover:text-School-Bus  "
               onClick={() => navigate("/contact")}
             >
               تماس با ما
             </li>
             <li
-              className="cursor-pointer hover:text-yellow-500"
+              className="cursor-pointer  hover:text-School-Bus  "
               onClick={() => navigate("/about")}
             >
               درباره ما
             </li>
             <li
-              className="cursor-pointer hover:text-yellow-500"
+              className="cursor-pointer  hover:text-School-Bus  "
               onClick={() => navigate("/news")}
             >
               اخبار

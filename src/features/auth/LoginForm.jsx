@@ -171,7 +171,6 @@
 // };
 
 // export default LoginForm;
-
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
@@ -226,9 +225,9 @@ const LoginForm = () => {
   });
 
   const handleOtpChange = (e, index) => {
-    const value = e.target.value.replace(/\D/g, "");
+    const value = e.target.value.replace(/\D/g, ""); // حذف غیر عددها
 
-    if (value.length > 1) return;
+    if (value.length > 1) return; // فقط یک عدد مجاز است
 
     let newOtpArray = formik.values.otpCode.split("");
     newOtpArray[index] = value;
@@ -236,17 +235,38 @@ const LoginForm = () => {
 
     formik.setFieldValue("otpCode", newOtp);
 
-    if (value && index < 5) {
+    // اگر فیلد خالی شد، به فیلد قبلی برو
+    if (!value && index > 0) {
+      document.getElementById(`otp-${index - 1}`).focus();
+    } else if (value && index < 5) {
+      // تمرکز خودکار به فیلد بعدی
       document.getElementById(`otp-${index + 1}`).focus();
     }
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      formik.handleSubmit();
+    }
+  };
+
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Backspace" && index > 0 && !formik.values.otpCode[index]) {
+      // اگر Backspace زده شد و فیلد خالی است، به فیلد قبلی برو
+      document.getElementById(`otp-${index - 1}`).focus();
+    }
+  };
+
   return (
-    <div className="h-screen bg-Bokara-Grey border-2 border-School-Bus flex items-center justify-center">
-      <div className="container flex items-center justify-center  text-white ">
+    <div
+      className="h-screen bg-Bokara-Grey border-2 border-School-Bus flex items-center justify-center"
+      onKeyDown={handleKeyPress} // Add event listener for keydown
+      tabIndex="0" // Make div focusable to capture keydown events
+    >
+      <div className="container md:mb-0 mb-32 flex items-center justify-center  text-white ">
         <form
           onSubmit={formik.handleSubmit}
-          className="flex w-1/2 justify-center items-center gap-10 flex-col"
+          className="flex w-4/5 md:w-1/2  justify-center items-center gap-10 flex-col"
         >
           <div className="flex flex-row items-center gap-2 text-2xl md:text-3xl text-School-Bus">
             <span className="">امین</span>
@@ -293,7 +313,8 @@ const LoginForm = () => {
                     maxLength="1"
                     className="w-10 h-12 text-lg text-center border rounded md:w-11 md:h-14 border-Looking-Glass focus:border-yellow-400 focus:outline-none"
                     value={formik.values.otpCode[index] || ""}
-                    onChange={(e) => handleOtpChange(e, index)}
+                    onChange={(e) => handleOtpChange(e, index)} // Only accept numbers
+                    onKeyDown={(e) => handleKeyDown(e, index)} // Handle Backspace key
                   />
                 ))}
               </div>

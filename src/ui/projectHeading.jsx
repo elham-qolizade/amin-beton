@@ -4,12 +4,12 @@ import background from "../assets/images/833eb3f1ed14ecb9a6dfb717f9e3f826.jpg";
 const ProjectHeading = ({ title, date, subtitles, className = "" }) => {
   return (
     <div
-      className={`flex items-center justify-between p-8 text-center text-white bg-center bg-no-repeat bg-cover ${className}`}
+      className={` flex items-center justify-between p-8 text-center text-white bg-center bg-no-repeat bg-cover ${className}`}
       style={{
         backgroundImage: `url(${background})`,
       }}
     >
-      <div className="container ">
+      <div className="container flex justify-between ">
         <div className="flex flex-row items-start w-full gap-4">
           <h1 className="text-xl font-bold text-center m md:text-3xl ">
             {title}

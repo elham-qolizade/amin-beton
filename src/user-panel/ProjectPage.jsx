@@ -41,8 +41,11 @@ export default function Dashboard() {
           {projects.map((project) => (
             <div
               key={project.id}
-              className="relative flex items-center justify-center h-40 rounded-lg shadow-lg md:h-60"
+              className="relative product-card flex items-center justify-center h-40 rounded-lg shadow-lg md:h-60"
             >
+              {/* Background overlay with rgba(0, 0, 0, 0.5) */}
+              <div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg" />
+
               <span
                 className={`absolute text-lg md:text-3xl font-medium ${project.color}`}
               >
