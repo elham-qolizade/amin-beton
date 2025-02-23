@@ -277,21 +277,21 @@ const LoginForm = () => {
               )}
             </div>
           ) : (
-            <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-col w-full justify-center items-center gap-4">
               <label
                 htmlFor="phoneNumber"
                 className="text-base font-medium md:text-lg"
               >
                 کد تایید شیش رقمی
               </label>
-              <div className="flex flex-row-reverse gap-2 md:gap-4">
+              <div className="flex w-full items-center justify-center flex-row-reverse gap-2 md:gap-4">
                 {[...Array(6)].map((_, index) => (
                   <Input
                     key={index}
                     id={`otp-${index}`}
                     type="text"
                     maxLength="1"
-                    className="w-10 h-12 px-3 text-lg text-center border rounded md:w-11 md:h-14 border-Looking-Glass focus:border-yellow-400 focus:outline-none"
+                    className="w-10 h-12 text-lg text-center border rounded md:w-11 md:h-14 border-Looking-Glass focus:border-yellow-400 focus:outline-none"
                     value={formik.values.otpCode[index] || ""}
                     onChange={(e) => handleOtpChange(e, index)}
                   />
@@ -301,7 +301,7 @@ const LoginForm = () => {
           )}
           <Button
             type="submit"
-            className="w-full  font-semibold text-gray-900 bg-yellow-500 rounded"
+            className="md:w-1/2 w-full font-semibold text-gray-900 bg-yellow-500 rounded"
           >
             {otpSent ? "ورود" : "ارسال کد تایید"}
           </Button>

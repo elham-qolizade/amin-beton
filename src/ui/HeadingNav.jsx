@@ -9,8 +9,8 @@ function HeaderNav() {
   const handleUserClick = () => navigate("/LoginForm");
 
   return (
-    <header className="top-0 left-0 right-0 z-50 items-center bg-black md:bg-Eerie-Black md:opacity-80">
-      <div className="container relative flex items-center justify-between py-4">
+    <header className="w-full bg-black md:bg-Eerie-Black md:opacity-80">
+      <div className="container w-full px-4 z-50 relative flex items-center justify-between py-4">
         {/* دکمه همبرگر برای موبایل */}
         <button
           className="z-50 text-2xl text-white md:hidden focus:outline-none"
@@ -21,17 +21,11 @@ function HeaderNav() {
 
         {/* منو */}
         <nav
-          className={`fixed top-0 right-0 z-10  h-full w-1/3 bg-black p-6 shadow-lg transform transition-transform duration-300 ease-in-out md:static md:w-auto md:h-auto md:bg-transparent md:p-0 md:shadow-none ${
+          className={`fixed top-0 right-0 z-10 h-full w-4/5 bg-black p-6 shadow-lg transform transition-transform duration-300 ease-in-out md:static md:w-auto md:h-auto md:bg-transparent md:p-0 md:shadow-none ${
             isMenuOpen ? "translate-x-0" : "translate-x-full"
           } md:translate-x-0`}
           style={{ willChange: "transform" }}
         >
-          {/* <button
-            className="z-50 text-2xl text-white md:hidden focus:outline-none"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? "×" : ""}
-          </button> */}
           <ul className="flex flex-col gap-10 pt-12 text-white md:p-0 md:flex-row md:gap-6">
             <li
               className="cursor-pointer hover:text-yellow-500"
@@ -53,7 +47,7 @@ function HeaderNav() {
             </li>
             <li
               className="cursor-pointer hover:text-yellow-500"
-              onClick={() => navigate("/about")}
+              onClick={() => navigate("/news")}
             >
               اخبار
             </li>
