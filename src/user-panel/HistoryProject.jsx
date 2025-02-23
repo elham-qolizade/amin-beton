@@ -18,16 +18,15 @@ export default function HistoryProject() {
 
   return (
     <div className="min-h-screen bg-b-gray">
-      <HeaderNav className="bg-Armor-Wash" />
+      <HeaderNav className=" mx-auto" />
       <ProjectHeading
         title="نام پروژه"
         subtitles={["آدرس پروژه", "وضیعت", "تاریخ اخرین خرید"]}
         date="1402/11/10"
       />
-
-      <div className="flex flex-col pt-10 bg-b-gray">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 bg-b-gray">
-          <div className="container flex flex-col gap-4 px-2 text-right">
+      <div className="flex flex-col pt-10 px-4  container ">
+        <div className="md:grid flex flex-col-reverse gap-6 md:grid-cols-2 ">
+          <div className="flex flex-col gap-4 text-right">
             <div className="py-2 border-b border-white">
               <p className="text-sm text-School-Bus md:text-base">
                 ارسال این خرید در تاریخ 1402/10/22 و ساعت 12:30 ثبت شد
@@ -41,13 +40,13 @@ export default function HistoryProject() {
 
             <div className="flex flex-col gap-2 py-6 text-white border-b border-white">
               <span>پیش فاکتور</span>
-              <ButtonProject className="flex flex-row items-center justify-around gap-4 px-1 py-1 text-white border-white md:w-36 ">
+              <ButtonProject className="flex flex-row items-center  w-36 justify-around gap-4 px-1 py-1 text-white border-white md:w-36 ">
                 دانلود پیش فاکتور
                 <MdOutlineFileDownload />
               </ButtonProject>
 
               <span>فاکتور</span>
-              <ButtonProject className="flex flex-row items-center justify-around gap-8 py-1 text-white border-white md:w-36 ">
+              <ButtonProject className="flex flex-row w-36 items-center justify-around gap-8 py-1 text-white border-white md:w-36 ">
                 دانلود فاکتور
                 <MdOutlineFileDownload />
               </ButtonProject>
@@ -77,11 +76,11 @@ export default function HistoryProject() {
               </ul>
 
               <div className="flex flex-col gap-4 mt-4">
-                <ButtonProject className="flex flex-row items-center justify-around gap-8 py-1 text-white border-white md:w-36 ">
+                <ButtonProject className="flex flex-row  w-36 items-center justify-around gap-8 py-1 text-white border-white md:w-36 ">
                   دانلود فایل
                   <MdOutlineFileDownload />
                 </ButtonProject>
-                <ButtonProject className="flex flex-row items-center justify-around gap-8 py-1 text-white border-white md:w-36 ">
+                <ButtonProject className="flex w-36 flex-row items-center justify-around gap-8 py-1 text-white border-white md:w-36 ">
                   دانلود گزارش
                   <MdOutlineFileDownload />
                 </ButtonProject>
@@ -89,7 +88,7 @@ export default function HistoryProject() {
             </div>
           </div>
 
-          <div className="justify-center hidden md:flex">
+          <div className="justify-center md:flex">
             <ProgressCircle
               className="w-60 h-60"
               percentage={14}
@@ -103,42 +102,46 @@ export default function HistoryProject() {
             {VehicleTracking.map((vehicle) => (
               <div
                 key={vehicle.id}
-                className="p-4 text-right bg-gray-800 border border-gray-500 rounded-lg"
+                className=" text-right p-3 py-6  border border-gray-500 "
               >
-                <h3 className="text-sm font-medium ">{vehicle.name}</h3>
-                <p className="py-2 text-sm font-thin text-School-Bus md:text-base">
-                  در مسیر
-                </p>
+                <div className="flex flex-row justify-between">
+                  <div className="flex flex-col">
+                    <div className="flex flex-col">
+                      <h3 className="text-sm font-medium ">{vehicle.name}</h3>
+                      <p className="py-2 text-sm font-thin text-School-Bus md:text-base">
+                        در مسیر
+                      </p>
+                    </div>
 
-                <div className="flex flex-col justify-between gap-4 md:flex-row">
-                  <div className="flex flex-col gap-3">
-                    <p className="text-sm font-thin ">
-                      نام راننده: {vehicle.driver}
-                    </p>
-                    <p className="text-sm font-thin ">
-                      شماره بارنامه: {vehicle.waybill}
-                    </p>
-                    <p className="text-sm font-thin ">
-                      شماره پلاک: {vehicle.plate}
-                    </p>
+                    <div className="flex flex-col justify-between gap-4 md:flex-row">
+                      <div className="flex flex-col gap-3">
+                        <p className="text-sm font-thin ">
+                          نام راننده: {vehicle.driver}
+                        </p>
+                        <p className="text-sm font-thin ">
+                          شماره بارنامه: {vehicle.waybill}
+                        </p>
+                        <p className="text-sm font-thin ">
+                          شماره پلاک: {vehicle.plate}
+                        </p>
+                      </div>
+
+                      <div className="flex flex-col gap-3">
+                        <p className="text-sm font-thin">
+                          حجم بار: {vehicle.load}
+                        </p>
+                        <p className="text-sm font-thin">
+                          حجم بار تا این ماشین: {vehicle.totalLoad}
+                        </p>
+                        <p className="text-sm font-thin">
+                          ساعت خروج: {vehicle.exitTime}
+                        </p>
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="flex flex-col gap-3">
-                    <p className="text-sm font-thin">حجم بار: {vehicle.load}</p>
-                    <p className="text-sm font-thin">
-                      حجم بار تا این ماشین: {vehicle.totalLoad}
-                    </p>
-                    <p className="text-sm font-thin">
-                      ساعت خروج: {vehicle.exitTime}
-                    </p>
-                  </div>
-
-                  <div className="flex items-center justify-center ">
-                    <MapComponent
-                      width="190px"
-                      height="180px"
-                      className="md:w-60 md:h-80"
-                    />
+                  <div className="">
+                    <MapComponent width="200px" height="200px" />
                   </div>
                 </div>
               </div>

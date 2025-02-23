@@ -23,8 +23,11 @@ const ProjectHeading = ({ title, date, subtitles, className = "" }) => {
       }}
     >
       <div className="container flex justify-between">
-        <div className="flex flex-row items-start w-full gap-4">
-          <h1 className="text-lg font-bold text-center ">{title}</h1>
+        <div className="flex flex-row items-start w-full max-w-md gap-4">
+          <div className="flex  items-center">
+            <h1 className="text-lg pt-4 font-bold text-center">{title}</h1>
+          </div>
+
           <div className="flex flex-col text-sm text-right">
             {subtitles &&
               subtitles.map((subtitle, index) => (
