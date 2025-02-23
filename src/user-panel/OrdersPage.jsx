@@ -26,7 +26,7 @@ export default function OrdersPage() {
         />
 
         {/* دکمه‌های بالای لیست خرید */}
-        <div className="container flex flex-row justify-between gap-4 my-10">
+        <div className="container flex px-4 flex-row justify-between gap-4 my-10">
           <div className="flex flex-col gap-4 sm:flex-row md:items-center">
             <h2 className="text-lg text-white md:text-2xl">
               لیست خریدهای پروژه
@@ -56,7 +56,7 @@ export default function OrdersPage() {
 
         {/* لیست خریدها */}
         <div className="flex flex-col items-center px-6 py-8">
-          <div className="grid w-full max-w-4xl grid-cols-1 gap-6 md:grid-cols-2">
+          <div className="grid w-full max-w-5xl grid-cols-1 gap-6 md:grid-cols-2">
             {visiblePurchases.map((purchase) => (
               <div
                 key={purchase.id}

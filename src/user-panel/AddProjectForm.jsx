@@ -163,7 +163,7 @@ const ProjectForm = () => {
             <ButtonProject
               type="submit"
               onClick={() => navigate("/OrdersPage ")}
-              className="py-2 font-semibold bg-yellow-500 rounded w-40 md:w-64 hover:bg-yellow-600"
+              className="py-2 font-semibold bg-yellow-500 rounded w-44 md:w-64 hover:bg-yellow-600"
             >
               افزودن پروژه
             </ButtonProject>
