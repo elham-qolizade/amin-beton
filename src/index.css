@@ -104,7 +104,7 @@ body {
   background-color: #1c1c1e; 
   color: white; 
   border-radius: 12px; 
-  
+   
   padding: 10px;
   font-family: "Vazir", sans-serif; 
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
@@ -203,7 +203,7 @@ body {
 @media (max-width: 640px) {
   .custom-calendar {
     max-width: 260px; /* کوچک‌تر شدن تقویم */
-    background: none !important; /* حذف بک‌گراند */
+ /* حذف بک‌گراند */
     padding: 5px; /* کاهش فضای داخلی */
     box-shadow: none;
   }
