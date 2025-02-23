@@ -12,7 +12,7 @@ export default function NewsLanding() {
             اخبار
           </h2>
         </div>
-        <div className="flex flex-col px-10 items-center justify-center gap-10 mt-10 sm:flex-row">
+        <div className="flex flex-col px-10 items-center justify-center gap-10 md:mt-10 sm:flex-row">
           <img
             className="w-full sm:w-[260px] h-auto sm:h-[138px] object-cover"
             src={pic1}
@@ -24,7 +24,7 @@ export default function NewsLanding() {
             alt=""
           />
         </div>
-        <div className="flex flex-row items-center justify-center gap-3 mt-4">
+        <div className="flex flex-row items-center justify-center gap-3 md:mt-4">
           <span className="text-lg text-School-Bus md:text-2xl">همه اخبار</span>
           <FaArrowLeftLong className="text-School-Bus" />
         </div>
