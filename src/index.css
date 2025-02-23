@@ -23,9 +23,8 @@ background-repeat: no-repeat;
 body {
   font-family: "Peyda-Black", sans-serif;
   direction: rtl;
+  height: 100%;
 }
-
-
 
 @layer base {
   @media (min-width: 1536px) {

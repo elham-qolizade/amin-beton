@@ -242,76 +242,80 @@ const LoginForm = () => {
   };
 
   return (
-    <form
-      onSubmit={formik.handleSubmit}
-      className="flex flex-col items-center justify-center gap-10 px-6 py-10 text-white border-2 bg-Bokara-Grey border-School-Bus md:px-20 lg:px-32 xl:px-40"
-    >
-      <div className="flex flex-row items-center gap-2 text-2xl md:text-3xl text-School-Bus">
-        <span className="">امین</span>
-        <img className="h-10 md:h-12" src={logo} alt="Company Logo" />
-        <span className="">بتن</span>
-      </div>
-      {!otpSent ? (
-        <div className="flex flex-col items-center w-full space-y-4 md:w-2/3">
-          <label
-            htmlFor="phoneNumber"
-            className="text-base font-medium md:text-lg"
-          >
-            شماره همراه
-          </label>
-          <Input
-            id="phoneNumber"
-            name="phoneNumber"
-            className="w-full p-2 text-left text-white bg-gray-700 border rounded placeholder:text-left border-Looking-Glass focus:border-yellow-400 md:w-3/4"
-            onChange={formik.handleChange}
-            value={formik.values.phoneNumber}
-            placeholder={"--------09"}
-            dir="ltr"
-          />
-          {formik.errors.phoneNumber && (
-            <div className="text-sm text-red-500 md:text-base">
-              {formik.errors.phoneNumber}
+    <div className="h-screen bg-Bokara-Grey border-2 border-School-Bus flex items-center justify-center">
+      <div className="container flex items-center justify-center  text-white ">
+        <form
+          onSubmit={formik.handleSubmit}
+          className="flex w-1/2 justify-center items-center gap-10 flex-col"
+        >
+          <div className="flex flex-row items-center gap-2 text-2xl md:text-3xl text-School-Bus">
+            <span className="">امین</span>
+            <img className="h-10 md:h-12" src={logo} alt="Company Logo" />
+            <span className="">بتن</span>
+          </div>
+          {!otpSent ? (
+            <div className="flex flex-col items-center w-full space-y-4 ">
+              <label
+                htmlFor="phoneNumber"
+                className="text-base font-medium md:text-lg"
+              >
+                شماره همراه
+              </label>
+              <Input
+                id="phoneNumber"
+                name="phoneNumber"
+                className="w-full p-2 text-left text-white bg-gray-700 border rounded placeholder:text-left border-Looking-Glass focus:border-yellow-400 "
+                onChange={formik.handleChange}
+                value={formik.values.phoneNumber}
+                placeholder={"--------09"}
+                dir="ltr"
+              />
+              {formik.errors.phoneNumber && (
+                <div className="text-sm text-red-500 md:text-base">
+                  {formik.errors.phoneNumber}
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="flex flex-col items-center gap-4">
+              <label
+                htmlFor="phoneNumber"
+                className="text-base font-medium md:text-lg"
+              >
+                کد تایید شیش رقمی
+              </label>
+              <div className="flex flex-row-reverse gap-2 md:gap-4">
+                {[...Array(6)].map((_, index) => (
+                  <Input
+                    key={index}
+                    id={`otp-${index}`}
+                    type="text"
+                    maxLength="1"
+                    className="w-10 h-12 px-3 text-lg text-center border rounded md:w-11 md:h-14 border-Looking-Glass focus:border-yellow-400 focus:outline-none"
+                    value={formik.values.otpCode[index] || ""}
+                    onChange={(e) => handleOtpChange(e, index)}
+                  />
+                ))}
+              </div>
             </div>
           )}
-        </div>
-      ) : (
-        <div className="flex flex-col items-center gap-4">
-          <label
-            htmlFor="phoneNumber"
-            className="text-base font-medium md:text-lg"
+          <Button
+            type="submit"
+            className="w-full  font-semibold text-gray-900 bg-yellow-500 rounded"
           >
-            کد تایید شیش رقمی
-          </label>
-          <div className="flex flex-row-reverse gap-2 md:gap-4">
-            {[...Array(6)].map((_, index) => (
-              <Input
-                key={index}
-                id={`otp-${index}`}
-                type="text"
-                maxLength="1"
-                className="w-10 h-12 px-3 text-lg text-center border rounded md:w-11 md:h-14 border-Looking-Glass focus:border-yellow-400 focus:outline-none"
-                value={formik.values.otpCode[index] || ""}
-                onChange={(e) => handleOtpChange(e, index)}
-              />
-            ))}
-          </div>
-        </div>
-      )}
-      <Button
-        type="submit"
-        className="w-full px-20 py-2 font-semibold text-gray-900 bg-yellow-500 rounded md:w-auto"
-      >
-        {otpSent ? "ورود" : "ارسال کد تایید"}
-      </Button>
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={true}
-        closeOnClick={true}
-        draggable={false}
-        rtl={true}
-      />
-    </form>
+            {otpSent ? "ورود" : "ارسال کد تایید"}
+          </Button>
+          <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={true}
+            closeOnClick={true}
+            draggable={false}
+            rtl={true}
+          />
+        </form>
+      </div>
+    </div>
   );
 };
 
