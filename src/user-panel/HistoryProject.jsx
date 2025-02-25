@@ -281,7 +281,7 @@ export default function HistoryProject() {
             </div>
           </div>
 
-          <div className="justify-center md:flex">
+          <div className="justify-center md:p-0 px-3 md:flex">
             <ProgressCircle
               className="md:w-60  h-60"
               percentage={14}
