@@ -283,7 +283,7 @@ export default function HistoryProject() {
 
           <div className="justify-center md:flex">
             <ProgressCircle
-              className="w-60 h-60"
+              className="md:w-60  h-60"
               percentage={14}
               style={{ stroke: "School-Bus", zIndex: 10 }}
             />

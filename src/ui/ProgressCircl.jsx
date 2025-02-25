@@ -7,8 +7,22 @@ const ProgressCircle = ({ percentage }) => {
   const dashOffset = circumference * ((100 - percentage) / 100);
 
   return (
-    <div style={{ position: "relative", width: "400px", height: "400px" }}>
-      <svg width="400" height="400" viewBox="0 0 200 200">
+    <div
+      style={{
+        position: "relative",
+        width: "100%",
+        maxWidth: "400px",
+        height: "100%",
+        maxHeight: "400px",
+        margin: "auto",
+      }}
+    >
+      <svg
+        width="100%"
+        height="100%"
+        viewBox="0 0 200 200"
+        style={{ maxWidth: "100%", maxHeight: "100%" }}
+      >
         <circle
           cx="100"
           cy="100"
