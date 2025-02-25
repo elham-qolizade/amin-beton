@@ -49,19 +49,19 @@ function HeaderNav() {
             </li>
             <li
               className="cursor-pointer hover:text-School-Bus"
-              onClick={handleContactClick}
+              onClick={() => navigate("/Contact")}
             >
               تماس با ما
             </li>
             <li
               className="cursor-pointer hover:text-School-Bus"
-              onClick={() => navigate("/AboutBluck")}
+              onClick={() => navigate("/About")}
             >
               درباره ما
             </li>
             <li
               className="cursor-pointer hover:text-School-Bus"
-              onClick={handleNewsClick}
+              onClick={() => navigate("/News")}
             >
               اخبار
             </li>
@@ -74,7 +74,6 @@ function HeaderNav() {
           <span>بتن</span>
         </div>
 
-        {/* آیکون کاربر */}
         <div className="z-50">
           <img
             width="24"

@@ -2,18 +2,12 @@ import React from "react";
 import HeaderNav from "../ui/HeadingNav";
 import ProjectHeading from "../ui/projectHeading";
 
-export default function AboutBluck() {
+export default function About() {
   return (
     <div className="min-h-screen bg-Bokara-Grey">
       <div>
         <HeaderNav />
-        <ProjectHeading
-          className="text-center justify-center text-School-Bus flex flex-col"
-          title="بلوک های بتنی"
-          subtitles={[
-            "بلوک های بتنی با کیفیت برای ساخت دیوار های مقاوم و پایدار",
-          ]}
-        />
+        <ProjectHeading className="text-center justify-center text-School-Bus flex flex-col" />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-10 py-10">

@@ -1,3 +1,4 @@
+// service/apiClient.js
 import axios from "axios";
 
 const apiClient = axios.create({
@@ -18,7 +19,6 @@ apiClient.interceptors.response.use(
   async (error) => {
     if (error.response?.status === 401) {
       const originalRequest = error.config;
-
       try {
         const refreshToken = localStorage.getItem("refreshToken");
 
@@ -26,7 +26,7 @@ apiClient.interceptors.response.use(
           if (window.location.pathname !== "/LoginForm") {
             window.location.href = "/LoginForm";
           }
-          return Promise.reject("Refresh token not available");
+          return Promise.reject("رفرش توکن موجود نیست");
         }
 
         const response = await axios.post(
@@ -41,11 +41,9 @@ apiClient.interceptors.response.use(
         return axios(originalRequest);
       } catch (refreshError) {
         console.error("خطا در رفرش توکن:", refreshError);
-
         if (window.location.pathname !== "/LoginForm") {
           window.location.href = "/LoginForm";
         }
-
         return Promise.reject(refreshError);
       }
     }

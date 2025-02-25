@@ -22,13 +22,15 @@ const ProjectHeading = ({ title, date, subtitles, className = "" }) => {
         backgroundImage: `url(${background})`,
       }}
     >
-      <div className="container flex justify-between">
-        <div className="flex flex-row items-start w-full max-w-md gap-4">
+      <div className={`container flex justify-between ${className}`}>
+        <div
+          className={`flex flex-row items-start w-full max-w-md gap-4 ${className}`}
+        >
           <div className="flex  items-center">
             <h1 className="text-lg pt-4 font-bold text-center">{title}</h1>
           </div>
 
-          <div className="flex flex-col text-sm text-right">
+          <div className={`flex flex-col text-sm text-right${className}`}>
             {subtitles &&
               subtitles.map((subtitle, index) => (
                 <p key={index} className="mb-1 md:mb-2">

@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import CustomCalendar from "../ui/Calender";
 import ButtonProject from "../ui/ButtonProject";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 dayjs.locale("fa");
 
@@ -18,6 +19,7 @@ export function Button({ children, ...props }) {
     </button>
   );
 }
+
 export function Select({ options, placeholder, ...props }) {
   return (
     <select
@@ -45,9 +47,29 @@ export default function SaleProject() {
   const [selectedDay, setSelectedDay] = useState(null);
   const navigate = useNavigate();
 
-  const onSubmit = (data) => {
-    console.log({ ...data, selectedDay });
-    navigate("/SecondSalePage");
+  const onSubmit = async (data) => {
+    try {
+      const payload = {
+        title: "سفارش جدید", // عنوان سفارش (می‌توانی مقدار دلخواه بدهی)
+        type: data.type,
+        concreteLevel: data.concreteLevel,
+        priority: data.priority,
+        quantity: data.quantity,
+        delivery_date: selectedDay, // تاریخ انتخاب‌شده از تقویم
+      };
+
+      const response = await axios.post(
+        "https://amin-beton-back.chbk.app/api/orders/orders_create",
+        payload
+      );
+
+      console.log("Order Created:", response.data);
+
+      navigate("/SecondSalePage"); // هدایت به صفحه بعد
+    } catch (error) {
+      console.error("Error creating order:", error);
+      alert("خطا در ثبت سفارش. لطفاً دوباره تلاش کنید.");
+    }
   };
 
   return (
@@ -62,31 +84,34 @@ export default function SaleProject() {
           onSubmit={handleSubmit(onSubmit)}
         >
           <Select
-            {...register("type")}
+            {...register("type", { required: true })}
             options={[
               { value: "type1", label: "نوع ۱" },
               { value: "type2", label: "نوع ۲" },
             ]}
             placeholder="نوع بتن"
           />
+
           <Select
-            {...register("concreteLevel")}
+            {...register("concreteLevel", { required: true })}
             options={[
               { value: "level1", label: "سطح ۱" },
               { value: "level2", label: "سطح ۲" },
             ]}
             placeholder="سطح بتن ریزی"
           />
+
           <Select
-            {...register("priority")}
+            {...register("priority", { required: true })}
             options={[
               { value: "low", label: "کم" },
               { value: "high", label: "زیاد" },
             ]}
             placeholder="رده مقاومت"
           />
+
           <Select
-            {...register("quantity")}
+            {...register("quantity", { required: true })}
             options={[
               { value: "low", label: "کم" },
               { value: "high", label: "زیاد" },
@@ -94,16 +119,15 @@ export default function SaleProject() {
             placeholder="متراژ"
           />
 
-          {/* تقویم - وسط‌چین شده */}
+          {/* تقویم */}
           <div className="flex items-center justify-center w-full mt-4">
-            <CustomCalendar />
+            <CustomCalendar onChange={setSelectedDay} value={selectedDay} />
           </div>
 
           {/* دکمه ادامه */}
-
           <ButtonProject
             className="w-full py-2 mt-8 md:w-4/5 md:px-40"
-            onClick={() => navigate("/SecondSalePage")}
+            type="submit"
           >
             ادامه
           </ButtonProject>
