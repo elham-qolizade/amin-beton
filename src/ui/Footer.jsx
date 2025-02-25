@@ -1,19 +1,22 @@
 import React from "react";
 import pic from "../assets/images/0fbb11d946d42f4c9baad21f14948740.jpg";
 import logo from "../assets/images/84c17d4db54552e3ecc58781c8cefc7a.png";
-
+import { useNavigate } from "react-router-dom";
 export default function Footer() {
+  const navigate = useNavigate();
   return (
     <div
       id="contact-section"
       className="flex flex-col-reverse items-center justify-around pt-10 pb-20 text-center md:flex-row bg-b-gray md:pb-52"
     >
       <div className="flex flex-col items-center pt-10 md:pt-40">
-        <ul className="flex flex-col gap-4 text-lg text-center text-white">
-          <li>اخبار</li>
-          <li>درباره ما</li>
-          <li>تماس با ما</li>
-          <li>خانه</li>
+        <ul className="flex flex-col  cursor-pointer gap-4 text-lg text-center text-white">
+          <li onClick={() => navigate("/News")}>اخبار</li>
+          <li onClick={() => navigate("/About")}>درباره ما</li>
+          <li onClick={() => navigate("/Contact")}>تماس با ما</li>
+          <l onClick={() => navigate("/")} i>
+            خانه
+          </l>
         </ul>
       </div>
 
