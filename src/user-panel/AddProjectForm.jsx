@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
@@ -34,6 +34,17 @@ const ProjectForm = () => {
         projectDate: Yup.string().required("تاریخ پروژه الزامی است"),
         latitude: Yup.string().required("عرض جغرافیایی الزامی است"),
         longitude: Yup.string().required("طول جغرافیایی الزامی است"),
+        fileNumber: Yup.string()
+          .matches(/^\d+$/, "فقط اعداد مجاز است")
+          .required("شماره پرونده الزامی است"),
+        registrationPlate: Yup.string()
+          .matches(/^\d+$/, "فقط اعداد مجاز است")
+          .required("پلاک ثبتی الزامی است"),
+        postalCode: Yup.string()
+          .matches(/^\d+$/, "فقط اعداد مجاز است")
+          .min(10, "کد پستی باید حداقل ۱۰ رقم باشد")
+          .required("کد پستی الزامی است"),
+        address: Yup.string().required("آدرس پروژه الزامی است"), // اعتبارسنجی برای آدرس
       }
     )
   );
@@ -41,7 +52,6 @@ const ProjectForm = () => {
   const formik = useFormik({
     initialValues: getInitialValues(),
     validationSchema,
-    location: [35.6892, 51.389],
     onSubmit: async (values) => {
       try {
         const response = await axios.post(
@@ -51,7 +61,7 @@ const ProjectForm = () => {
         );
         console.log("✅ پروژه با موفقیت ثبت شد:", response.data);
         alert("🎉 پروژه جدید با موفقیت ثبت شد!");
-        navigate("/OrderPage");
+        navigate("/OrderPage"); // هدایت به صفحه بعد از ثبت موفق
       } catch (error) {
         console.error("❌ خطا در ارسال اطلاعات:", error);
         alert("⚠️ مشکلی در ثبت پروژه به وجود آمد.");
@@ -96,16 +106,14 @@ const ProjectForm = () => {
                   onBlur={formik.handleBlur}
                   value={formik.values[name] || ""}
                   className={`w-full text-white rounded px-4 py-2 bg-gray-700 border border-Looking-Glass 
-            ${
-              formik.touched[name] && formik.errors[name]
-                ? "border-red-500"
-                : "border-gray-600"
-            }`}
+                    ${
+                      formik.touched[name] && formik.errors[name]
+                        ? " text-red"
+                        : "border-gray-600"
+                    }`}
                 />
                 {formik.touched[name] && formik.errors[name] && (
-                  <p className="mt-1 text-sm text-red-500">
-                    {formik.errors[name]}
-                  </p>
+                  <p className="mt-1 text-sm text-red">{formik.errors[name]}</p>
                 )}
               </div>
             ))}
@@ -119,6 +127,9 @@ const ProjectForm = () => {
                 value={formik.values.address || ""}
                 className="w-full h-24 px-4 py-2 text-white border rounded border-Looking-Glass bg-Bokara-Grey"
               />
+              {formik.touched.address && formik.errors.address && (
+                <p className="mt-1 text-sm text-red">{formik.errors.address}</p>
+              )}
             </div>
 
             <div className="flex flex-col col-span-1 md:col-span-2">
@@ -130,6 +141,11 @@ const ProjectForm = () => {
                 value={formik.values.description || ""}
                 className="w-full h-32 px-4 py-2 text-white border rounded border-Looking-Glass bg-Bokara-Grey"
               />
+              {formik.touched.description && formik.errors.description && (
+                <p className="mt-1 text-sm  text-red">
+                  {formik.errors.description}
+                </p>
+              )}
             </div>
 
             <div className="flex justify-center col-span-1 md:col-span-2">
@@ -148,9 +164,8 @@ const ProjectForm = () => {
 
           <div className="flex justify-center">
             <ButtonProject
-              type="submit"
-              onClick={() => navigate("/OrdersPage ")}
-              className="py-2 font-semibold  w-56  rounded md:w-72 hover:bg-yellow-600"
+              type="submit" // از اینجا ارسال فرم انجام می‌شود
+              className="py-2 font-semibold w-56 rounded md:w-72 hover:bg-yellow-600"
             >
               افزودن پروژه
             </ButtonProject>
