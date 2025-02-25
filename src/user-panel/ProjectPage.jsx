@@ -232,7 +232,7 @@ export default function Dashboard() {
 
   const handleProjectClick = (projectId) => {
     // هدایت به صفحه تاریخچه پروژه با استفاده از شناسه پروژه
-    navigate(`/HistoryProject`);
+    navigate(`/OrdersPage`);
   };
 
   return (

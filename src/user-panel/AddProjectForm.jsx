@@ -20,6 +20,7 @@ const ProjectForm = () => {
     initialValues.projectDate = "";
     initialValues.latitude = "";
     initialValues.longitude = "";
+    initialValues.address = "";
 
     return initialValues;
   }, []);
@@ -34,6 +35,7 @@ const ProjectForm = () => {
         projectDate: Yup.string().required("تاریخ پروژه الزامی است"),
         latitude: Yup.string().required("عرض جغرافیایی الزامی است"),
         longitude: Yup.string().required("طول جغرافیایی الزامی است"),
+        address: Yup.string().required("آدرس پروژه الزامی است"),
         fileNumber: Yup.string()
           .matches(/^\d+$/, "فقط اعداد مجاز است")
           .required("شماره پرونده الزامی است"),
@@ -44,7 +46,7 @@ const ProjectForm = () => {
           .matches(/^\d+$/, "فقط اعداد مجاز است")
           .min(10, "کد پستی باید حداقل ۱۰ رقم باشد")
           .required("کد پستی الزامی است"),
-        address: Yup.string().required("آدرس پروژه الزامی است"), // اعتبارسنجی برای آدرس
+        // این خط را اضافه کنید
       }
     )
   );
@@ -70,8 +72,9 @@ const ProjectForm = () => {
   });
 
   useEffect(() => {
-    formik.setValues(getInitialValues());
-  }, [getInitialValues]);
+    console.log("Errors:", formik.errors);
+    console.log("Touched:", formik.touched);
+  }, [formik.errors, formik.touched]);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900">
@@ -122,9 +125,7 @@ const ProjectForm = () => {
               <textarea
                 name="address"
                 placeholder="آدرس پروژه"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.address || ""}
+                {...formik.getFieldProps("address")} // استفاده از getFieldProps به جای onChange و onBlur
                 className="w-full h-24 px-4 py-2 text-white border rounded border-Looking-Glass bg-Bokara-Grey"
               />
               {formik.touched.address && formik.errors.address && (
