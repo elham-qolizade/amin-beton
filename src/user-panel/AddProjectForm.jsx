@@ -165,6 +165,7 @@ const ProjectForm = () => {
 
           <div className="flex justify-center">
             <ButtonProject
+              onClick={() => navigate("/ProjectPage")}
               type="submit" // از اینجا ارسال فرم انجام می‌شود
               className="py-2 font-semibold w-56 rounded md:w-72 hover:bg-yellow-600"
             >
