@@ -170,7 +170,12 @@ const LoginForm = () => {
                 id="phoneNumber"
                 name="phoneNumber"
                 className="w-full p-2 text-left text-white bg-gray-700 border rounded placeholder:text-left border-Looking-Glass focus:border-yellow-400"
-                onChange={formik.handleChange}
+                onChange={(e) =>
+                  formik.setFieldValue(
+                    "phoneNumber",
+                    convertToEnglishNumbers(e.target.value)
+                  )
+                }
                 value={formik.values.phoneNumber}
                 placeholder={"09121111111"}
                 dir="ltr"
