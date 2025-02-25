@@ -1,14 +1,13 @@
 import * as Yup from "yup";
 
-export const loginValidationSchema = (otpSent) => {
-  return Yup.object({
+export const loginValidationSchema = (otpSent) =>
+  Yup.object().shape({
     phoneNumber: Yup.string()
-      .matches(/^09\d{9}$/, "شماره تلفن باید ۱۱ رقمی و با 09 شروع شود.")
-      .required("لطفاً شماره تلفن را وارد کنید."),
+      .matches(/^09[0-9]{9}$/, "شماره موبایل باید ۱۱ رقمی و با ۰۹ شروع شود")
+      .required("شماره موبایل الزامی است"),
     otpCode: otpSent
       ? Yup.string()
-          .matches(/^\d{6}$/, "کد تایید باید فقط شامل ۶ رقم باشد.")
-          .required("لطفاً کد تایید را وارد کنید.")
+          .matches(/^\d{6}$/, "کد تایید باید ۶ رقمی باشد")
+          .required("کد تایید الزامی است")
       : Yup.string(),
   });
-};

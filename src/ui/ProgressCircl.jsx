@@ -52,8 +52,9 @@ const ProgressCircle = ({ percentage }) => {
           </linearGradient>
         </defs>
 
+        {/* تبدیل عدد به فارسی */}
         <text x="100" y="110" textAnchor="middle" fontSize="14px" fill="#fff">
-          1/7 مراحل خرید
+          ۱/۷ مراحل خرید
         </text>
       </svg>
 
