@@ -8,6 +8,24 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { loginValidationSchema } from "../../utils/validationSchema";
 
+// تابع تبدیل اعداد فارسی به انگلیسی
+const convertToEnglishNumbers = (input) => {
+  const persianToEnglishMap = {
+    "۰": "0",
+    "۱": "1",
+    "۲": "2",
+    "۳": "3",
+    "۴": "4",
+    "۵": "5",
+    "۶": "6",
+    "۷": "7",
+    "۸": "8",
+    "۹": "9",
+  };
+
+  return input.replace(/[۰-۹]/g, (char) => persianToEnglishMap[char] || char);
+};
+
 const LoginForm = () => {
   const [otpSent, setOtpSent] = useState(false);
   const navigate = useNavigate();
@@ -28,6 +46,9 @@ const LoginForm = () => {
     },
     validationSchema: loginValidationSchema(otpSent),
     onSubmit: async (values) => {
+      const phoneNumberInEnglish = convertToEnglishNumbers(values.phoneNumber);
+      const otpCodeInEnglish = convertToEnglishNumbers(values.otpCode);
+
       if (!otpSent) {
         // ارسال OTP
         try {
@@ -38,7 +59,7 @@ const LoginForm = () => {
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify({ phone: values.phoneNumber }),
+              body: JSON.stringify({ phone: phoneNumberInEnglish }),
             }
           );
 
@@ -63,8 +84,8 @@ const LoginForm = () => {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                phone: values.phoneNumber,
-                otp: values.otpCode,
+                phone: phoneNumberInEnglish,
+                otp: otpCodeInEnglish,
               }),
             }
           );
@@ -111,17 +132,31 @@ const LoginForm = () => {
     }
   };
 
+  // نمایش ارورها فقط زمانی که فرم ارسال شود
+  const handleSubmitWithValidation = (e) => {
+    e.preventDefault(); // جلوگیری از ارسال پیش‌فرض فرم
+    formik.submitForm(); // ارسال فرم با بررسی ارورها
+
+    // اگر اروری وجود دارد، توست خطا را نمایش بده
+    if (formik.errors.phoneNumber && formik.touched.phoneNumber) {
+      toast.error(formik.errors.phoneNumber);
+    }
+    if (formik.errors.otpCode && formik.touched.otpCode) {
+      toast.error(formik.errors.otpCode);
+    }
+  };
+
   return (
     <div className="h-screen bg-Bokara-Grey border-2 border-School-Bus flex items-center justify-center">
       <div className="container md:mb-0 mb-32 flex items-center justify-center text-white">
         <form
-          onSubmit={formik.handleSubmit}
+          onSubmit={handleSubmitWithValidation} // ارسال فرم با بررسی ارور
           className="flex w-4/5 md:w-1/2 justify-center items-center gap-10 flex-col"
         >
           <div className="flex flex-row items-center gap-2 text-2xl md:text-3xl text-School-Bus">
-            <span className="">امین</span>
+            <span>امین</span>
             <img className="h-10 md:h-12" src={logo} alt="Company Logo" />
-            <span className="">بتن</span>
+            <span>بتن</span>
           </div>
           {!otpSent ? (
             <div className="flex flex-col items-center w-full space-y-4 ">
@@ -134,17 +169,12 @@ const LoginForm = () => {
               <Input
                 id="phoneNumber"
                 name="phoneNumber"
-                className="w-full p-2 text-left text-white bg-gray-700 border rounded placeholder:text-left border-Looking-Glass focus:border-yellow-400 "
+                className="w-full p-2 text-left text-white bg-gray-700 border rounded placeholder:text-left border-Looking-Glass focus:border-yellow-400"
                 onChange={formik.handleChange}
                 value={formik.values.phoneNumber}
                 placeholder={"09121111111"}
                 dir="ltr"
               />
-              {formik.errors.phoneNumber && (
-                <div className="text-sm text-red-500 md:text-base">
-                  {formik.errors.phoneNumber}
-                </div>
-              )}
             </div>
           ) : (
             <div className="flex flex-col w-full justify-center items-center gap-4">
