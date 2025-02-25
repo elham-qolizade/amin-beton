@@ -191,7 +191,7 @@ export default function HistoryProject() {
     setSelectedTest(test);
   };
 
-  const tests = ["آزمایش 3 روزه", "آزمایش 7 روزه", "آزمایش 14 روزه"];
+  const tests = ["آزمایش ۳ روزه", "آزمایش ۷ روزه", "آزمایش ۱۴ روزه"];
 
   const handleProjectClick = () => {
     navigate("/historyProjectDetail"); // هدایت به صفحه تاریخچه پروژه
