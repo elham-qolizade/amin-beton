@@ -252,8 +252,8 @@ export default function Dashboard() {
         <div className="container flex flex-col justify-between py-6 mt-4 border-b border-white md:flex-row">
           <ul className="flex-wrap hidden gap-4 text-sm text-white cursor-pointer md:flex md:text-sm">
             <li className="border-b hover:text-School-Bus">پروژه های من</li>
-            <li className="border-b hover:text-School-Bus">پیگیری سفارش</li>
-            <li className="border-b hover:text-School-Bus">پشتیبانی</li>
+            {/* <li className="border-b hover:text-School-Bus">پیگیری سفارش</li>
+            <li className="border-b hover:text-School-Bus">پشتیبانی</li> */}
           </ul>
           <div className="flex items-center justify-center mt-4 md:mt-0">
             <ButtonProject
