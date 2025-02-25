@@ -121,8 +121,7 @@ import { useNavigate } from "react-router-dom";
 export default function OrdersPage() {
   const navigate = useNavigate();
   const handleProjectClick = (projectId) => {
-    // هدایت به صفحه تاریخچه پروژه با استفاده از شناسه پروژه
-    navigate(`/HistoryProject`);
+    navigate(`/HistoryProject`); // مسیر را به همراه شناسه پروژه ارسال کنید
   };
 
   // حذف طبقات 6 و 7 در موبایل و نمایش فقط دو آیتم اول
@@ -177,7 +176,7 @@ export default function OrdersPage() {
             {visiblePurchases.map((purchase) => (
               <div
                 key={purchase.id}
-                onClick={() => handleProjectClick(projectId)}
+                onClick={() => handleProjectClick(purchase.id)} // ارسال شناسه پروژه صحیح
                 className="flex flex-col w-full gap-4 px-5 py-8 text-white bg-gray-800 border rounded-sm cursor-pointer md:flex-row md:gap-20"
               >
                 <div className="flex flex-col flex-1 gap-2 pb-5 text-start md:text-right">
