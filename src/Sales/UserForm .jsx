@@ -1,52 +1,77 @@
 import React, { useState } from "react";
-import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios"; // اضافه کردن axios برای ارسال درخواست
 import Input from "../ui/Input";
 import Button from "../ui/Button";
 import logo from "../assets/images/84c17d4db54552e3ecc58781c8cefc7a.png";
-import AuthService from "../service/authService";
 import { ToastContainer, toast } from "react-toastify";
-
-import * as Yup from "yup";
-
-const validationSchema = Yup.object({
-  fullName: Yup.string().required("لطفاً نام و نام خانوادگی خود را وارد کنید"),
-  nationalCode: Yup.string()
-    .matches(/^[0-9]{10}$/, "کد ملی باید 10 رقم باشد")
-    .required("لطفاً کد ملی خود را وارد کنید"),
-  phoneNumber: Yup.string()
-    .matches(/^09[0-9]{9}$/, "شماره موبایل معتبر نیست")
-    .required("لطفاً شماره موبایل خود را وارد کنید"),
-});
 
 const UserForm = () => {
   const navigate = useNavigate();
 
-  const formik = useFormik({
-    initialValues: {
-      fullName: "",
-      nationalCode: "",
-      phoneNumber: "",
-    },
-    validationSchema,
-    onSubmit: async (values) => {
-      try {
-        const response = await AuthService.register(values);
-        toast.success("اطلاعات با موفقیت ثبت شد!");
-        fetchUserData();
-        navigate("/");
-      } catch (error) {
-        toast.error("خطا در ثبت اطلاعات، لطفاً مجدداً تلاش کنید");
-      }
-    },
-  });
+  // مدیریت وضعیت فیلدها با استفاده از useState
+  const [fullName, setFullName] = useState("");
+  const [nationalCode, setNationalCode] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  const [errors, setErrors] = useState({});
+
+  // تابع اعتبارسنجی برای فیلدها
+  const validate = () => {
+    const newErrors = {};
+
+    // اعتبارسنجی نام و نام خانوادگی
+    if (!fullName)
+      newErrors.fullName = "لطفاً نام و نام خانوادگی خود را وارد کنید";
+
+    // اعتبارسنجی کد ملی
+    if (!nationalCode) {
+      newErrors.nationalCode = "لطفاً کد ملی خود را وارد کنید";
+    } else if (!/^[0-9]{10}$/.test(nationalCode)) {
+      newErrors.nationalCode = "کد ملی باید 10 رقم باشد";
+    }
+
+    // اعتبارسنجی شماره موبایل
+    if (!phoneNumber) {
+      newErrors.phoneNumber = "لطفاً شماره موبایل خود را وارد کنید";
+    } else if (!/^09[0-9]{9}$/.test(phoneNumber)) {
+      newErrors.phoneNumber = "شماره موبایل معتبر نیست";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // اگر خطایی نباشد، فرم معتبر است
+  };
+
+  // تابع ارسال فرم
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!validate()) return; // اگر فرم معتبر نبود، ارسال نشود
+
+    try {
+      // ارسال درخواست به سرور
+      const response = await axios.post(
+        "https://amin-beton-back.chbk.app/api/users/register/",
+        {
+          full_name: fullName,
+          national_code: nationalCode,
+          phone_number: phoneNumber,
+        }
+      );
+
+      toast.success("اطلاعات با موفقیت ثبت شد!");
+      // پس از ثبت اطلاعات موفق، کاربر را به صفحه اصلی هدایت کنید
+      navigate("/");
+    } catch (error) {
+      toast.error("خطا در ثبت اطلاعات، لطفاً مجدداً تلاش کنید");
+    }
+  };
 
   return (
     <div className="border-2 h-screen flex items-center justify-center bg-Bokara-Grey border-School-Bus">
       <div className="gap-10 container px-4 flex text-white">
         <form
-          onSubmit={formik.handleSubmit}
+          onSubmit={handleSubmit}
           className="flex w-full justify-center items-center gap-10 flex-col"
         >
           <div className="flex flex-row items-center gap-2 text-3xl text-School-Bus">
@@ -66,12 +91,12 @@ const UserForm = () => {
               id="fullName"
               name="fullName"
               className="p-2 text-right text-white bg-gray-700 border rounded placeholder:text-right border-Looking-Glass focus:border-yellow-400"
-              onChange={formik.handleChange}
-              value={formik.values.fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              value={fullName}
               placeholder="نام و نام خانوادگی"
             />
-            {formik.errors.fullName && (
-              <div className="text-red">{formik.errors.fullName}</div>
+            {errors.fullName && (
+              <div className="text-red">{errors.fullName}</div>
             )}
 
             <label
@@ -84,12 +109,12 @@ const UserForm = () => {
               id="nationalCode"
               name="nationalCode"
               className="p-2 text-right text-white bg-gray-700 border rounded placeholder:text-right border-Looking-Glass focus:border-yellow-400"
-              onChange={formik.handleChange}
-              value={formik.values.nationalCode}
+              onChange={(e) => setNationalCode(e.target.value)}
+              value={nationalCode}
               placeholder="کد ملی"
             />
-            {formik.errors.nationalCode && (
-              <div className="text-red">{formik.errors.nationalCode}</div>
+            {errors.nationalCode && (
+              <div className="text-red">{errors.nationalCode}</div>
             )}
 
             <label
@@ -102,15 +127,16 @@ const UserForm = () => {
               id="phoneNumber"
               name="phoneNumber"
               className="p-2 text-left text-white bg-gray-700 border rounded placeholder:text-right border-Looking-Glass focus:border-yellow-400"
-              onChange={formik.handleChange}
-              value={formik.values.phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              value={phoneNumber}
               placeholder="شماره همراه"
               dir="ltr"
             />
-            {formik.errors.phoneNumber && (
-              <div className="text-red">{formik.errors.phoneNumber}</div>
+            {errors.phoneNumber && (
+              <div className="text-red">{errors.phoneNumber}</div>
             )}
           </div>
+
           <div className="flex items-center p-3 mt-2 text-sm text-white bg-black rounded-md">
             <span className="ml-2">⚠️</span>
             <span>
