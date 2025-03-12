@@ -153,7 +153,7 @@ function SaleProject() {
   return (
     <div className="min-h-screen p-8 bg-gray-100 bg-Bokara-Grey">
       <h2 className="pt-10 mb-8 text-xl text-center text-white md:text-2xl">
-        خرید برای پروژه شماره: {id}
+        خرید برای پروژه شماره: {title}
       </h2>
 
       <form onSubmit={handleSubmit} className="p-6 space-y-4">

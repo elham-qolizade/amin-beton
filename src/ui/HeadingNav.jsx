@@ -1,32 +1,53 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom"; // اضافه شده useLocation
 import logo from "../assets/images/84c17d4db54552e3ecc58781c8cefc7a.png";
+
+const LogoutButton = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    navigate("/");
+  };
+
+  return (
+    <button
+      onClick={handleLogout}
+      className="flex items-center gap-2 px-4 py-2 text-white transition-all duration-200 bg-red-500 rounded hover:bg-red-600"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={2}
+        stroke="currentColor"
+        className="w-5 h-5"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-7.5A2.25 2.25 0 003.75 5.25v13.5A2.25 2.25 0 006 21h7.5a2.25 2.25 0 002.25-2.25V15m3-3h-9m0 0l3-3m-3 3l3 3"
+        />
+      </svg>
+    </button>
+  );
+};
 
 function HeaderNav() {
   const navigate = useNavigate();
+  const location = useLocation(); // گرفتن مسیر فعلی
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleUserClick = () => navigate("/LoginForm");
 
-  const handleNewsClick = (e) => {
-    e.preventDefault();
-    const newsSection = document.getElementById("news-section");
-    if (newsSection) {
-      newsSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const handleContactClick = (e) => {
-    e.preventDefault();
-    const contactSection = document.getElementById("contact-section");
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  // بررسی مسیر فعلی برای مخفی کردن دکمه لاگ‌اوت
+  const isHomePage = location.pathname === "/";
 
   return (
     <header className="w-full bg-black md:bg-Eerie-Black md:opacity-80">
-      <div className="container w-full px-4 z-50 relative flex items-center justify-between py-4">
+      <div className="container relative z-50 flex items-center justify-between w-full px-4 py-4">
+        {/* Menu Button (Mobile) */}
         <button
           className="z-50 text-2xl text-white md:hidden focus:outline-none"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -34,6 +55,7 @@ function HeaderNav() {
           {isMenuOpen ? "×" : "☰"}
         </button>
 
+        {/* Navigation */}
         <nav
           className={`fixed top-0 right-0 z-10 h-full w-1/3 bg-black p-6 shadow-lg transform transition-transform duration-300 ease-in-out md:static md:w-auto md:h-auto md:bg-transparent md:p-0 md:shadow-none ${
             isMenuOpen ? "translate-x-0" : "translate-x-full"
@@ -68,13 +90,15 @@ function HeaderNav() {
           </ul>
         </nav>
 
+        {/* Logo */}
         <div className="absolute flex items-center gap-2 text-lg font-medium text-white transform -translate-x-1/2 left-1/2">
           <span>امین</span>
           <img className="w-10 h-10" src={logo} alt="Company Logo" />
           <span>بتن</span>
         </div>
 
-        <div className="z-50">
+        {/* User Section */}
+        <div className="z-50 flex items-center gap-4">
           <img
             width="24"
             height="24"
@@ -83,6 +107,9 @@ function HeaderNav() {
             className="cursor-pointer"
             onClick={handleUserClick}
           />
+
+          {/* فقط زمانی که صفحه خانه نیست دکمه لاگ‌اوت رو نشون بده */}
+          {!isHomePage && <LogoutButton />}
         </div>
       </div>
     </header>

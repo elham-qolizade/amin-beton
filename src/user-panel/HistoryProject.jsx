@@ -150,7 +150,7 @@ export default function HistoryProject() {
       <HeaderNav className="mx-auto" />
       <ProjectHeading
         titleClassName=" text-white font-bold"
-        title={` سفارش #${id}`}
+        title={orderDetails?.title ? orderDetails.title : ` سفارش #${id}`}
         date="1402/11/10"
       />
 

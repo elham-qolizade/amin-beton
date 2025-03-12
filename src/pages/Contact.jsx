@@ -1,46 +1,69 @@
 import React from "react";
 import HeaderNav from "../ui/HeadingNav";
 import ProjectHeading from "../ui/projectHeading";
-import pic1 from "../assets/images/7f247ff51d072c6c8178a90620cfe5de.png";
-import pic2 from "../assets/images/8ad8a5c657fb8bb8c34ac0c121856678.png";
+import Button from "../ui/Button";
+import { useNavigate } from "react-router-dom";
 export default function Contact() {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-Bokara-Grey">
-      <div>
-        <HeaderNav />
-        <ProjectHeading className="py-3" />
-      </div>
+      <HeaderNav />
+      <ProjectHeading className="py-3" />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-10 py-10">
-        <div className="flex flex-col gap-4 text-white text-start">
-          <div className="flex container md:py-20 py-10 flex-col gap-10  ">
-            <div>
-              <h2 className="md:text-4xl text-3xl font-medium text-center text-School-Bus font-custom">
-                تماس با ما
-              </h2>
-            </div>
-            <div className="flex flex-col px-10 items-center justify-center gap-10 md:mt-10 sm:flex-row">
-              <img
-                className="w-full sm:w-[260px] h-auto sm:h-[138px] object-cover"
-                src={pic1}
-                alt=""
-              />
-              <img
-                className="w-full sm:w-[260px] h-auto sm:h-[138px] object-cover"
-                src={pic2}
-                alt=""
-              />
-            </div>
+      <div className="container px-4 py-10 mx-auto sm:px-6 lg:px-10">
+        <h2 className="text-3xl font-medium text-center md:text-4xl text-School-Bus font-custom">
+          تماس با ما
+        </h2>
+
+        <form className="flex flex-col gap-4 p-6 mt-10 ">
+          <input
+            type="text"
+            id="fullName"
+            name="full_name"
+            placeholder="نام و نام خانوادگی"
+            className="w-full p-1 pl-4 text-white border ltr-input bg-Bokara-Grey border-l-Looking-Glass focus:outline-none focus:ring-1 focus:ring-School-Bus "
+          />
+          <input
+            type="text"
+            id="phoneNumber"
+            name="phone"
+            placeholder="شماره تماس"
+            className="w-full p-1 pl-4 text-white border ltr-input bg-Bokara-Grey border-l-Looking-Glass focus:outline-none focus:ring-1 focus:ring-School-Bus "
+          />
+          <input
+            type="text"
+            id="companyName"
+            name="company"
+            placeholder="نام شرکت"
+            className="w-full p-1 pl-4 text-white border ltr-input bg-Bokara-Grey border-l-Looking-Glass focus:outline-none focus:ring-1 focus:ring-School-Bus "
+          />
+          <input
+            type="text"
+            id="address"
+            name="address"
+            placeholder="آدرس"
+            className="w-full p-1 pl-4 text-white border ltr-input bg-Bokara-Grey border-l-Looking-Glass focus:outline-none focus:ring-1 focus:ring-School-Bus "
+          />
+          <textarea
+            id="description"
+            name="description"
+            placeholder="توضیحات"
+            className="w-full p-1 pl-4 text-white border ltr-input bg-Bokara-Grey border-l-Looking-Glass focus:outline-none focus:ring-1 focus:ring-School-Bus "
+          ></textarea>
+
+          <div className="flex gap-4">
+            <Button type="submit" className="px-10">
+              ارسال
+            </Button>
+            <Button
+              onClick={() => navigate("/")}
+              type="reset"
+              className="px-4 py-2 rounded"
+            >
+              بازگشت به صفحه اصلی
+            </Button>
           </div>
-        </div>
-
-        <div className="mt-6">
-          <ProjectHeading />
-        </div>
-
-        <div className="flex flex-col gap-4 py-10">
-          <p className="text-sm sm:text-base md:text-lg text-white">آدرس:</p>
-        </div>
+        </form>
       </div>
     </div>
   );
