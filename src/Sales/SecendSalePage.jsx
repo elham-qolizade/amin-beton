@@ -1,199 +1,330 @@
 import React, { useState, useEffect } from "react";
-import { Formik, Form, Field } from "formik";
-import { useNavigate } from "react-router-dom";
-import ButtonProjectComponent from "../ui/ButtonProject";
-import Input from "./../ui/Input";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Button from "../ui/Button";
+import { Formik, Form, Field } from "formik";
+import Input from "../ui/Input";
+
 const SecendSalePage = () => {
-  const [pumps, setPumps] = useState([]); // مقدار اولیه آرایه باشد
+  const { orderId } = useParams();
+  const navigate = useNavigate();
+
+  const [pumps, setPumps] = useState([]);
+  const [subPumps, setSubPumps] = useState([]);
   const [vibrators, setVibrators] = useState([]);
+  const [subVibrators, setSubVibrators] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedPump, setSelectedPump] = useState(null);
+  const [selectedSubPumps, setSelectedSubPumps] = useState([]);
   const [selectedVibrator, setSelectedVibrator] = useState(null);
-  const navigate = useNavigate();
+  const [selectedSubVibrators, setSelectedSubVibrators] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://amin-beton-back.chbk.app/api/sales-pump/")
-      .then((res) => setPumps(res.data))
-      .catch((err) => console.error("خطا در دریافت لیست پمپ‌ها:", err));
+    console.log("✅ orderId:", orderId);
 
-    axios
-      .get("https://amin-beton-back.chbk.app/api/sales-vibrator/")
-      .then((res) => setVibrators(res.data))
-      .catch((err) => console.error("خطا در دریافت لیست ویبراتورها:", err));
-  }, []);
+    if (!orderId) {
+      setError("⛔ شناسه سفارش وجود ندارد!");
+      setLoading(false);
+      return;
+    }
 
-  if (loading) {
-    return <div className="text-center text-white">در حال بارگذاری...</div>;
-  }
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      setError("⛔ شما احراز هویت نشده‌اید!");
+      setLoading(false);
+      return;
+    }
 
-  if (error) {
-    return <div className="text-center text-red-500">خطا: {error}</div>;
-  }
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get(
+          "https://amin-beton-back.chbk.app/api/sales-pump/",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        const parentPumps = data.filter((pump) => pump.parent === null);
+        setPumps(parentPumps);
+
+        const vibratorData = await axios.get(
+          "https://amin-beton-back.chbk.app/api/sales-vibrator/",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        setVibrators(vibratorData.data);
+      } catch (err) {
+        setError("❌ خطا در دریافت اطلاعات!");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [orderId]);
+
+  const fetchSubPumps = async (id) => {
+    const token = localStorage.getItem("accessToken");
+
+    if (!token) {
+      alert("⛛ شما احراز هویت نشده‌اید!");
+      return;
+    }
+
+    try {
+      const { data } = await axios.get(
+        `https://amin-beton-back.chbk.app/api/sales-pump/${id}/sub-pumps/`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      setSubPumps(data);
+    } catch (err) {
+      console.error("❌ خطا در دریافت زیرمجموعه‌های پمپ!", err);
+      alert("❌ خطا در دریافت زیرمجموعه‌های پمپ!");
+    }
+  };
+
+  const fetchSubVibrators = async (id) => {
+    const token = localStorage.getItem("accessToken");
+
+    if (!token) {
+      alert("⛛ شما احراز هویت نشده‌اید!");
+      return;
+    }
+
+    try {
+      const { data } = await axios.get(
+        `https://amin-beton-back.chbk.app/api/sales-vibrator/${id}/sub_vibrators/`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log("✅ SubVibrators Data:", data);
+      setSubVibrators(data);
+    } catch (err) {
+      console.error("❌ خطا در دریافت زیرمجموعه‌های ویبراتور!", err);
+      alert("❌ خطا در دریافت زیرمجموعه‌های ویبراتور!");
+    }
+  };
+
+  const handlePumpSelection = (id) => {
+    setSelectedPump(id);
+    fetchSubPumps(id);
+  };
+
+  const handleVibratorSelection = (id) => {
+    setSelectedVibrator(id);
+    fetchSubVibrators(id);
+  };
+
+  const handleSubPumpSelection = (subPumpId) => {
+    if (!selectedSubPumps.find((item) => item.id === subPumpId)) {
+      setSelectedSubPumps([...selectedSubPumps, { id: subPumpId }]);
+    } else {
+      setSelectedSubPumps(
+        selectedSubPumps.filter((item) => item.id !== subPumpId)
+      );
+    }
+  };
+
+  const handleSubVibratorSelection = (subVibratorId) => {
+    if (!selectedSubVibrators.find((item) => item.id === subVibratorId)) {
+      setSelectedSubVibrators([...selectedSubVibrators, { id: subVibratorId }]);
+    } else {
+      setSelectedSubVibrators(
+        selectedSubVibrators.filter((item) => item.id !== subVibratorId)
+      );
+    }
+  };
+
+  const handleSubmitOrder = async () => {
+    const token = localStorage.getItem("accessToken");
+
+    if (!token) {
+      alert("⛛ شما احراز هویت نشده‌اید!");
+      return;
+    }
+
+    console.log("📝 orderId:", orderId);
+    console.log("📝 selectedSubPumps:", selectedSubPumps);
+    console.log("📝 selectedSubVibrators:", selectedSubVibrators);
+
+    const pumpPayload = selectedSubPumps.map((subPump) => ({
+      order: orderId,
+      pump: subPump.id,
+    }));
+
+    const vibratorPayload = selectedSubVibrators.map((subVibrator) => ({
+      order: orderId,
+      vibrator: subVibrator.id,
+    }));
+
+    console.log("📦 pumpPayload:", pumpPayload);
+    console.log("📦 vibratorPayload:", vibratorPayload);
+
+    try {
+      if (pumpPayload.length > 0) {
+        const pumpResponse = await axios.post(
+          "https://amin-beton-back.chbk.app/api/orders/add-pump-order/",
+          pumpPayload,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        console.log("✅ pumpResponse:", pumpResponse.data);
+      }
+
+      if (vibratorPayload.length > 0) {
+        const vibratorResponse = await axios.post(
+          "https://amin-beton-back.chbk.app/api/orders/add-vibrator-order/",
+          vibratorPayload,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        console.log("✅ vibratorResponse:", vibratorResponse.data);
+      }
+
+      // پاک کردن انتخاب‌ها
+      setSelectedSubPumps([]);
+      setSelectedSubVibrators([]);
+      alert("✅ سفارش با موفقیت ثبت شد!");
+    } catch (err) {
+      console.error("❌ خطا در افزودن پمپ یا ویبراتور به سفارش!", err);
+      alert("❌ خطا در افزودن پمپ یا ویبراتور به سفارش!");
+    }
+  };
+
+  if (loading) return <p>⏳ در حال بارگذاری...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <div className="flex flex-col min-h-screen p-6 text-white bg-Bokara-Grey">
-      <div className="container w-full max-w-5xl p-8 bg-gray-800">
+      <div className="container w-full max-w-5xl p-8 bg-gray-800 rounded-xl">
         <h1 className="mb-8 text-sm font-bold text-center md:text-2xl">
           خرید برای پروژه "نام پروژه"
         </h1>
 
-        <div className="hidden grid-rows-2 gap-6 px-10 mb-8 md:grid">
-          <div>
-            <h2 className="mb-4 text-xl font-semibold text-start">پمپ</h2>
-            <div className="grid grid-cols-4 gap-8">
-              {pumps.length > 0 ? (
-                pumps.map((pump) => (
-                  <div
-                    key={pump.id}
-                    className={`relative rounded-lg cursor-pointer flex flex-col justify-center items-center bg-Bokara-Grey border-2 ${
-                      selectedPump === pump.id
-                        ? "border-School-Bus"
-                        : "border-transparent"
-                    }`}
-                    onClick={() => setSelectedPump(pump.id)}
-                  >
-                    <img
-                      src={pump.image}
-                      alt={pump.name}
-                      className="object-cover w-full h-32 rounded-lg"
-                    />
-                    <span
-                      className={`absolute inset-0 flex items-center justify-center px-2 py-1 text-sm bg-black bg-opacity-50 rounded-md ${
-                        selectedPump === pump.id
-                          ? "text-School-Bus"
-                          : "text-white"
-                      }`}
-                    >
-                      {pump.name}
-                    </span>
-                  </div>
-                ))
-              ) : (
-                <p className="text-center text-gray-400">
-                  داده‌ای برای نمایش وجود ندارد
-                </p>
-              )}
-            </div>
-          </div>
-
-          <div>
-            <h2 className="mb-4 text-xl font-semibold text-start">ویبراتور</h2>
-            <div className="grid grid-cols-4 gap-8">
-              {vibrators.length > 0 ? (
-                vibrators.map((vibrator) => (
-                  <div
-                    key={vibrator.id}
-                    className={`relative rounded-lg cursor-pointer flex flex-col justify-center items-center bg-Bokara-Grey border-2 ${
-                      selectedVibrator === vibrator.id
-                        ? "border-School-Bus"
-                        : "border-transparent"
-                    }`}
-                    onClick={() => setSelectedVibrator(vibrator.id)}
-                  >
-                    <img
-                      src={vibrator.image}
-                      alt={vibrator.name}
-                      className="object-cover w-full h-32 rounded-lg"
-                    />
-                    <span
-                      className={`absolute inset-0 flex items-center justify-center px-2 py-1 text-sm bg-black bg-opacity-50 rounded-md ${
-                        selectedVibrator === vibrator.id
-                          ? "text-School-Bus"
-                          : "text-white"
-                      }`}
-                    >
-                      {vibrator.name}
-                    </span>
-                  </div>
-                ))
-              ) : (
-                <p className="text-center text-gray-400">
-                  داده‌ای برای نمایش وجود ندارد
-                </p>
-              )}
-            </div>
+        <div className="mb-8">
+          <h2 className="text-lg font-bold">پمپ</h2>
+          <div className="flex flex-row flex-wrap gap-6 mt-4 mb-8">
+            {pumps.map((pump) => (
+              <div
+                key={pump.id}
+                className={`flex gap-2 flex-row-reverse items-center justify-center text-center w-40 border ${
+                  selectedPump === pump.id
+                    ? "border-School-Bus"
+                    : "border-white"
+                } rounded-lg px-4 py-4 cursor-pointer transition-all duration-200 hover:scale-105`}
+                onClick={() => handlePumpSelection(pump.id)}
+              >
+                <div
+                  className={`w-4 h-4 mb-10 mr-10 rounded-full ${
+                    selectedPump === pump.id ? "bg-School-Bus" : "bg-white"
+                  }`}
+                ></div>
+                {pump.title}
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className="mt-20 mb-8">
-          <Formik
-            initialValues={{
-              height: "",
-              payment: "",
-              description: "",
-              pumpCount: "",
-              vibratorCount: "",
-              maxPiping: "",
-              pumpType: "",
-              vibratorType: "",
-            }}
-            onSubmit={(values) => {
-              console.log("Form Data:", values);
-            }}
-          >
-            {() => (
-              <Form className="flex flex-col items-center px-10 space-y-8">
-                <div className="flex flex-col w-full gap-4 md:hidden">
-                  <Field
-                    as="select"
-                    name="pumpType"
-                    className="w-full p-2 pl-4 text-left text-white border rounded bg-Bokara-Grey"
-                  >
-                    <option value="">انتخاب نوع پمپ</option>
-                    {pumps.map((pump) => (
-                      <option
-                        key={pump.id}
-                        value={pump.name}
-                        className="text-black"
-                      >
-                        {pump.name}
-                      </option>
-                    ))}
-                  </Field>
-                  <Input
-                    type="number"
-                    name="pumpCount"
-                    placeholder="تعداد پمپ"
-                    className="p-2 text-left text-white bg-gray-700 border rounded"
-                  />
-
-                  <Field
-                    as="select"
-                    name="vibratorType"
-                    className="w-full p-2 pl-4 text-left border rounded bg-Bokara-Grey"
-                  >
-                    <option value="">انتخاب نوع ویبراتور</option>
-                    {vibrators.map((vibrator) => (
-                      <option
-                        key={vibrator.id}
-                        value={vibrator.name}
-                        className="text-black"
-                      >
-                        {vibrator.name}
-                      </option>
-                    ))}
-                  </Field>
-                  <Input
-                    type="number"
-                    name="vibratorCount"
-                    placeholder="تعداد ویبراتور"
-                    className="p-2 text-left text-white bg-gray-700 border rounded"
-                  />
-                </div>
-
-                <ButtonProjectComponent
-                  type="submit"
-                  onClick={() => navigate("/UserForm")}
-                  className="w-40 py-2 md:w-96"
+        {subPumps.length > 0 && (
+          <div className="mt-6">
+            <h3 className="text-lg font-bold">زیرمجموعه‌های پمپ انتخاب شده:</h3>
+            <ul className="ml-6 list-disc">
+              {subPumps.map((subPump) => (
+                <li
+                  key={subPump.id}
+                  className={`mt-2 cursor-pointer transition-colors duration-200 ${
+                    selectedSubPumps.some((item) => item.id === subPump.id)
+                      ? "text-School-Bus"
+                      : "hover:text-School-Bus"
+                  }`}
+                  onClick={() => handleSubPumpSelection(subPump.id)}
                 >
-                  ثبت سفارش جهت بررسی
-                </ButtonProjectComponent>
-              </Form>
-            )}
-          </Formik>
+                  {subPump.title}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {vibrators.length > 0 && (
+          <div className="mt-8">
+            <h2 className="text-lg font-bold">ویبراتور</h2>
+            <div className="flex flex-row flex-wrap gap-6 mt-4 mb-8">
+              {vibrators.map((vibrator) => (
+                <div
+                  key={vibrator.id}
+                  className={`flex gap-2 flex-row-reverse items-center justify-center text-center w-40 border ${
+                    selectedVibrator === vibrator.id
+                      ? "border-School-Bus"
+                      : "border-white"
+                  } rounded-lg px-4 py-4 cursor-pointer transition-all duration-200 hover:scale-105`}
+                  onClick={() => handleVibratorSelection(vibrator.id)}
+                >
+                  <div
+                    className={`w-4 h-4 mb-10 mr-10 rounded-full ${
+                      selectedVibrator === vibrator.id
+                        ? "bg-School-Bus"
+                        : "bg-white"
+                    }`}
+                  ></div>
+                  {vibrator.title}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {selectedVibrator && subVibrators.length > 0 && (
+          <div className="mt-6">
+            <h3 className="text-lg font-bold">
+              زیرمجموعه‌های ویبراتور انتخاب شده:
+            </h3>
+            <div className="flex flex-wrap gap-6">
+              {subVibrators.map((subVibrator) => (
+                <div
+                  key={subVibrator.id}
+                  className={`flex gap-2 flex-row-reverse items-center justify-center text-center w-40 border ${
+                    selectedSubVibrators.some(
+                      (item) => item.id === subVibrator.id
+                    )
+                      ? "border-School-Bus"
+                      : "border-white"
+                  } rounded-lg px-4 py-4 cursor-pointer transition-all duration-200 hover:scale-105`}
+                  onClick={() => handleSubVibratorSelection(subVibrator.id)}
+                >
+                  <div
+                    className={`w-4 h-4 mb-10 mr-10 rounded-full ${
+                      selectedSubVibrators.some(
+                        (item) => item.id === subVibrator.id
+                      )
+                        ? "bg-School-Bus"
+                        : "bg-white"
+                    }`}
+                  ></div>
+                  {subVibrator.title}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div className="flex justify-center mt-10">
+          <Button onClick={handleSubmitOrder}>
+            ✅ ثبت سفارش با{" "}
+            {selectedSubPumps.length + selectedSubVibrators.length} آیتم
+          </Button>
         </div>
       </div>
     </div>

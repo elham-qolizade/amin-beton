@@ -5,7 +5,7 @@ import "react-modern-calendar-datepicker/lib/DatePicker.css";
 const CustomCalendar = ({ selectedDay, setSelectedDay, shift, setShift }) => {
   return (
     <div className="flex flex-col items-center w-full text-white bg-Bokara-Grey">
-      <div className="flex flex-col container justify-start items-start w-full gap-8 md:items-center md:justify-center md:flex-row">
+      <div className="container flex flex-col items-start justify-start w-full gap-8 md:items-center md:justify-center md:flex-row">
         {/* بخش تقویم */}
         <div className="">
           <h2 className="mb-4 text-xl text-center md:text-2xl">
@@ -36,18 +36,6 @@ const CustomCalendar = ({ selectedDay, setSelectedDay, shift, setShift }) => {
               className="w-4 h-4 text-School-Bus focus:ring-School-Bus accent-School-Bus"
             />
             شب
-          </label>
-
-          <label className="flex items-center gap-2 cursor-pointer">
-            <input
-              type="radio"
-              name="shift"
-              value="morning"
-              checked={shift === "morning"}
-              onChange={() => setShift("morning")} // تغییر به شیفت صبح
-              className="w-4 h-4 text-School-Bus focus:ring-School-Bus accent-School-Bus"
-            />
-            صبح
           </label>
         </div>
       </div>

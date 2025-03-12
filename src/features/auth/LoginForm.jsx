@@ -59,6 +59,9 @@ const LoginForm = () => {
           if (response.ok) {
             toast.success("کد تایید ارسال شد!");
             setOtpSent(true);
+          } else if (response.status === 404) {
+            // If 404 error, redirect to the sign-up page
+            navigate("/userform");
           } else {
             throw new Error("خطا در ارسال کد تایید");
           }
@@ -79,14 +82,25 @@ const LoginForm = () => {
             }
           );
 
-          if (!response.ok) throw new Error("خطا در تأیید کد");
+          if (!response.ok) {
+            if (response.status === 403) {
+              // If 403 error, show the error message from the response
+              const data = await response.json();
+              toast.error(
+                `❌ ${data.message || "کد تأیید نامعتبر است یا منقضی شده."}`
+              );
+            } else {
+              throw new Error("خطا در تأیید کد");
+            }
+          } else {
+            const data = await response.json();
+            localStorage.setItem("accessToken", data.access);
+            if (data.refresh)
+              localStorage.setItem("refreshToken", data.refresh);
 
-          const data = await response.json();
-          localStorage.setItem("accessToken", data.access);
-          if (data.refresh) localStorage.setItem("refreshToken", data.refresh);
-
-          toast.success("ورود با موفقیت انجام شد!");
-          navigate("/projectPage");
+            toast.success("ورود با موفقیت انجام شد!");
+            navigate("/projectPage");
+          }
         } catch (error) {
           toast.error("کد تأیید نامعتبر است یا منقضی شده.");
         }
@@ -112,7 +126,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="h-screen bg-Bokara-Grey flex items-center justify-center">
+    <div className="flex items-center justify-center h-screen bg-Bokara-Grey">
       <div className="container flex items-center justify-center text-white">
         <form
           onSubmit={formik.handleSubmit}
@@ -139,7 +153,7 @@ const LoginForm = () => {
               dir="ltr"
             />
           ) : (
-            <div className="flex w-full justify-center gap-2">
+            <div className="flex flex-row-reverse justify-center w-full gap-2">
               {[...Array(6)].map((_, index) => (
                 <Input
                   key={index}

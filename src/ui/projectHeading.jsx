@@ -26,8 +26,8 @@ const ProjectHeading = ({ title, date, subtitles, className = "" }) => {
         <div
           className={`flex flex-row items-start w-full max-w-md gap-4 ${className}`}
         >
-          <div className="flex  items-center">
-            <h1 className="text-lg pt-4 font-bold text-center">{title}</h1>
+          <div className="flex items-center">
+            <h1 className="pt-4 text-3xl font-bold text-center">{title}</h1>
           </div>
 
           <div className={`flex flex-col text-sm text-right${className}`}>
@@ -41,8 +41,8 @@ const ProjectHeading = ({ title, date, subtitles, className = "" }) => {
         </div>
 
         {date && (
-          <div className="flex flex-col gap-2 items-end mt-2 text-xs opacity-75 md:text-sm text-School-Bus">
-            <p>{dayName}</p> {/* نام روز */}
+          <div className="flex flex-col items-end gap-2 mt-2 text-xs opacity-75 md:text-sm text-School-Bus">
+            <p className="font-bold">{dayName}</p> {/* نام روز */}
             <p>{date}</p> {/* تاریخ اصلی */}
             <p>{time}</p> {/* ساعت */}
           </div>

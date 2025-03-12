@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // استفاده از useNavigate
 import axios from "axios"; // اضافه کردن axios برای ارسال درخواست
 import Input from "../ui/Input";
 import Button from "../ui/Button";
@@ -7,72 +7,73 @@ import logo from "../assets/images/84c17d4db54552e3ecc58781c8cefc7a.png";
 import { ToastContainer, toast } from "react-toastify";
 
 const UserForm = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // استفاده از useNavigate برای ریدایرکت کردن کاربر
 
-  // مدیریت وضعیت فیلدها با استفاده از useState
   const [fullName, setFullName] = useState("");
   const [nationalCode, setNationalCode] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phone, setPhone] = useState(""); // تغییر نام به "phone"
 
   const [errors, setErrors] = useState({});
 
-  // تابع اعتبارسنجی برای فیلدها
   const validate = () => {
     const newErrors = {};
 
-    // اعتبارسنجی نام و نام خانوادگی
     if (!fullName)
       newErrors.fullName = "لطفاً نام و نام خانوادگی خود را وارد کنید";
 
-    // اعتبارسنجی کد ملی
     if (!nationalCode) {
       newErrors.nationalCode = "لطفاً کد ملی خود را وارد کنید";
     } else if (!/^[0-9]{10}$/.test(nationalCode)) {
       newErrors.nationalCode = "کد ملی باید 10 رقم باشد";
     }
 
-    // اعتبارسنجی شماره موبایل
-    if (!phoneNumber) {
-      newErrors.phoneNumber = "لطفاً شماره موبایل خود را وارد کنید";
-    } else if (!/^09[0-9]{9}$/.test(phoneNumber)) {
-      newErrors.phoneNumber = "شماره موبایل معتبر نیست";
+    if (!phone) {
+      newErrors.phone = "لطفاً شماره موبایل خود را وارد کنید"; // تغییر نام به "phone"
+    } else if (!/^09[0-9]{9}$/.test(phone)) {
+      newErrors.phone = "شماره موبایل معتبر نیست"; // تغییر نام به "phone"
     }
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // اگر خطایی نباشد، فرم معتبر است
+    return Object.keys(newErrors).length === 0;
   };
 
-  // تابع ارسال فرم
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validate()) return; // اگر فرم معتبر نبود، ارسال نشود
+    if (!validate()) return;
+
+    // تقسیم کردن fullName به first_name و last_name
+    const [firstName, lastName] = fullName.split(" ");
 
     try {
-      // ارسال درخواست به سرور
+      // ارسال درخواست به API برای ثبت اطلاعات کاربر
       const response = await axios.post(
-        "https://amin-beton-back.chbk.app/api/users/register/",
+        "https://amin-beton-back.chbk.app/api/users/register/", // آدرس API
         {
-          full_name: fullName,
+          first_name: firstName,
+          last_name: lastName || "", // اگر lastName خالی بود، یک رشته خالی بفرست
           national_code: nationalCode,
-          phone_number: phoneNumber,
+          phone: phone, // استفاده از "phone" به جای "phoneNumber"
         }
       );
 
-      toast.success("اطلاعات با موفقیت ثبت شد!");
-      // پس از ثبت اطلاعات موفق، کاربر را به صفحه اصلی هدایت کنید
-      navigate("/");
+      // بررسی وضعیت موفقیت‌آمیز بودن درخواست
+      if (response.status === 201) {
+        toast.success("اطلاعات با موفقیت ثبت شد!");
+        navigate("/"); // ریدایرکت به صفحه اصلی پس از ثبت موفقیت‌آمیز
+      }
     } catch (error) {
+      // در صورت بروز خطا
       toast.error("خطا در ثبت اطلاعات، لطفاً مجدداً تلاش کنید");
     }
   };
 
   return (
-    <div className="border-2 h-screen flex items-center justify-center bg-Bokara-Grey border-School-Bus">
-      <div className="gap-10 container px-4 flex text-white">
+    <div className="flex items-center justify-center h-screen border-2 bg-Bokara-Grey border-School-Bus">
+      <div className="container flex gap-10 px-4 text-white">
         <form
           onSubmit={handleSubmit}
-          className="flex w-full justify-center items-center gap-10 flex-col"
+          className="flex flex-col items-center justify-center w-full gap-10"
         >
           <div className="flex flex-row items-center gap-2 text-3xl text-School-Bus">
             <span className="">امین</span>
@@ -117,23 +118,20 @@ const UserForm = () => {
               <div className="text-red">{errors.nationalCode}</div>
             )}
 
-            <label
-              htmlFor="phoneNumber"
-              className="self-start text-lg font-medium"
-            >
+            <label htmlFor="phone" className="self-start text-lg font-medium">
               شماره همراه
             </label>
             <Input
-              id="phoneNumber"
-              name="phoneNumber"
+              id="phone"
+              name="phone"
               className="p-2 text-left text-white bg-gray-700 border rounded placeholder:text-right border-Looking-Glass focus:border-yellow-400"
-              onChange={(e) => setPhoneNumber(e.target.value)}
-              value={phoneNumber}
+              onChange={(e) => setPhone(e.target.value)} // تغییر نام به "phone"
+              value={phone} // تغییر نام به "phone"
               placeholder="شماره همراه"
               dir="ltr"
             />
-            {errors.phoneNumber && (
-              <div className="text-red">{errors.phoneNumber}</div>
+            {errors.phone && (
+              <div className="text-red">{errors.phone}</div> // تغییر نام به "phone"
             )}
           </div>
 

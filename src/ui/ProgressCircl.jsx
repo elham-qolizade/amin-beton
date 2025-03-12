@@ -1,9 +1,12 @@
 import React from "react";
 
-const ProgressCircle = ({ percentage }) => {
+const ProgressCircle = ({ status }) => {
   const radius = 70;
   const strokeWidth = 10;
   const circumference = 2 * Math.PI * radius;
+
+  // محاسبه درصد پر شدن نوار بر اساس وضعیت (1 تا 7)
+  const percentage = (status * 14.3).toFixed(1); // هر وضعیت معادل 14.3 درصد است
   const dashOffset = circumference * ((100 - percentage) / 100);
 
   return (
@@ -23,6 +26,7 @@ const ProgressCircle = ({ percentage }) => {
         viewBox="0 0 200 200"
         style={{ maxWidth: "100%", maxHeight: "100%" }}
       >
+        {/* دایره پس‌زمینه */}
         <circle
           cx="100"
           cy="100"
@@ -32,6 +36,7 @@ const ProgressCircle = ({ percentage }) => {
           fill="none"
         />
 
+        {/* دایره زرد که بر اساس درصد پر می‌شود */}
         <circle
           cx="100"
           cy="100"
@@ -42,7 +47,7 @@ const ProgressCircle = ({ percentage }) => {
           strokeDasharray={circumference}
           strokeDashoffset={dashOffset}
           strokeLinecap="round"
-          transform="rotate(-90 100 100)"
+          transform="rotate(-90 100 100)" // شروع از بالای دایره
         />
 
         <defs>
@@ -52,12 +57,20 @@ const ProgressCircle = ({ percentage }) => {
           </linearGradient>
         </defs>
 
-        {/* تبدیل عدد به فارسی */}
-        <text x="100" y="110" textAnchor="middle" fontSize="14px" fill="#fff">
-          ۱/۷ مراحل خرید
+        {/* متن درصد */}
+        <text
+          x="50%"
+          y="50%"
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fontSize="14px"
+          fill="#fff"
+        >
+          {percentage}%
         </text>
       </svg>
 
+      {/* برچسب‌ها برای هر مرحله */}
       <div className="absolute top-[2%] left-[40%] text-white text-xs">
         صدور پیش فاکتور
       </div>

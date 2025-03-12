@@ -5,22 +5,60 @@ import HeaderNav from "../ui/HeadingNav";
 import ProjectHeading from "../ui/projectHeading";
 import { useNavigate, useParams } from "react-router-dom";
 
+// Function to check token validity
+const checkTokenValidity = async () => {
+  const accessToken = localStorage.getItem("accessToken");
+  const navigate = useNavigate();
+
+  if (!accessToken) {
+    navigate("/login");
+    return false;
+  }
+
+  try {
+    const response = await fetch(
+      "https://amin-beton-back.chbk.app/api/users/me/",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (response.ok) {
+      return true;
+    }
+
+    if (response.status === 401 || response.status === 403) {
+      navigate("/login");
+      return false;
+    }
+
+    throw new Error("Error checking token validity");
+  } catch (error) {
+    console.error(error);
+    navigate("/login");
+    return false;
+  }
+};
+
 export default function OrdersPage() {
   const navigate = useNavigate();
-  const { projectId } = useParams(); // گرفتن id پروژه از URL
+  const { projectId } = useParams();
   const [purchases, setPurchases] = useState([]);
-  const [projectInfo, setProjectInfo] = useState(null); // برای ذخیره اطلاعات پروژه
+  const [projectInfo, setProjectInfo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // گرفتن اطلاعات پروژه از API
+  // Fetch project info
   const fetchProjectInfo = async () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
 
-      // ارسال درخواست برای دریافت اطلاعات پروژه
       const response = await axios.get(
-        `https://amin-beton-back.chbk.app/api/projects/${projectId}`, // درخواست به API پروژه
+        `https://amin-beton-back.chbk.app/api/projects/${projectId}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -28,23 +66,21 @@ export default function OrdersPage() {
         }
       );
 
-      setProjectInfo(response.data); // ذخیره اطلاعات پروژه
+      setProjectInfo(response.data);
     } catch (error) {
-      console.error("خطا در دریافت اطلاعات پروژه:", error);
-      setError("دریافت اطلاعات پروژه با مشکل مواجه شد.");
+      console.error("Error fetching project info:", error);
+      setError("Failed to load project information.");
     }
   };
 
-  // گرفتن لیست خریدها
+  // Fetch purchases list
   const fetchPurchases = async () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
 
       const response = await axios.post(
         "https://amin-beton-back.chbk.app/api/orders/project-orders/",
-        {
-          project_id: projectId,
-        },
+        { project_id: projectId },
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -52,18 +88,25 @@ export default function OrdersPage() {
         }
       );
 
-      setPurchases(response.data); // ذخیره خریدها
+      setPurchases(response.data);
     } catch (error) {
-      console.error("خطا در دریافت خریدها:", error);
-      setError("دریافت اطلاعات خریدها با مشکل مواجه شد.");
+      console.error("Error fetching purchases:", error);
+      setError("Failed to load purchases.");
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchProjectInfo(); // دریافت اطلاعات پروژه
-    fetchPurchases(); // دریافت خریدها
+    const validateTokenAndLoadData = async () => {
+      const tokenIsValid = await checkTokenValidity();
+      if (tokenIsValid) {
+        fetchProjectInfo();
+        fetchPurchases();
+      }
+    };
+
+    validateTokenAndLoadData();
   }, [projectId]);
 
   return (
@@ -74,11 +117,10 @@ export default function OrdersPage() {
         {projectInfo ? (
           <ProjectHeading
             title={` سفارش:${projectInfo.id}`}
-            // نمایش نام پروژه
             subtitles={[
-              `آدرس پروژه: ${projectInfo.address}`, // نمایش آدرس پروژه
-              ` تاریخ شروع:  ${projectInfo.end_date}`, // نمایش وضعیت پروژه
-              `تاریخ پایان: ${projectInfo.start_date}`, // نمایش تاریخ آخرین خرید
+              `آدرس پروژه: ${projectInfo.address}`,
+              ` تاریخ شروع:  ${projectInfo.end_date}`,
+              `تاریخ پایان: ${projectInfo.start_date}`,
             ]}
             date="1402/11/10"
           />

@@ -141,7 +141,7 @@ import ButtonProject from "../ui/ButtonProject";
         className="w-full h-32 px-4 py-2 text-white border rounded border-Looking-Glass bg-Bokara-Grey"
       />
       {formik.touched.description && formik.errors.description && (
-        <p className="mt-1 text-sm  text-red">{formik.errors.description}</p>
+        <p className="mt-1 text-sm text-red">{formik.errors.description}</p>
       )}
     </div>
 
@@ -300,7 +300,7 @@ const ProjectAPIPage = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900">
       <div className="w-full p-8 border rounded-lg bg-Bokara-Grey border-School-Bus">
-        <div className="flex flex-col gap-2 justify-center items-center">
+        <div className="flex flex-col items-center justify-center gap-2">
           <div className="flex flex-row items-center gap-2 text-3xl text-School-Bus">
             <span className="">امین</span>
             <img className="h-12" src={logo} alt="Company Logo" />
@@ -311,9 +311,9 @@ const ProjectAPIPage = () => {
           </h2>
         </div>
 
-        <div className="flex justify-center items-center">
+        <div className="flex items-center justify-center">
           <div className="w-1/2">
-            <form onSubmit={handleSubmit} className="space-y-4 justify-center">
+            <form onSubmit={handleSubmit} className="justify-center space-y-4">
               {Object.keys(values).map((key) => (
                 <div key={key} className="relative">
                   <Input
@@ -326,17 +326,17 @@ const ProjectAPIPage = () => {
                         : values[key]
                     }
                     onChange={handleChange}
-                    className="w-full text-white rounded px-4 py-2 bg-gray-700 border border-Looking-Glass"
+                    className="w-full px-4 py-2 text-white bg-gray-700 border rounded border-Looking-Glass"
                     disabled={key === "latitude" || key === "longitude"} // غیرقابل تغییر بودن فیلدهای مختصات
                   />
                   {errors[key] && (
-                    <div className="absolute text-red-500 text-sm">
+                    <div className="absolute text-sm text-red-500">
                       {errors[key]}
                     </div>
                   )}
                 </div>
               ))}
-              <div className="w-full flex justify-center items-center mt-4">
+              <div className="flex items-center justify-center w-full mt-4">
                 <MapComponent
                   width="100%"
                   height="300px"
@@ -350,7 +350,7 @@ const ProjectAPIPage = () => {
               <div className="flex items-center justify-center">
                 <ButtonProject
                   type="submit"
-                  className="py-2 mb-10 font-semibold w-56 rounded md:w-72 bg-yellow-500 text-Looking-Glass"
+                  className="w-56 py-2 mb-10 font-semibold bg-yellow-500 rounded md:w-72 text-Looking-Glass"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? "در حال ارسال..." : "افزودن پروژه"}
