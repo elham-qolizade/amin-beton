@@ -1,197 +1,10 @@
-// import React, { useEffect, useMemo } from "react";
-// import { useNavigate } from "react-router-dom";
-// import * as Yup from "yup";
-// import axios from "axios";
-
-import logo from "../assets/images/84c17d4db54552e3ecc58781c8cefc7a.png";
-// import { ProjectFields } from "../constans/index";
-import ButtonProject from "../ui/ButtonProject";
-
-// const ProjectForm = () => {
-//   const navigate = useNavigate();
-
-//   const initialValues = useMemo(() => {
-//     return ProjectFields.reduce(
-//       (acc, field) => {
-//         acc[field.name] = "";
-//         return acc;
-//       },
-//       {
-//         projectDate: "",
-//         latitude: "",
-//         longitude: "",
-//         address: "",
-//       }
-//     );
-//   }, []);
-
-//   const validationSchema = Yup.object(
-//     ProjectFields.reduce(
-//       (schema, field) => {
-//         schema[field.name] = field.validation;
-//         return schema;
-//       },
-//       {
-//         projectDate: Yup.string().required("تاریخ پروژه الزامی است"),
-//         latitude: Yup.string().required("عرض جغرافیایی الزامی است"),
-//         longitude: Yup.string().required("طول جغرافیایی الزامی است"),
-//         address: Yup.string().required("آدرس پروژه الزامی است"),
-//         fileNumber: Yup.string()
-//           .matches(/^\d+$/, "فقط اعداد مجاز است")
-//           .required("شماره پرونده الزامی است"),
-//         registrationPlate: Yup.string()
-//           .matches(/^\d+$/, "فقط اعداد مجاز است")
-//           .required("پلاک ثبتی الزامی است"),
-//         postalCode: Yup.string()
-//           .matches(/^\d+$/, "فقط اعداد مجاز است")
-//           .min(10, "کد پستی باید حداقل ۱۰ رقم باشد")
-//           .required("کد پستی الزامی است"),
-//       }
-//     )
-//   );
-
-//   const formik = useFormik({
-//     initialValues,
-//     validationSchema,
-//     onSubmit: async (values) => {
-//       const token = localStorage.getItem("authToken");
-//       if (!token) {
-//         alert("⛔ خطا: شما احراز هویت نشده‌اید!");
-//         return;
-//       }
-
-//       try {
-//         console.log("📤 ارسال درخواست به سرور...");
-//         const response = await axios.post(
-//           "https://amin-beton-back.chbk.app/api/projects/",
-//           values,
-//           {
-//             headers: {
-//               "Content-Type": "application/json",
-//               Authorization: `Bearer ${token}`,
-//             },
-//           }
-//         );
-
-//         console.log("✅ پروژه با موفقیت ثبت شد:", response.data);
-//         alert("🎉 پروژه جدید با موفقیت ثبت شد!");
-//         navigate("/OrderPage");
-//       } catch (error) {
-//         console.error("❌ خطا در ارسال اطلاعات:", error);
-//         alert("⚠️ مشکلی در ثبت پروژه به وجود آمد.");
-//       }
-//     },
-//   });
-
-//   useEffect(() => {
-//     if (Object.keys(formik.errors).length > 0) {
-//       console.log("Errors:", formik.errors);
-//     }
-//     if (Object.keys(formik.touched).length > 0) {
-//       console.log("Touched:", formik.touched);
-//     }
-//   }, [formik.errors, formik.touched]);
-
-//   return (
-
-{
-  /* <form onSubmit={formik.handleSubmit} className="space-y-6">
-  <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
-    {ProjectFields.filter(
-      ({ name }) => !["description", "address"].includes(name)
-    ).map(({ name, placeholder }) => (
-      <div key={name} className="flex flex-col min-w-0 md:col-span-1">
-        <Input
-          type="text"
-          name={name}
-          placeholder={placeholder}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values[name] || ""}
-          className={`w-full text-white rounded px-4 py-2 bg-gray-700 border border-Looking-Glass
-                    ${
-                      formik.touched[name] && formik.errors[name]
-                        ? " text-red"
-                        : "border-gray-600"
-                    }`}
-        />
-        {formik.touched[name] && formik.errors[name] && (
-          <p className="mt-1 text-sm text-red">{formik.errors[name]}</p>
-        )}
-      </div>
-    ))}
-
-    <div className="flex flex-col col-span-1 md:col-span-2">
-      <textarea
-        name="address"
-        placeholder="آدرس پروژه"
-        {...formik.getFieldProps("address")}
-        className="w-full h-24 px-4 py-2 text-white border rounded border-Looking-Glass bg-Bokara-Grey"
-      />
-      {formik.touched.address && formik.errors.address && (
-        <p className="mt-1 text-sm text-red">{formik.errors.address}</p>
-      )}
-    </div>
-
-    <div className="flex flex-col col-span-1 md:col-span-2">
-      <textarea
-        name="description"
-        placeholder="توضیحات پروژه"
-        {...formik.getFieldProps("description")}
-        className="w-full h-32 px-4 py-2 text-white border rounded border-Looking-Glass bg-Bokara-Grey"
-      />
-      {formik.touched.description && formik.errors.description && (
-        <p className="mt-1 text-sm text-red">{formik.errors.description}</p>
-      )}
-    </div>
-
-
-    </div>
-  </div>
-
-  <div className="flex justify-center">
-    <ButtonProject
-      type="submit"
-      className=""
-    >
-      افزودن پروژه
-    </ButtonProject>
-  </div>
-</form>; */
-}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ProjectForm;
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import * as Yup from "yup";
 import Input from "../ui/Input";
 import MapComponent from "../ui/MapComponent";
-import moment from "moment-jalaali";
-moment.loadPersian({ usePersianDigits: true });
-
-const validationSchema = Yup.object({
-  user: Yup.string().required("نام کاربر الزامی است"),
-  title: Yup.string().required("عنوان پروژه الزامی است"),
-  description: Yup.string().required("توضیحات پروژه الزامی است"),
-  start_date: Yup.date().required("تاریخ شروع الزامی است"),
-  end_date: Yup.date().required("تاریخ پایان الزامی است"),
-  latitude: Yup.string().required("مختصات جغرافیایی الزامی است"),
-  longitude: Yup.string().required("مختصات جغرافیایی الزامی است"),
-  address: Yup.string().required("آدرس پروژه الزامی است"),
-  postal_code: Yup.string().matches(/^\d{10}$/, "کد پستی باید ۱۰ رقم باشد"),
-  registered_plate: Yup.string().required("شماره پلاک ثبت شده الزامی است"),
-  case_number: Yup.string().required("شماره پرونده الزامی است"),
-  supervising_engineer: Yup.string().required("نام مهندس ناظر الزامی است"),
-  builder: Yup.string().required("نام سازنده الزامی است"),
-  employer: Yup.string().required("نام کارفرما الزامی است"),
-  type: Yup.string().required("نوع پروژه الزامی است"),
-});
+import logo from "../assets/images/84c17d4db54552e3ecc58781c8cefc7a.png";
+import ButtonProject from "../ui/ButtonProject";
 
 const ProjectAPIPage = () => {
   const [values, setValues] = useState({
@@ -212,6 +25,11 @@ const ProjectAPIPage = () => {
     type: "",
   });
 
+  const [errors, setErrors] = useState({});
+  const [responseMessage, setResponseMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
+
   const placeholders = {
     user: "نام کاربر",
     title: "عنوان پروژه",
@@ -230,18 +48,8 @@ const ProjectAPIPage = () => {
     type: "نوع پروژه",
   };
 
-  const [errors, setErrors] = useState({});
-  const [responseMessage, setResponseMessage] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const navigate = useNavigate();
-
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
-  };
-
-  // تبدیل تاریخ‌ها به شمسی هنگام بارگذاری فرم
-  const formatDateToShamsi = (date) => {
-    return moment(date, "YYYY-MM-DD").format("jYYYY/jMM/jDD");
   };
 
   const handleLocationSelect = ([lat, lng]) => {
@@ -252,8 +60,44 @@ const ProjectAPIPage = () => {
     });
   };
 
+  // تابع برای اعتبارسنجی فرم
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!values.user) newErrors.user = "نام کاربر الزامی است";
+    if (!values.title) newErrors.title = "عنوان پروژه الزامی است";
+    if (!values.description) newErrors.description = "توضیحات پروژه الزامی است";
+    if (!values.start_date) newErrors.start_date = "تاریخ شروع الزامی است";
+    if (!values.end_date) newErrors.end_date = "تاریخ پایان الزامی است";
+    if (!values.latitude || !values.longitude) {
+      newErrors.coordinates = "مختصات جغرافیایی الزامی است";
+    }
+    if (!values.address) newErrors.address = "آدرس پروژه الزامی است";
+    if (!/^\d{10}$/.test(values.postal_code)) {
+      newErrors.postal_code = "کد پستی باید ۱۰ رقم باشد";
+    }
+    if (!values.registered_plate)
+      newErrors.registered_plate = "شماره پلاک ثبت شده الزامی است";
+    if (!values.case_number) newErrors.case_number = "شماره پرونده الزامی است";
+    if (!values.supervising_engineer)
+      newErrors.supervising_engineer = "نام مهندس ناظر الزامی است";
+    if (!values.builder) newErrors.builder = "نام سازنده الزامی است";
+    if (!values.employer) newErrors.employer = "نام کارفرما الزامی است";
+    if (!values.type) newErrors.type = "نوع پروژه الزامی است";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // اگر هیچ خطایی نبود، فرم معتبر است
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // اعتبارسنجی فرم
+    if (!validateForm()) {
+      setResponseMessage("❌ لطفاً تمام فیلدها را به درستی وارد کنید.");
+      return;
+    }
+
     setIsSubmitting(true);
 
     const token = localStorage.getItem("accessToken");
@@ -264,19 +108,10 @@ const ProjectAPIPage = () => {
       return;
     }
 
-    // تبدیل تاریخ‌های شمسی به میلادی قبل از ارسال به سرور
-    const formattedValues = {
-      ...values,
-      start_date: moment(values.start_date, "jYYYY/jMM/jDD").format(
-        "YYYY-MM-DD"
-      ),
-      end_date: moment(values.end_date, "jYYYY/jMM/jDD").format("YYYY-MM-DD"),
-    };
-
     try {
       await axios.post(
         "https://amin-beton-back.chbk.app/api/projects/",
-        formattedValues, // ارسال تاریخ‌های میلادی‌شده به سرور
+        values,
         {
           headers: {
             "Content-Type": "application/json",
@@ -291,7 +126,7 @@ const ProjectAPIPage = () => {
       }, 1500);
     } catch (error) {
       console.error("❌ خطا در ارسال اطلاعات:", error);
-      setResponseMessage("");
+      setResponseMessage("❌ مشکلی در ارسال اطلاعات پیش آمد.");
     } finally {
       setIsSubmitting(false);
     }
@@ -320,22 +155,21 @@ const ProjectAPIPage = () => {
                     type={key.includes("date") ? "date" : "text"}
                     name={key}
                     placeholder={placeholders[key]}
-                    value={
-                      key.includes("date")
-                        ? formatDateToShamsi(values[key]) // تاریخ شمسی برای فیلدهای تاریخ
-                        : values[key]
-                    }
+                    value={values[key]}
                     onChange={handleChange}
                     className="w-full px-4 py-2 text-white bg-gray-700 border rounded border-Looking-Glass"
                     disabled={key === "latitude" || key === "longitude"} // غیرقابل تغییر بودن فیلدهای مختصات
                   />
                   {errors[key] && (
-                    <div className="absolute text-sm text-red-500">
+                    <div className="absolute text-sm text-red">
                       {errors[key]}
                     </div>
                   )}
                 </div>
               ))}
+              {errors.coordinates && (
+                <div className="text-sm text-red-500">{errors.coordinates}</div>
+              )}
               <div className="flex items-center justify-center w-full mt-4">
                 <MapComponent
                   width="100%"
@@ -363,8 +197,6 @@ const ProjectAPIPage = () => {
                 {responseMessage}
               </p>
             )}
-
-            {/* نمایش نقشه و دریافت مختصات */}
           </div>
         </div>
       </div>

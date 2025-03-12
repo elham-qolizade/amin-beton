@@ -17,7 +17,7 @@ const ProjectHeading = ({ title, date, subtitles, className = "" }) => {
 
   return (
     <div
-      className={`flex items-center justify-between p-8 text-center text-white bg-center bg-no-repeat bg-cover ${className}`}
+      className={`flex items-center justify-between p-10 py-20 text-center text-white bg-center bg-no-repeat bg-cover ${className}`}
       style={{
         backgroundImage: `url(${background})`,
       }}
@@ -33,20 +33,12 @@ const ProjectHeading = ({ title, date, subtitles, className = "" }) => {
           <div className={`flex flex-col text-sm text-right${className}`}>
             {subtitles &&
               subtitles.map((subtitle, index) => (
-                <p key={index} className="mb-1 md:mb-2">
+                <p key={index} className="mb-1 text-lg font-medium md:mb-2">
                   {subtitle}
                 </p>
               ))}
           </div>
         </div>
-
-        {date && (
-          <div className="flex flex-col items-end gap-2 mt-2 text-xs opacity-75 md:text-sm text-School-Bus">
-            <p className="font-bold">{dayName}</p> {/* نام روز */}
-            <p>{date}</p> {/* تاریخ اصلی */}
-            <p>{time}</p> {/* ساعت */}
-          </div>
-        )}
       </div>
     </div>
   );

@@ -37,6 +37,17 @@ const CustomCalendar = ({ selectedDay, setSelectedDay, shift, setShift }) => {
             />
             شب
           </label>
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="radio"
+              name="shift"
+              value="night"
+              checked={shift === "night"}
+              onChange={() => setShift("night")} // تغییر به شیفت شب
+              className="w-4 h-4 text-School-Bus focus:ring-School-Bus accent-School-Bus"
+            />
+            روز
+          </label>
         </div>
       </div>
     </div>
