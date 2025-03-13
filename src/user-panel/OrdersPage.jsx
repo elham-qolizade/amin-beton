@@ -73,7 +73,7 @@ export default function OrdersPage() {
 
         {projectInfo ? (
           <ProjectHeading
-            title={` سفارش:${projectInfo.title}`}
+            title={` ${projectInfo.title}`}
             // نمایش نام پروژه
             subtitles={[
               `آدرس پروژه: ${projectInfo.address}`, // نمایش آدرس پروژه

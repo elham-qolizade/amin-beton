@@ -32,7 +32,7 @@ const checkTokenValidity = async () => {
     }
 
     if (response.status === 401 || response.status === 403) {
-      navigate("/login");
+      navigate("/LoginForm");
       return false;
     }
 

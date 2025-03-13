@@ -45,7 +45,7 @@ const checkTokenValidity = async (navigate, setUserData) => {
     throw new Error("خطا در بررسی اعتبار توکن");
   } catch (error) {
     console.error(error);
-    navigate("/login");
+    navigate("/LoginForm");
     return false;
   }
 };
@@ -55,7 +55,7 @@ export default function Dashboard() {
   const [projects, setProjects] = useState([]);
   const [userData, setUserData] = useState({
     name: "",
-    nationalCode: "",
+    national_code: "",
     lastLogin: "",
     activeProjectsCount: 0,
   });
@@ -104,7 +104,7 @@ export default function Dashboard() {
           title="پنل کاربری"
           subtitles={[
             "نام کاربری: " + userData.first_name,
-            "کد ملی: " + userData.nationalCode,
+            "کد ملی: " + userData.national_code,
           ]}
           date="1402/11/10"
         />

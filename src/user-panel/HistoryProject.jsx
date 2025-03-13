@@ -133,7 +133,7 @@ export default function HistoryProject() {
   }, [orderId]);
 
   if (loading) {
-    return <p className="text-center text-white">در حال دریافت اطلاعات...</p>;
+    return <p className="text-center text-black">در حال دریافت اطلاعات...</p>;
   }
   const handleDownload = (url, fileName = "file.docx") => {
     if (!url) return toast.error("لینک دانلود موجود نیست!");
@@ -150,7 +150,9 @@ export default function HistoryProject() {
       <HeaderNav className="mx-auto" />
       <ProjectHeading
         titleClassName=" text-white font-bold"
-        title={orderDetails?.title ? orderDetails.title : ` سفارش #${id}`}
+        title={
+          orderDetails?.order_name ? orderDetails.order_name : ` سفارش #${id}`
+        }
         date="1402/11/10"
       />
 

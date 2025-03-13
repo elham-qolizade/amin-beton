@@ -13,7 +13,7 @@ import SecendSalePage from "./Sales/SecendSalePage";
 import UserForm from "./Sales/UserForm ";
 import AboutBluck from "./pages/AboutBluck";
 import NewsLanding from "./ui/NewsLanding";
-
+import NewsDetail from "./pages/NewsDetail";
 import Salbs from "./pages/Slabs";
 import Pipe from "./pages/pipe";
 import Table from "./pages/Table";
@@ -46,6 +46,7 @@ function App() {
             <Route path="/Contact" element={<Contact />} />
             <Route path="/News" element={<News />} />
             <Route path="/About" element={<About />} />
+            <Route path="/news/:news_id" element={<NewsDetail />} />
             <Route
               path="/SecendSalePage/:orderId"
               element={<SecendSalePage />}
