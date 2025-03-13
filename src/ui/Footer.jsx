@@ -10,13 +10,28 @@ export default function Footer() {
       className="flex flex-col-reverse items-center justify-around pt-10 pb-20 text-center md:flex-row bg-b-gray md:pb-52"
     >
       <div className="flex flex-col items-center pt-10 md:pt-40">
-        <ul className="flex flex-col  cursor-pointer gap-4 text-lg text-center text-white">
-          <li onClick={() => navigate("/News")}>اخبار</li>
-          <li onClick={() => navigate("/About")}>درباره ما</li>
-          <li onClick={() => navigate("/Contact")}>تماس با ما</li>
-          <l onClick={() => navigate("/")} i>
+        <ul className="flex flex-col gap-4 text-lg text-center text-white cursor-pointer ">
+          <li
+            className="hover:text-School-Bus"
+            onClick={() => navigate("/News")}
+          >
+            اخبار
+          </li>
+          <li
+            className="hover:text-School-Bus"
+            onClick={() => navigate("/About")}
+          >
+            درباره ما
+          </li>
+          <li
+            className="hover:text-School-Bus"
+            onClick={() => navigate("/Contact")}
+          >
+            تماس با ما
+          </li>
+          <li className=" hover:text-School-Bus" onClick={() => navigate("/")}>
             خانه
-          </l>
+          </li>
         </ul>
       </div>
 
