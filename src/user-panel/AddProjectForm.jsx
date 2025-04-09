@@ -5,16 +5,15 @@ import Input from "../ui/Input";
 import MapComponent from "../ui/MapComponent";
 import logo from "../assets/images/84c17d4db54552e3ecc58781c8cefc7a.png";
 import ButtonProject from "../ui/ButtonProject";
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css"; // برای استایل‌ها
+import { FaCalendarAlt } from "react-icons/fa";
 const ProjectAPIPage = () => {
   const [values, setValues] = useState({
-    user: "",
     title: "",
     description: "",
-    start_date: "",
-    end_date: "",
-    latitude: "",
-    longitude: "",
+    start_date: null, // تغییر از string به null
+    end_date: null, // تغییر از string به null
     address: "",
     postal_code: "",
     registered_plate: "",
@@ -28,20 +27,19 @@ const ProjectAPIPage = () => {
   const [errors, setErrors] = useState({});
   const [responseMessage, setResponseMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [coordinates, setCoordinates] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
   const placeholders = {
-    user: "نام کاربر",
     title: "عنوان پروژه",
     description: "توضیحات پروژه",
-    start_date: "تاریخ شروع (YYYY-MM-DD)",
-    end_date: "تاریخ پایان (YYYY-MM-DD)",
-    latitude: "عرض جغرافیایی (از روی نقشه انتخاب کنید)",
-    longitude: "طول جغرافیایی (از روی نقشه انتخاب کنید)",
+    start_date: "تاریخ شروع پروژه",
+    end_date: "تاریخ پایان پروژه",
     address: "آدرس پروژه",
     postal_code: "کد پستی (۱۰ رقمی)",
-    registered_plate: "شماره پلاک ثبت شده",
-    case_number: "شماره پرونده",
+    registered_plate: "شماره پلاک ثبت شده شهرداری",
+    case_number: "شماره پرونده شهرداری",
     supervising_engineer: "نام مهندس ناظر",
     builder: "نام سازنده",
     employer: "نام کارفرما",
@@ -53,25 +51,25 @@ const ProjectAPIPage = () => {
   };
 
   const handleLocationSelect = ([lat, lng]) => {
-    setValues({
-      ...values,
-      latitude: lat.toString(),
-      longitude: lng.toString(),
+    setCoordinates({
+      latitude: parseFloat(lat.toFixed(8)),
+      longitude: parseFloat(lng.toFixed(8)),
     });
   };
 
-  // تابع برای اعتبارسنجی فرم
   const validateForm = () => {
     const newErrors = {};
-
-    if (!values.user) newErrors.user = "نام کاربر الزامی است";
     if (!values.title) newErrors.title = "عنوان پروژه الزامی است";
     if (!values.description) newErrors.description = "توضیحات پروژه الزامی است";
     if (!values.start_date) newErrors.start_date = "تاریخ شروع الزامی است";
     if (!values.end_date) newErrors.end_date = "تاریخ پایان الزامی است";
-    if (!values.latitude || !values.longitude) {
-      newErrors.coordinates = "مختصات جغرافیایی الزامی است";
+    if (
+      values.end_date &&
+      new Date(values.end_date) < new Date(values.start_date)
+    ) {
+      newErrors.end_date = "تاریخ پایان باید بعد از تاریخ شروع باشد";
     }
+    if (!coordinates) newErrors.coordinates = "مختصات جغرافیایی الزامی است";
     if (!values.address) newErrors.address = "آدرس پروژه الزامی است";
     if (!/^\d{10}$/.test(values.postal_code)) {
       newErrors.postal_code = "کد پستی باید ۱۰ رقم باشد";
@@ -86,13 +84,11 @@ const ProjectAPIPage = () => {
     if (!values.type) newErrors.type = "نوع پروژه الزامی است";
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // اگر هیچ خطایی نبود، فرم معتبر است
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // اعتبارسنجی فرم
     if (!validateForm()) {
       setResponseMessage("❌ لطفاً تمام فیلدها را به درستی وارد کنید.");
       return;
@@ -109,9 +105,9 @@ const ProjectAPIPage = () => {
     }
 
     try {
-      await axios.post(
+      const response = await axios.post(
         "https://amin-beton-back.chbk.app/api/projects/",
-        values,
+        { ...values, ...coordinates },
         {
           headers: {
             "Content-Type": "application/json",
@@ -119,14 +115,29 @@ const ProjectAPIPage = () => {
           },
         }
       );
-      setResponseMessage("✅ پروژه با موفقیت ثبت شد!");
 
+      setShowModal(true);
       setTimeout(() => {
+        setShowModal(false);
         navigate("/ProjectPage");
-      }, 1500);
+      }, 2000);
     } catch (error) {
       console.error("❌ خطا در ارسال اطلاعات:", error);
-      setResponseMessage("❌ مشکلی در ارسال اطلاعات پیش آمد.");
+
+      const errData = error.response?.data || {};
+      const newErrors = {};
+
+      if (errData.data) {
+        errData.data.forEach((fieldError) => {
+          newErrors[fieldError.field] = fieldError.message;
+        });
+      }
+
+      if (errData.__non_field_errors) {
+        setResponseMessage(errData.__non_field_errors.join(", "));
+      }
+
+      setErrors(newErrors);
     } finally {
       setIsSubmitting(false);
     }
@@ -146,20 +157,44 @@ const ProjectAPIPage = () => {
           </h2>
         </div>
 
+        {/* Display Non-Field Errors */}
+        {responseMessage && !Object.keys(errors).length && (
+          <div className="mb-4 text-center text-red-500">{responseMessage}</div>
+        )}
+
         <div className="flex items-center justify-center">
           <div className="w-1/2">
             <form onSubmit={handleSubmit} className="justify-center space-y-4">
               {Object.keys(values).map((key) => (
                 <div key={key} className="relative">
-                  <Input
-                    type={key.includes("date") ? "date" : "text"}
-                    name={key}
-                    placeholder={placeholders[key]}
-                    value={values[key]}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 text-white bg-gray-700 border rounded border-Looking-Glass"
-                    disabled={key === "latitude" || key === "longitude"} // غیرقابل تغییر بودن فیلدهای مختصات
-                  />
+                  <label className="block mb-1 text-Looking-Glass">
+                    {placeholders[key]}
+                  </label>
+
+                  {/* If the field is a date, use the DatePicker */}
+                  {key.includes("date") ? (
+                    <div className="relative w-full p-1 px-4 py-2 pl-4 text-white bg-gray-700 border rounded ltr-input bg-Bokara-Grey border-l-Looking-Glass focus:outline-none focus:ring-1 focus:ring-School-Bus border-Looking-Glass">
+                      <DatePicker
+                        className="bg-Bokara-Grey"
+                        selected={values[key]}
+                        onChange={(date) =>
+                          setValues({ ...values, [key]: date })
+                        }
+                        dateFormat="yyyy/MM/dd"
+                        // placeholderText={placeholders[key]}
+                      />
+                      <FaCalendarAlt className="absolute text-yellow-500 transform -translate-y-1/2 right-3 top-1/2" />
+                    </div>
+                  ) : (
+                    <Input
+                      type="text"
+                      name={key}
+                      value={values[key]}
+                      onChange={handleChange}
+                      className="w-full p-1 px-4 py-2 pl-4 text-white bg-gray-700 border rounded ltr-input bg-Bokara-Grey border-l-Looking-Glass focus:outline-none focus:ring-1 focus:ring-School-Bus border-Looking-Glass"
+                    />
+                  )}
+
                   {errors[key] && (
                     <div className="absolute text-sm text-red">
                       {errors[key]}
@@ -167,21 +202,12 @@ const ProjectAPIPage = () => {
                   )}
                 </div>
               ))}
-              {errors.coordinates && (
-                <div className="text-sm text-red-500">{errors.coordinates}</div>
-              )}
-              <div className="flex items-center justify-center w-full mt-4">
-                <MapComponent
-                  width="100%"
-                  height="300px"
-                  initialCoords={{
-                    lat: values.latitude || 35.6892, // مقدار پیش‌فرض (مثلا تهران)
-                    lng: values.longitude || 51.389,
-                  }}
-                  onLocationSelect={handleLocationSelect}
-                />
-              </div>
-              <div className="flex items-center justify-center">
+              <MapComponent
+                width="100%"
+                height="300px"
+                onLocationSelect={handleLocationSelect}
+              />
+              <div className="flex justify-center">
                 <ButtonProject
                   type="submit"
                   className="w-56 py-2 mb-10 font-semibold bg-yellow-500 rounded md:w-72 text-Looking-Glass"
@@ -191,15 +217,26 @@ const ProjectAPIPage = () => {
                 </ButtonProject>
               </div>
             </form>
-
-            {responseMessage && (
-              <p className="mt-4 text-center text-yellow-400">
-                {responseMessage}
-              </p>
-            )}
           </div>
         </div>
       </div>
+
+      {/* Modal for success message */}
+      {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="p-6 text-center bg-white rounded-lg shadow-lg">
+            <h2 className="mb-4 text-lg font-bold text-green-600">
+              ✅ پروژه با موفقیت ثبت شد!
+            </h2>
+            <button
+              onClick={() => setShowModal(false)}
+              className="px-4 py-2 font-semibold text-white bg-green-500 rounded"
+            >
+              بستن
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

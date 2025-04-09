@@ -46,14 +46,14 @@ export default function News() {
     <div className="min-h-screen bg-Bokara-Grey">
       <div>
         <HeaderNav />
-        <ProjectHeading className="text-center justify-center text-School-Bus flex flex-col" />
+        <ProjectHeading className="flex flex-col justify-center text-center text-School-Bus" />
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-10 py-10">
+      <div className="container px-4 py-10 mx-auto sm:px-6 lg:px-10">
         <div className="flex flex-col gap-10">
-          <div className="flex flex-col gap-10 md:py-20 py-10">
+          <div className="flex flex-col gap-10 py-10 md:py-20">
             <div>
-              <h2 className="md:text-4xl text-3xl font-medium text-center text-School-Bus font-custom">
+              <h2 className="text-3xl font-medium text-center md:text-4xl text-School-Bus font-custom">
                 اخبار
               </h2>
             </div>
@@ -67,16 +67,16 @@ export default function News() {
                 newsList.map((item) => (
                   <div
                     key={item.id}
-                    className="bg-white rounded-2xl shadow-lg overflow-hidden w-full sm:w-72 hover:scale-105 transition-transform duration-300 cursor-pointer"
+                    className="w-full overflow-hidden transition-transform duration-300 bg-white shadow-lg cursor-pointer rounded-2xl sm:w-72 hover:scale-105"
                     onClick={() => navigate(`/news/${item.id}`)}
                   >
                     <img
                       src={item.image || "/placeholder.jpg"}
                       alt={item.title || "بدون عنوان"}
-                      className="w-full h-48 object-cover"
+                      className="object-cover w-full h-48"
                     />
 
-                    <div className="p-4 flex flex-col gap-2">
+                    <div className="flex flex-col gap-2 p-4">
                       <h3 className="text-lg font-semibold text-Bokara-Grey">
                         {item.title || "عنوان نامشخص"}
                       </h3>

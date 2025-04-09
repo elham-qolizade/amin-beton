@@ -58,9 +58,10 @@ const LoginForm = () => {
           if (response.ok) {
             toast.success("کد تایید ارسال شد!");
             setOtpSent(true);
+          } else if (response.status === 403) {
+            toast.error("حساب شما هنوز تایید نشده است");
           } else if (response.status === 404) {
-            // If 404 error, redirect to the sign-up page
-            navigate("/userform");
+            navigate("/UserForm");
           } else {
             throw new Error("خطا در ارسال کد تایید");
           }
@@ -81,16 +82,15 @@ const LoginForm = () => {
             }
           );
 
-          if (!response.ok) {
-            if (response.status === 403) {
-              // If 403 error, show the error message from the response
-              const data = await response.json();
-              toast.error(
-                `❌ ${data.message || "کد تأیید نامعتبر است یا منقضی شده."}`
-              );
-            } else {
-              throw new Error("خطا در تأیید کد");
-            }
+          if (response.status === 403) {
+            const data = await response.json();
+            toast.error(`❌ ${data.message || "حساب شما هنوز تایید نشده است"}`);
+          } else if (response.status === 401) {
+            toast.error("کد تأیید نامعتبر است");
+          } else if (response.status === 404) {
+            toast.error("حساب کاربر یافت نشد");
+          } else if (!response.ok) {
+            throw new Error("خطا در تأیید کد");
           } else {
             const data = await response.json();
             localStorage.setItem("accessToken", data.access);
@@ -101,12 +101,11 @@ const LoginForm = () => {
             navigate("/projectPage");
           }
         } catch (error) {
-          toast.error("کد تأیید نامعتبر است یا منقضی شده.");
+          toast.error("مشکلی پیش آمده است. لطفاً دوباره تلاش کنید.");
         }
       }
     },
   });
-
   const handleOtpChange = (e, index) => {
     const value = convertToEnglishNumbers(e.target.value).replace(/\D/g, "");
     if (value.length > 1) return;
@@ -129,44 +128,60 @@ const LoginForm = () => {
       <div className="container flex items-center justify-center text-white">
         <form
           onSubmit={formik.handleSubmit}
-          className="flex flex-col w-1/2 gap-10"
+          className="flex flex-col w-2/3 gap-10 md:w-1/2"
         >
-          <div className="flex items-center gap-2 text-3xl text-School-Bus">
+          <div className="flex items-center justify-center gap-2 text-3xl text-School-Bus">
             <span>امین</span>
             <img className="h-12" src={logo} alt="Company Logo" />
             <span>بتن</span>
           </div>
           {!otpSent ? (
-            <Input
-              id="phoneNumber"
-              name="phoneNumber"
-              className="w-full p-2 text-left text-white bg-gray-700 border rounded"
-              onChange={(e) =>
-                formik.setFieldValue(
-                  "phoneNumber",
-                  convertToEnglishNumbers(e.target.value)
-                )
-              }
-              value={formik.values.phoneNumber}
-              placeholder="09121111111"
-              dir="ltr"
-            />
+            <div className="flex flex-col w-full">
+              <Input
+                id="phoneNumber"
+                name="phoneNumber"
+                className="w-full p-2 text-left text-white bg-gray-700 border rounded"
+                onChange={(e) =>
+                  formik.setFieldValue(
+                    "phoneNumber",
+                    convertToEnglishNumbers(e.target.value)
+                  )
+                }
+                value={formik.values.phoneNumber}
+                placeholder="09121111111"
+                dir="ltr"
+              />
+              {formik.touched.phoneNumber && formik.errors.phoneNumber && (
+                <div className="mt-1 text-sm text-red">
+                  {formik.errors.phoneNumber}
+                </div>
+              )}
+            </div>
           ) : (
-            <div className="flex flex-row-reverse justify-center w-full gap-2">
-              {[...Array(6)].map((_, index) => (
-                <Input
-                  key={index}
-                  id={`otp-${index}`}
-                  type="tel"
-                  inputMode="numeric"
-                  maxLength="1"
-                  className="w-10 h-12 text-lg text-center border rounded"
-                  value={formik.values.otpCode[index] || ""}
-                  onChange={(e) => handleOtpChange(e, index)}
-                />
-              ))}
+            <div className="flex flex-col items-center">
+              <div className="flex flex-row-reverse justify-center w-full gap-2">
+                {[...Array(6)].map((_, index) => (
+                  <div key={index} className="flex flex-col items-center">
+                    <Input
+                      id={`otp-${index}`}
+                      type="tel"
+                      inputMode="numeric"
+                      maxLength="1"
+                      className="flex justify-center text-2xl text-center border rounded-md w-18 h-14 sm:w-20 sm:h-20 ps-0"
+                      value={formik.values.otpCode[index] || ""}
+                      onChange={(e) => handleOtpChange(e, index)}
+                    />
+                  </div>
+                ))}
+              </div>
+              {formik.touched.otpCode && formik.errors.otpCode && (
+                <div className="mt-2 text-sm text-center text-red">
+                  {formik.errors.otpCode}
+                </div>
+              )}
             </div>
           )}
+
           <Button
             type="submit"
             className="w-full font-semibold bg-yellow-500 rounded"

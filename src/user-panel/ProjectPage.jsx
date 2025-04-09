@@ -4,19 +4,18 @@ import axios from "axios";
 import HeaderNav from "../ui/HeadingNav";
 import ProjectHeading from "../ui/projectHeading";
 import ButtonProject from "../ui/ButtonProject";
+import moment from "moment-jalaali"; // import moment-jalaali
 
 // تابع برای بررسی اعتبار توکن و دریافت اطلاعات کاربر
 const checkTokenValidity = async (navigate, setUserData) => {
   const accessToken = localStorage.getItem("accessToken");
 
   if (!accessToken) {
-    // اگر توکن وجود نداشت، کاربر را به صفحه ورود ریدایرکت کن
-    navigate("/login");
+    navigate("/LoginForm");
     return false;
   }
 
   try {
-    // درخواست به endpoint برای بررسی توکن و دریافت اطلاعات کاربر
     const response = await fetch(
       "https://amin-beton-back.chbk.app/api/users/me/",
       {
@@ -29,19 +28,17 @@ const checkTokenValidity = async (navigate, setUserData) => {
     );
 
     if (response.ok) {
-      // توکن معتبر است، اطلاعات کاربر را ذخیره کن
       const userData = await response.json();
-      setUserData(userData); // ذخیره اطلاعات کاربر در state
+      console.log("User Data:", userData); // اضافه کردن این خط برای لاگ کردن داده‌ها
+      setUserData(userData);
       return true;
     }
 
-    // اگر کد وضعیت 401 یا 403 بود، توکن معتبر نیست
     if (response.status === 401 || response.status === 403) {
       navigate("/login");
       return false;
     }
 
-    // در صورت دریافت کد وضعیت دیگر
     throw new Error("خطا در بررسی اعتبار توکن");
   } catch (error) {
     console.error(error);
@@ -50,20 +47,32 @@ const checkTokenValidity = async (navigate, setUserData) => {
   }
 };
 
+// تابع برای دریافت تاریخ شمسی و نام روز هفته
+const getCurrentDate = () => {
+  moment.locale("fa");
+  const date = moment();
+  return {
+    fullDate: date.format("jYYYY/jMM/jDD HH:mm:ss"),
+    dayName: date.format("dddd"),
+  };
+};
+
 export default function Dashboard() {
   const navigate = useNavigate();
+
   const [projects, setProjects] = useState([]);
+  const [currentDate, setCurrentDate] = useState(getCurrentDate());
   const [userData, setUserData] = useState({
-    name: "",
+    first_name: "",
     national_code: "",
-    lastLogin: "",
-    activeProjectsCount: 0,
+    last_order: "",
+    projects: 0,
   });
 
   // واکشی داده‌ها از API برای پروژه‌ها
   const fetchProjects = async () => {
     const tokenIsValid = await checkTokenValidity(navigate, setUserData);
-    if (!tokenIsValid) return; // اگر توکن معتبر نباشد، داده‌ها را بارگذاری نمی‌کنیم.
+    if (!tokenIsValid) return;
 
     try {
       const accessToken = localStorage.getItem("accessToken");
@@ -87,14 +96,21 @@ export default function Dashboard() {
     fetchProjects();
   }, []);
 
-  // تبدیل تاریخ رشته‌ای به شیء Date
+  // تابع بررسی اتمام پروژه
   const isProjectCompleted = (endDate) => {
-    const currentDate = new Date(); // تاریخ جاری
-    const projectEndDate = new Date(endDate); // تاریخ پایان پروژه
-
-    // مقایسه تاریخ‌ها
-    return currentDate > projectEndDate;
+    if (!endDate) return false;
+    return moment().isAfter(moment(endDate, "YYYY-MM-DD"));
   };
+
+  // استفاده از useEffect برای بروزرسانی تاریخ جاری هر ثانیه
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentDate(getCurrentDate());
+      console.log("تاریخ جاری:", currentDate.fullDate);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="w-full min-h-screen bg-Bokara-Grey">
@@ -105,13 +121,16 @@ export default function Dashboard() {
           subtitles={[
             "نام کاربری: " + userData.first_name,
             "کد ملی: " + userData.national_code,
+            "تعداد پروژه‌های فعال: " + userData.projects,
+            "تاریخ آخرین خرید: " + userData.last_order,
           ]}
-          date="1402/11/10"
+          date={currentDate.fullDate}
         />
-        <div className="container flex flex-col justify-between py-6 mt-4 border-b border-white md:flex-row">
-          <div className="flex items-center justify-center mt-4 md:mt-0">
+
+        <div className="container flex flex-col w-full py-6 mt-4 border-b border-white md:flex-row">
+          <div className="flex flex-col items-center justify-center w-full py-6 mt-4">
             <ButtonProject
-              className="py-1 w-36"
+              className="w-56 py-1 text-center"
               onClick={() => navigate("/Addproject")}
             >
               افزودن پروژه
@@ -119,7 +138,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 px-8 py-10 cursor-pointer md:grid-cols-2 md:px-32">
+        <div className="grid items-center justify-center grid-cols-1 gap-4 px-8 py-10 cursor-pointer md:grid-cols-2 md:px-32">
           {/* نمایش پروژه‌ها */}
           {projects.length === 0 ? (
             <p className="text-center text-white">هیچ پروژه‌ای پیدا نشد.</p>
@@ -130,13 +149,14 @@ export default function Dashboard() {
                 key={data.id}
                 className="relative flex flex-col items-center justify-center h-40 gap-10 text-white rounded-lg shadow-lg product-card md:h-60"
               >
-                <p> {data.title}</p>
+                <p>{data.title}</p>
 
-                {/* بررسی تاریخ پایان پروژه */}
-                {isProjectCompleted(data.end_date) ? (
-                  <p>پروژه به اتمام رسید</p>
+                {data.status === 1 ? (
+                  <p className="text-School-Bus">پروژه در حال انجام است</p>
+                ) : data.status === 2 ? (
+                  <p className="text-red">پروژه به اتمام رسیده است</p>
                 ) : (
-                  <p>پروژه در حال انجام است</p>
+                  <p className="text-yellow-400">وضعیت نامشخص</p>
                 )}
               </div>
             ))

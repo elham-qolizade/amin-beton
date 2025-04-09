@@ -34,12 +34,7 @@ const SecendSalePage = () => {
 
       try {
         // درخواست اطلاعات پمپ‌ها
-        const { data } = await axios.get(
-          "https://amin-beton-back.chbk.app/api/sales-pump/",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+
         const parentPumps = data.filter((pump) => pump.parent === null);
         setPumps(parentPumps);
 
@@ -72,26 +67,25 @@ const SecendSalePage = () => {
     fetchData();
   }, [orderId]);
 
-  const fetchSubPumps = async (id) => {
-    const token = localStorage.getItem("accessToken");
+  //   const token = localStorage.getItem("accessToken");
 
-    if (!token) {
-      toast.error("⛛ شما احراز هویت نشده‌اید!");
-      return;
-    }
+  //   if (!token) {
+  //     toast.error("⛛ شما احراز هویت نشده‌اید!");
+  //     return;
+  //   }
 
-    try {
-      const { data } = await axios.get(
-        `https://amin-beton-back.chbk.app/api/sales-pump/${id}/sub-pumps/`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      setSubPumps(data);
-    } catch (err) {
-      toast.error("❌ خطا در دریافت زیرمجموعه‌های پمپ!");
-    }
-  };
+  //   try {
+  //     const { data } = await axios.get(
+  //       `https://amin-beton-back.chbk.app/api/sales-pump/${id}/sub-pumps/`,
+  //       {
+  //         headers: { Authorization: `Bearer ${token}` },
+  //       }
+  //     );
+  //     setSubPumps(data);
+  //   } catch (err) {
+  //     toast.error("❌ خطا در دریافت زیرمجموعه‌های پمپ!");
+  //   }
+  // };
 
   const fetchSubVibrators = async (id) => {
     const token = localStorage.getItem("accessToken");

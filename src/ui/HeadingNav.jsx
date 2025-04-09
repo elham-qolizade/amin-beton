@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom"; // اضافه شده useLocation
+import { useNavigate, useLocation } from "react-router-dom";
 import logo from "../assets/images/84c17d4db54552e3ecc58781c8cefc7a.png";
 
 const LogoutButton = () => {
@@ -36,13 +36,14 @@ const LogoutButton = () => {
 
 function HeaderNav() {
   const navigate = useNavigate();
-  const location = useLocation(); // گرفتن مسیر فعلی
+  const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleUserClick = () => navigate("/LoginForm");
 
-  // بررسی مسیر فعلی برای مخفی کردن دکمه لاگ‌اوت
-  const isHomePage = location.pathname === "/";
+  // بررسی مسیرهای صفحه‌ای که نیاز به مخفی کردن دکمه خروج دارند
+  const hiddenLogoutPages = ["/", "/News", "/About", "/Contact"];
+  const hideLogoutButton = hiddenLogoutPages.includes(location.pathname);
 
   return (
     <header className="w-full bg-black md:bg-Eerie-Black md:opacity-80">
@@ -62,7 +63,7 @@ function HeaderNav() {
           } md:translate-x-0`}
           style={{ willChange: "transform" }}
         >
-          <ul className="flex flex-col gap-10 pt-12 text-white md:p-0 md:flex-row md:gap-6 ">
+          <ul className="flex flex-col gap-10 pt-12 text-white md:p-0 md:flex-row md:gap-6">
             <li
               className="cursor-pointer hover:text-School-Bus"
               onClick={() => navigate("/")}
@@ -108,8 +109,8 @@ function HeaderNav() {
             onClick={handleUserClick}
           />
 
-          {/* فقط زمانی که صفحه خانه نیست دکمه لاگ‌اوت رو نشون بده */}
-          {!isHomePage && <LogoutButton />}
+          {/* دکمه خروج فقط در صفحات غیر از Home، News، About و Contact نمایش داده شود */}
+          {!hideLogoutButton && <LogoutButton />}
         </div>
       </div>
     </header>

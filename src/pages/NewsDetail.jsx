@@ -4,7 +4,7 @@ import axios from "axios";
 import { FaArrowRightLong } from "react-icons/fa6";
 
 export default function NewsDetail() {
-  const { news_id } = useParams(); // گرفتن آیدی از URL
+  const { news_id } = useParams();
   const [news, setNews] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -14,23 +14,23 @@ export default function NewsDetail() {
     const fetchNewsDetail = async () => {
       try {
         const response = await axios.get(
-          `http://amin-beton-back.chbk.app/api/news/${news_id}/`
+          `https://amin-beton-back.chbk.app/api/news/${news_id}/`
         );
 
-        console.log("News Detail:", response.data);
+        console.log("🔵 Full API Response:", response.data);
 
-        // داده دریافتی از API
         const apiData = response.data;
 
-        // فیلدی که می‌خوایم content باشه به جای news_text
         const mappedData = {
           ...apiData,
-          content: apiData.news_text,
+          content: apiData.content || "محتوایی برای این خبر موجود نیست.",
         };
+
+        console.log("🟡 Mapped Content:", mappedData.content);
 
         setNews(mappedData);
       } catch (error) {
-        console.error("خطا در دریافت جزئیات خبر:", error);
+        console.error("❌ خطا در دریافت جزئیات خبر:", error);
         setNews(null);
       } finally {
         setLoading(false);
@@ -48,7 +48,7 @@ export default function NewsDetail() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-Bokara-Grey flex items-center justify-center">
+      <div className="flex items-center justify-center min-h-screen bg-Bokara-Grey">
         <p className="text-white">در حال بارگذاری...</p>
       </div>
     );
@@ -56,11 +56,11 @@ export default function NewsDetail() {
 
   if (!news) {
     return (
-      <div className="min-h-screen bg-Bokara-Grey flex flex-col items-center justify-center gap-4">
+      <div className="flex flex-col items-center justify-center min-h-screen gap-4 bg-Bokara-Grey">
         <p className="text-white">خبر پیدا نشد.</p>
         <button
           onClick={() => navigate(-1)}
-          className="text-School-Bus flex items-center gap-2"
+          className="flex items-center gap-2 text-School-Bus"
         >
           <FaArrowRightLong /> بازگشت
         </button>
@@ -69,18 +69,18 @@ export default function NewsDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-Bokara-Grey text-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-10 py-10">
+    <div className="min-h-screen text-white bg-Bokara-Grey">
+      <div className="container px-4 py-10 mx-auto sm:px-6 lg:px-10">
         <div className="flex justify-end mb-4">
           <button
             onClick={() => navigate(-1)}
-            className="text-School-Bus flex items-center gap-2 text-lg"
+            className="flex items-center gap-2 text-lg text-School-Bus"
           >
             <FaArrowRightLong /> بازگشت
           </button>
         </div>
 
-        <h1 className="text-3xl md:text-4xl font-bold text-center mb-8 text-School-Bus font-custom">
+        <h1 className="mb-8 text-3xl font-bold text-center md:text-4xl text-School-Bus font-custom">
           {news.title || "عنوان نامشخص"}
         </h1>
 
@@ -94,12 +94,16 @@ export default function NewsDetail() {
           </div>
         )}
 
-        <div className="text-sm text-gray-400 mb-6 text-center">
+        <div className="mb-6 text-sm text-center text-gray-400">
           تاریخ انتشار: {formatDate(news.created_at)}
         </div>
 
-        <div className="prose prose-lg prose-invert max-w-none leading-8 text-justify">
-          {news.content || "محتوایی برای این خبر موجود نیست."}
+        {/* ✅ محدوده نمایش content به صورت HTML */}
+        <div className="max-w-4xl p-6 mx-auto border shadow-md bg-Bokara-Grey border-School-Bus rounded-2xl">
+          <div
+            className="leading-8 prose text-justify prose-invert max-w-none"
+            dangerouslySetInnerHTML={{ __html: news.content }}
+          />
         </div>
       </div>
     </div>
