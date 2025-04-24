@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/ui/MapComponent.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1744294462311,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1744294462311,
+            "name": "Commit-0",
+            "content": "import React, { useState, useEffect } from \"react\";\r\nimport {\r\n  MapContainer,\r\n  TileLayer,\r\n  Marker,\r\n  Popup,\r\n  useMapEvents,\r\n  useMap,\r\n} from \"react-leaflet\";\r\nimport { OpenStreetMapProvider, GeoSearchControl } from \"leaflet-geosearch\";\r\nimport \"leaflet/dist/leaflet.css\";\r\nimport \"leaflet-geosearch/dist/geosearch.css\";\r\nimport L from \"leaflet\";\r\n\r\n// آیکون مارکر سفارشی\r\nconst customIcon = new L.Icon({\r\n  iconUrl: \"https://leafletjs.com/examples/custom-icons/leaf-red.png\",\r\n  iconSize: [25, 41],\r\n  iconAnchor: [12, 41],\r\n});\r\n\r\n// جستجو در نقشه\r\nconst SearchControl = ({ onLocationSelect }) => {\r\n  const map = useMap();\r\n\r\n  useEffect(() => {\r\n    const provider = new OpenStreetMapProvider();\r\n    const searchControl = new GeoSearchControl({\r\n      provider,\r\n      style: \"bar\",\r\n      showMarker: false,\r\n      showPopup: false,\r\n      autoClose: true,\r\n      retainZoomLevel: false,\r\n      animateZoom: true,\r\n      keepResult: true,\r\n    });\r\n\r\n    map.addControl(searchControl);\r\n\r\n    // وقتی جستجو انجام شد، مختصات انتخابی را دریافت کن\r\n    map.on(\"geosearch/showlocation\", (e) => {\r\n      const { x, y } = e.location;\r\n      onLocationSelect([y, x]); // ارسال مختصات به فرم\r\n    });\r\n\r\n    return () => map.removeControl(searchControl);\r\n  }, [map, onLocationSelect]);\r\n\r\n  return null;\r\n};\r\n\r\n// انتخاب نقطه روی نقشه\r\nconst LocationMarker = ({ position }) => {\r\n  return position ? (\r\n    <Marker position={position} icon={customIcon}>\r\n      <Popup>موقعیت راننده</Popup>\r\n    </Marker>\r\n  ) : null;\r\n};\r\n\r\n// اضافه کردن رویداد کلیک روی نقشه برای انتخاب مکان\r\nconst LocationPicker = ({ onLocationSelect }) => {\r\n  useMapEvents({\r\n    click(e) {\r\n      const { lat, lng } = e.latlng;\r\n      onLocationSelect([lat, lng]); // ارسال مختصات به فرم\r\n    },\r\n  });\r\n\r\n  return null;\r\n};\r\n\r\nconst MapComponent = ({\r\n  latitude,\r\n  longitude,\r\n  onLocationSelect,\r\n  width = \"300px\",\r\n  height = \"150px\",\r\n}) => {\r\n  // موقعیت نقشه را تنظیم می‌کنیم\r\n  const position =\r\n    latitude && longitude ? [latitude, longitude] : [35.6892, 51.389]; // پیش‌فرض تهران\r\n\r\n  return (\r\n    <MapContainer\r\n      center={position}\r\n      zoom={13}\r\n      style={{\r\n        width: width, // دریافت عرض از props\r\n        height: height, // دریافت ارتفاع از props\r\n        borderRadius: \"10px\", // گوشه‌های گرد مثل فیگما\r\n        overflow: \"hidden\",\r\n      }}\r\n    >\r\n      <TileLayer\r\n        url=\"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png\"\r\n        attribution='&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors'\r\n      />\r\n      <SearchControl onLocationSelect={onLocationSelect} />\r\n      <LocationPicker onLocationSelect={onLocationSelect} /> {/* اضافه کردن رویداد کلیک */}\r\n      <LocationMarker position={position} />\r\n    </MapContainer>\r\n  );\r\n};\r\n\r\nexport default MapComponent;\r\n"
+        }
+    ]
+}

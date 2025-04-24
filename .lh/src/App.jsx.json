@@ -1,0 +1,22 @@
+{
+    "sourceFile": "src/App.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1744181045416,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1744181222589,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n import Contact from \"./pages/Contact\";\n import News from \"./pages/News\";\n import About from \"./pages/About\";\n import VibratorPage from \"./Sales/VibratorPage\";\n-import PumpPage from \"./Sales/PumpPagee\";\n+import PumpPage from \"./Sales/PumpPage\";\n // import FormPage from \"./Sales/FormPage\";\n import FormPage from \"./Sales/FormPage\";\n const queryClient = new QueryClient();\n \n"
+                }
+            ],
+            "date": 1744181045416,
+            "name": "Commit-0",
+            "content": "import \"./App.css\";\nimport LoginForm from \"./features/auth/LoginForm\";\nimport Home from \"./pages/Home\";\nimport { BrowserRouter as Router, Route, Routes } from \"react-router-dom\";\nimport ProjectPage from \"./user-panel/ProjectPage\";\nimport { ApiProvider } from \"./Context/AuthContext\";\nimport { QueryClient, QueryClientProvider } from \"@tanstack/react-query\";\nimport Addproject from \"./user-panel/AddProjectForm\";\nimport OrdersPage from \"./user-panel/OrdersPage\";\nimport HistoryProject from \"./user-panel/HistoryProject\";\nimport SaleProject from \"./Sales/SaleProject\";\n\nimport UserForm from \"./Sales/UserForm \";\nimport AboutBluck from \"./pages/AboutBluck\";\nimport NewsLanding from \"./ui/NewsLanding\";\nimport NewsDetail from \"./pages/NewsDetail\";\nimport Salbs from \"./pages/Slabs\";\nimport Pipe from \"./pages/pipe\";\nimport Table from \"./pages/Table\";\nimport Contact from \"./pages/Contact\";\nimport News from \"./pages/News\";\nimport About from \"./pages/About\";\nimport VibratorPage from \"./Sales/VibratorPage\";\nimport PumpPage from \"./Sales/PumpPagee\";\n// import FormPage from \"./Sales/FormPage\";\nimport FormPage from \"./Sales/FormPage\";\nconst queryClient = new QueryClient();\n\nfunction App() {\n  return (\n    <Router>\n      <QueryClientProvider client={queryClient}>\n        <ApiProvider>\n          <Routes>\n            <Route path=\"/\" element={<Home />} />\n            <Route path=\"/LoginForm\" element={<LoginForm />} />\n            <Route path=\"/OrdersPage/:projectId\" element={<OrdersPage />} />\n            <Route path=\"/HistoryProject/:id\" element={<HistoryProject />} />\n            <Route path=\"/Addproject\" element={<Addproject />} />\n            <Route path=\"/ProjectPage\" element={<ProjectPage />} />\n            <Route path=\"/SaleProject/:id\" element={<SaleProject />} />\n            <Route path=\"/UserForm\" element={<UserForm />} />{\" \"}\n            <Route path=\"/AboutBluck\" element={<AboutBluck />} />\n            <Route path=\"/product/1\" element={<Salbs />} />\n            <Route path=\"/product/2\" element={<AboutBluck />} />\n            <Route path=\"/product/3\" element={<Pipe />} />\n            <Route path=\"/product/4\" element={<Table />} />\n            <Route path=\"/NewsLanding\" element={<NewsLanding />} />\n            <Route path=\"/Contact\" element={<Contact />} />\n            <Route path=\"/News\" element={<News />} />\n            <Route path=\"/About\" element={<About />} />\n            {/* <Route path=\"/FormPage\" element={<FormPage />} /> */}\n            <Route path=\"/news/:news_id\" element={<NewsDetail />} />\n            <Route path=\"/PumpPage/:orderId\" element={<PumpPage />} />\n            <Route path=\"/VibratorPage/:orderId\" element={<VibratorPage />} />\n            <Route path=\"/FormPage/:orderId\" element={<FormPage />} />\n          </Routes>\n        </ApiProvider>\n      </QueryClientProvider>\n    </Router>\n  );\n}\n\nexport default App;\n"
+        }
+    ]
+}

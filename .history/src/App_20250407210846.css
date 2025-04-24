@@ -1,0 +1,12 @@
+
+
+.react-datepicker__input-container input {
+  width: 100% !important;
+  padding-left: 1rem;
+  padding-right: 1rem;
+ /* رنگ پس‌زمینه مشابه به زمینه‌ی سایر فیلدها */
+/* مرز مشابه به سایر فیلدها */
+  color: white;
+}
+
+
