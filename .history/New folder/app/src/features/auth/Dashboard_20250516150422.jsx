@@ -1,0 +1,55 @@
+import { useEffect, useState } from "react";
+import { getCurrentUser } from "../../services/apiAuth";
+import { useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+export default function Dashboard() {
+  const [allowedPanels, setAllowedPanels] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [panels, setPanels] = useState([]);
+  const navigate = useNavigate();
+  const ALL_PANELS = [
+    { name: "پنل مالی", role: "Financial", path: "/dashboard/financial-panel" },
+    { name: "پنل فروش", role: "Sales", path: "/dashboard/sale-panel" },
+    { name: "پنل اجرا", role: "Execution", path: "/dashboard/execution-panel" },
+    { name: "پنل آزمایشگاه", role: "Lab", path: "/dashboard/lab-panel" },
+  ];
+
+  useEffect(() => {
+    async function fetchAndFilter() {
+      try {
+        const user = await getCurrentUser();
+        const roles = user.roles || [];
+
+        const isSuperUser = roles.includes("Super User");
+
+        const filtered = isSuperUser
+          ? ALL_PANELS
+          : ALL_PANELS.filter((panel) => roles.includes(panel.role));
+
+        setAllowedPanels(filtered);
+      } catch (err) {
+        console.error("خطا در دریافت نقش‌ها:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchAndFilter();
+  }, []);
+
+  if (loading) return <p>در حال بارگذاری...</p>;
+
+  return (
+    <div>
+      <h1>داشبورد</h1>
+      <ul>
+        {allowedPanels.map((panel) => (
+          <li onClick={() => navigate(panel.path)} key={panel.role}>
+            {panel.name}
+          </li>
+        ))}
+      </ul>
+      <Outlet />
+    </div>
+  );
+}

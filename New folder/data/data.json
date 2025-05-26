@@ -1,0 +1,290 @@
+{
+  "transports": [
+    {
+      "id": 1,
+      "customer_id": 10001,
+      "project_name": "ساختمان ۲۳ یوسف آباد",
+      "product_name": "بتن نوع ۱",
+      "order_id": "001",
+      "trucks": [
+        {
+          "id": 1,
+          "driver_name": "فرهاد مولایی",
+          "driver_phone": "۰۹۱۰۳۸۴۸۱۲۹",
+          "plate": "87a543-11",
+          "gps_serial": "45321342",
+          "status": "stationary",
+          "concrete_volume": "۳",
+          "pomp": "no",
+          "way_bill": ""
+        },
+        {
+          "id": 2,
+          "driver_name": "جواد اصغری",
+          "driver_phone": "۰۹۱۰۳۴۵۸۷۱۲",
+          "plate": "32p345-33",
+          "gps_serial": "8723452",
+          "status": "on route",
+          "concrete_volume": "۱",
+          "pomp": "yes",
+          "way_bill": ""
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "customer_id": 10002,
+      "project_name": "ساختمان ۲۱ منظریه",
+      "product_name": "بتن نوع ۲",
+      "order_id": "002"
+    },
+    {
+      "id": 3,
+      "customer_id": 10003,
+      "project_name": "ساختمان ۴۵  فرشته",
+      "product_name": "بتن نوع ۳",
+      "order_id": "003"
+    },
+    {
+      "id": 4,
+      "customer_id": 10004,
+      "project_name": "ساختمان ۱۱  نیاوران",
+      "product_name": "بتن نوع ۴",
+      "order_id": "004"
+    }
+  ],
+  "waiting-customers": [
+    {
+      "id": 1,
+      "phone_number": "09121112233",
+      "first_name": "علی",
+      "last_name": "محمدی"
+    },
+    {
+      "id": 2,
+      "phone_number": "09121156231",
+      "first_name": "مهناز",
+      "last_name": "گلستانی"
+    },
+    {
+      "id": 3,
+      "phone_number": "09128432190",
+      "first_name": "محمد",
+      "last_name": "شمس"
+    },
+    {
+      "id": 4,
+      "phone_number": "09123671290",
+      "first_name": "علیرضا",
+      "last_name": "اکبری"
+    }
+  ],
+  "confirmed-customers": [
+    {
+      "id": 1,
+      "phone_number": "09121268223",
+      "first_name": "ناصر",
+      "last_name": "سلطانی",
+      "customer_id": 10001
+    },
+    {
+      "id": 2,
+      "phone_number": "09121119581",
+      "first_name": "امیر",
+      "last_name": "نیکانی",
+      "customer_id": 10002
+    },
+    {
+      "id": 3,
+      "phone_number": "09128432760",
+      "first_name": "کامران",
+      "last_name": "مشفق",
+      "customer_id": 10003
+    },
+    {
+      "id": 4,
+      "phone_number": "09123609120",
+      "first_name": "محمدحسین",
+      "last_name": "مرکب",
+      "customer_id": 10004
+    }
+  ],
+  "waiting-orders": [
+    {
+      "id": 1,
+      "product_name": "بتن نوع ۱",
+      "product_number": "001",
+      "project_name": "ساختمان ۲۳ یوسف آباد",
+      "first_name": "علی",
+      "last_name": "محمدی",
+      "customer_id": 10001
+    },
+    {
+      "id": 2,
+      "product_name": "بتن نوع ۲",
+      "product_number": "002",
+      "project_name": "ساختمان ۲۱ منظریه",
+      "first_name": "مهناز",
+      "last_name": "گلستانی",
+      "customer_id": 10002
+    },
+    {
+      "id": 3,
+      "product_name": "بتن نوع ۳",
+      "product_number": "003",
+      "project_name": "ساختمان ۴۵  فرشته",
+      "first_name": "محمد",
+      "last_name": "شمس",
+      "customer_id": 10003
+    },
+    {
+      "id": 4,
+      "product_name": "بتن نوع ۴",
+      "product_number": "004",
+      "project_name": "ساختمان ۱۱  نیاوران",
+      "first_name": "علیرضا",
+      "last_name": "اکبری",
+      "customer_id": 10004
+    }
+  ],
+  "confirmed-orders": [
+    {
+      "id": 1,
+      "product_name": "بتن نوع ۱",
+      "product_number": "001",
+      "project_name": "ساختمان ۲۳ یوسف آباد",
+      "first_name": "علی",
+      "last_name": "محمدی",
+      "customer_id": 10001
+    },
+    {
+      "id": 2,
+      "product_name": "بتن نوع ۲",
+      "product_number": "002",
+      "project_name": "ساختمان ۲۱ منظریه",
+      "first_name": "مهناز",
+      "last_name": "گلستانی",
+      "customer_id": 10002
+    },
+    {
+      "id": 3,
+      "product_name": "بتن نوع ۳",
+      "product_number": "003",
+      "project_name": "ساختمان ۴۵  فرشته",
+      "first_name": "محمد",
+      "last_name": "شمس",
+      "customer_id": 10003
+    },
+    {
+      "id": 4,
+      "product_name": "بتن نوع ۴",
+      "product_number": "004",
+      "project_name": "ساختمان ۱۱  نیاوران",
+      "first_name": "علیرضا",
+      "last_name": "اکبری",
+      "customer_id": 10004
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "name": "پروژه ی ۰۲۴",
+      "start_date": "۱۴۰۲/۱۲/۳",
+      "description": "پروژه ای بزرگ در منطقه الهیه",
+      "location": "الهیه، مریم غربی، پروژه ۰۲۴",
+      "status": "unconfirmed"
+    },
+    {
+      "id": 2,
+      "name": "پروژه ی ۴۱۲",
+      "start_date": "۱۴۰۲/۱۰/۱۴",
+      "description": "پروژه ای عظیم در منطقه سعادت آباد",
+      "location": "سعادت آباد، سرو شرقی، پروژه ۴۱۲",
+      "status": "active"
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "project_id": 1,
+      "product_name": "بتن نوع ۱",
+      "project_name": "۰۲۴",
+      "project_type": "معمولی",
+      "order_volume": 3,
+      "order_price": 4000000000,
+      "step": "deliver",
+      "deliver_date": "۱۴۰۲/۱۲/۱",
+      "deliver_location": "الهیه",
+      "order_date": "۱۴۰۲/۱۱/۲۱"
+    },
+
+    {
+      "id": 2,
+      "project_id": 1,
+      "product_name": "بتن نوع ۲",
+      "project_name": "۰۲۴",
+      "project_type": "معمولی",
+      "order_volume": 5,
+      "order_price": 6000000000,
+      "step": "contact-you",
+      "deliver_date": "۱۴۰۲/۱۲/۴",
+      "deliver_location": " الهیه",
+      "order_date": "۱۴۰۲/۱۱/۱۹"
+    },
+    {
+      "id": 3,
+      "project_id": 2,
+      "product_name": "بتن نوع ۳",
+      "project_name": "۴۱۲",
+      "project_type": "معمولی",
+      "order_volume": 10,
+      "order_price": 10000000000,
+      "step": "investigation",
+      "deliver_date": "۱۴۰۲/۱۲/۱",
+      "deliver_location": "الهیه",
+      "order_date": "۱۴۰۲/۱۱/۲۱"
+    },
+
+    {
+      "id": 4,
+      "project_id": 2,
+      "product_name": "بتن نوع ۴",
+      "project_name": "۴۱۲",
+      "project_type": "معمولی",
+      "order_volume": 2,
+      "order_price": 2000000000,
+      "step": "finalize-order",
+      "deliver_date": "۱۴۰۲/۱۲/۴",
+      "deliver_location": " الهیه",
+      "order_date": "۱۴۰۲/۱۱/۱۹"
+    },
+
+    {
+      "id": 5,
+      "project_id": 1,
+      "product_name": "بتن نوع ۱",
+      "project_name": "۰۲۴",
+      "project_type": "معمولی",
+      "order_volume": 1,
+      "order_price": 1000000000,
+      "step": "finished",
+      "deliver_date": "۱۴۰۲/۹/۳۰",
+      "deliver_location": "الهیه",
+      "order_date": "۱۴۰۲/۹/۲۱"
+    },
+
+    {
+      "id": 6,
+      "project_id": 1,
+      "product_name": "بتن نوع ۶",
+      "project_name": "۰۲۴",
+      "project_type": "معمولی",
+      "order_volume": 1,
+      "order_price": 8000000000,
+      "step": "finished",
+      "deliver_date": "۱۴۰۲/۸/۲۰",
+      "deliver_location": "الهیه",
+      "order_date": "۱۴۰۲/۸/۲"
+    }
+  ]
+}

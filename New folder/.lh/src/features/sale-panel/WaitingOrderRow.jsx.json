@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/features/sale-panel/WaitingOrderRow.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1744190230918,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1744190230918,
+            "name": "Commit-0",
+            "content": "/*eslint-disable */\nimport styled from \"styled-components\";\nimport Table from \"../../ui/Table\";\nimport { FaFlagCheckered } from \"react-icons/fa\";\nimport { FaTrash } from \"react-icons/fa\";\nimport { MdEdit } from \"react-icons/md\";\n\nconst ConfirmIcon = styled.div`\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer;\n  color: var(--color-brand-600);\n  transition: all 0.3s;\n\n  &:hover {\n    color: var(--color-brand-800);\n  }\n\n  svg {\n    width: 1.6rem;\n    height: 1.6rem;\n  }\n`;\n\nconst DeleteIcon = styled.div`\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer;\n  color: var(--color-red-600);\n  transition: all 0.3s;\n\n  &:hover {\n    color: var(--color-red-800);\n  }\n\n  svg {\n    width: 1.6rem;\n    height: 1.6rem;\n  }\n`;\n\nconst EditIcon = styled.div`\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer;\n  color: var(--color-indigo-600);\n  transition: all 0.3s;\n\n  &:hover {\n    color: var(--color-indigo-800);\n  }\n\n  svg {\n    width: 1.6rem;\n    height: 1.6rem;\n  }\n`;\n\nfunction WaitingOrderRow({ order }) {\n  return (\n    <Table.Row>\n      <ConfirmIcon>\n        <FaFlagCheckered />\n      </ConfirmIcon>\n\n      <DeleteIcon>\n        <FaTrash />\n      </DeleteIcon>\n\n      <EditIcon>\n        <MdEdit />\n      </EditIcon>\n\n      <div>{order.product_name}</div>\n      <div>{order.product_number}</div>\n      <div>{order.project_name}</div>\n      <div>{order.phone_number}</div>\n      <div>{order.first_name}</div>\n      <div>{order.last_name}</div>\n      <div>{order.customer_id}</div>\n    </Table.Row>\n  );\n}\n\nexport default WaitingOrderRow;\n"
+        }
+    ]
+}

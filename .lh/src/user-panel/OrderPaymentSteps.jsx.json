@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/user-panel/OrderPaymentSteps.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1746203971427,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1746203971427,
+            "name": "Commit-0",
+            "content": "import React, { useEffect, useState } from 'react';\r\nimport axios from 'axios';\r\n\r\nfunction OrderPaymentSteps({ orderId }) {\r\n  const [payments, setPayments] = useState([]);\r\n  const [loading, setLoading] = useState(true);\r\n  const [error, setError] = useState(null);\r\n\r\n  useEffect(() => {\r\n    const fetchPayments = async () => {\r\n      try {\r\n        const response = await axios.get(`/orders/${orderId}/get-order-payments/`);\r\n        setPayments(response.data);\r\n      } catch (err) {\r\n        setError('خطا در دریافت اطلاعات پرداخت');\r\n      } finally {\r\n        setLoading(false);\r\n      }\r\n    };\r\n\r\n    fetchPayments();\r\n  }, [orderId]);\r\n\r\n  if (loading) return <p>در حال بارگذاری...</p>;\r\n  if (error) return <p className=\"text-red-500\">{error}</p>;\r\n\r\n  return (\r\n    <div className=\"space-y-4\">\r\n      <h2 className=\"text-xl font-bold\">گردش مالی</h2>\r\n      {payments.length === 0 ? (\r\n        <p>پرداختی ثبت نشده است.</p>\r\n      ) : (\r\n        <ul className=\"space-y-2\">\r\n          {payments.map((step) => (\r\n            <li key={step.id} className=\"p-4 border rounded-lg shadow\">\r\n              <div className=\"flex justify-between\">\r\n                <span className=\"font-medium\">مبلغ:</span>\r\n                <span>{step.amount.toLocaleString()} ریال</span>\r\n              </div>\r\n              <div className=\"flex justify-between\">\r\n                <span className=\"font-medium\">تاریخ پرداخت:</span>\r\n                <span>{new Date(step.payment_datetime).toLocaleString('fa-IR')}</span>\r\n              </div>\r\n              {step.note && (\r\n                <div className=\"mt-2\">\r\n                  <span className=\"font-medium\">یادداشت:</span> {step.note}\r\n                </div>\r\n              )}\r\n              {step.attachment && (\r\n                <div className=\"mt-2\">\r\n                  <a href={step.attachment} target=\"_blank\" rel=\"noopener noreferrer\" className=\"text-blue-600 underline\">\r\n                    مشاهده ضمیمه\r\n                  </a>\r\n                </div>\r\n              )}\r\n            </li>\r\n          ))}\r\n        </ul>\r\n      )}\r\n    </div>\r\n  );\r\n}\r\n\r\nexport default OrderPaymentSteps;\r\n"
+        }
+    ]
+}

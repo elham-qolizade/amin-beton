@@ -1,0 +1,26 @@
+{
+    "sourceFile": "New folder/app/src/hooks/useDropdownsData.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1748194374751,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1748194382937,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -82,8 +82,14 @@\n     queryKey: [\"sub-pump-list\", pumpId],\n     queryFn: () => getSubPumpList(pumpId),\n     enabled: !!pumpId,  // فقط وقتی pumpId مقدار دارد اجرا شود\n   });\n+  return {\n+    subPumpList,\n+    isLoadingSubPumpList,\n+    error,\n+  };\n+}\n ////////////////////////////////////////////////////////////////////////////////////\n // Vibrator Order Form\n \n export function useVibratorList() {\n"
+                },
+                {
+                    "date": 1748194400107,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -116,8 +116,9 @@\n     error,\n   } = useQuery({\n     queryKey: [\"sub-vibrator-list\", vibratorId],\n     queryFn: () => getSubVibratorList(vibratorId),\n+    enabled: !!vibratorId, // فقط وقتی vibratorId مقدار دارد اجرا شود\n   });\n \n   return {\n     subVibratorList,\n"
+                }
+            ],
+            "date": 1748194374751,
+            "name": "Commit-0",
+            "content": "import { useQuery } from \"@tanstack/react-query\";\nimport {\n  getConcreteList,\n  getConcretePouringTypeList,\n  getConcreteResistanceClassList,\n  getPumpList,\n  getSubPumpList,\n  getVibratorList,\n  getSubVibratorList,\n} from \"../services/apiUserPanel\";\n\n// Initial Order Form\nexport function useConcreteList() {\n  const {\n    data: concreteList,\n    isLoading: isLoadingConcreteList,\n    error,\n  } = useQuery({\n    queryKey: [\"concrete-list\"],\n    queryFn: getConcreteList,\n  });\n\n  return { concreteList, isLoadingConcreteList, error };\n}\n\nexport function useConcretePouringTypeList() {\n  const {\n    data: concretePouringTypeList,\n    isLoading: isLoadingConcretePouringTypeList,\n    error,\n  } = useQuery({\n    queryKey: [\"concrete-pouring-type-list\"],\n    queryFn: getConcretePouringTypeList,\n  });\n\n  return { concretePouringTypeList, isLoadingConcretePouringTypeList, error };\n}\n\nexport function useConcreteResistanceClassList() {\n  const {\n    data: concreteResistanceClassList,\n    isLoading: isLoadingConcreteResistanceClassList,\n    error,\n  } = useQuery({\n    queryKey: [\"concrete-resistance-class-list\"],\n    queryFn: getConcreteResistanceClassList,\n  });\n\n  return {\n    concreteResistanceClassList,\n    isLoadingConcreteResistanceClassList,\n    error,\n  };\n}\n\n////////////////////////////////////////////////////////////////////////////////////\n// Pumps Order Form\n\nexport function usePumpList(type = \"parent\") {\n  const {\n    data: pumpList,\n    isLoading: isLoadingPumpList,\n    error,\n  } = useQuery({\n    queryKey: [\"pump-list\"],\n    queryFn: () => getPumpList(type),\n  });\n\n  return {\n    pumpList,\n    isLoadingPumpList,\n    error,\n  };\n}\n\nexport function useSubPumpList(pumpId) {\n  const {\n    data: subPumpList,\n    isLoading: isLoadingSubPumpList,\n    error,\n  } = useQuery({\n    queryKey: [\"sub-pump-list\", pumpId],\n    queryFn: () => getSubPumpList(pumpId),\n    enabled: !!pumpId,  // فقط وقتی pumpId مقدار دارد اجرا شود\n  });\n////////////////////////////////////////////////////////////////////////////////////\n// Vibrator Order Form\n\nexport function useVibratorList() {\n  const {\n    data: vibratorList,\n    isLoading: isLoadingVibratorList,\n    error,\n  } = useQuery({\n    queryKey: [\"vibrator-list\"],\n    queryFn: () => getVibratorList(),\n  });\n\n  return {\n    vibratorList,\n    isLoadingVibratorList,\n    error,\n  };\n}\n\nexport function useSubVibratorList(vibratorId) {\n  const {\n    data: subVibratorList,\n    isLoading: isLoadingSubVibratorList,\n    error,\n  } = useQuery({\n    queryKey: [\"sub-vibrator-list\", vibratorId],\n    queryFn: () => getSubVibratorList(vibratorId),\n  });\n\n  return {\n    subVibratorList,\n    isLoadingSubVibratorList,\n    error,\n  };\n}\n"
+        }
+    ]
+}

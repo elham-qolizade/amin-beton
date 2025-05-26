@@ -1,0 +1,36 @@
+.react-datepicker__input-container input {
+  width: 100% !important;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  /* رنگ پس‌زمینه مشابه به زمینه‌ی سایر فیلدها */
+  /* مرز مشابه به سایر فیلدها */
+  color: white;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5); /* رنگ تاریک پشت مودال */
+  z-index: 9999; /* مطمئن می‌شود که مودال در بالای دیگر اجزای صفحه قرار می‌گیرد */
+}
+
+.modal-content {
+  /* background-color: #2c2c2c; رنگ پس‌زمینه مودال */
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px; /* عرض مودال */
+  max-width: 100%; /* اطمینان از عدم تجاوز عرض مودال */
+  text-align: center;
+  color: white;
+}
+.rmdp-wrapper {
+  z-index: 9999 !important;
+  position: relative;
+}

@@ -1,0 +1,43 @@
+function ConfirmedOrders() {
+  const [isOpen, setIsOpen] = useState(false);
+  const { confirmedOrders, isLoading } = useConfirmedOrders();
+
+  if (isLoading) return <Spinner />;
+
+  return (
+    <StyledConfirmedOrders>
+      <DropDownButton onClick={() => setIsOpen((s) => !s)}>
+        سفارشات تایید شده
+        {isOpen ? <IoIosArrowUp /> : <IoIosArrowDown />}
+      </DropDownButton>
+
+      {isOpen && (
+        <Table columns="7rem 10rem 7rem 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr">
+          <Table.Header>
+            <div>مشاهده</div>
+            <div>پیش فاکتور</div>
+            <div>یادداشت</div>
+
+            <div>نام محصول</div>
+            <div>شماره محصول</div>
+            <div>نام پروژه</div>
+
+            <div>نام</div>
+            <div>شماره تلفن</div>
+            <div>نام کاربری</div>
+            <div>شماره مشتری</div>
+            <div>حمل و نقل</div>
+            <div>تحویل خرید</div>
+          </Table.Header>
+
+          <Table.Body
+            data={confirmedOrders}
+            render={(order) => (
+              <ConfirmedOrderRow key={order.id} order={order} />
+            )}
+          />
+        </Table>
+      )}
+    </StyledConfirmedOrders>
+  );
+}

@@ -1,0 +1,22 @@
+{
+    "sourceFile": "app/src/features/financial-panel/ConfirmedOrderRow.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1745086214473,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1746606221649,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n // import { IoIosPin } from \"react-icons/io\";\n \n import { BsCardChecklist } from \"react-icons/bs\";\n import { GrMoney } from \"react-icons/gr\";\n-import AddOrderPaymentForm from \"./AddOrderPaymentForm\"; // مسیر را بر اساس ساختار پروژه تنظیم کن\n+import AddOrderPaymentForm from \"./OrderPaymentsPanel\"; // مسیر را بر اساس ساختار پروژه تنظیم کن\n \n // import FactorAndPriceWindow from \"./FactorAndPriceWindow\";\n import Table from \"../../ui/Table\";\n import Modal from \"../../ui/Modal\";\n"
+                }
+            ],
+            "date": 1745086214473,
+            "name": "Commit-0",
+            "content": "/* eslint-disable */\nimport styled from \"styled-components\";\n\nimport { BsCardChecklist } from \"react-icons/bs\";\nimport { GrMoney } from \"react-icons/gr\";\n\nimport FactorAndPriceWindow from \"./FactorAndPriceWindow\";\nimport Table from \"../../ui/Table\";\nimport Modal from \"../../ui/Modal\";\nimport Factor from \"./factor\";\n\nimport { useAddFactorAndPrice } from \"./useAddFactor\";\n\nconst WatchIcon = styled.div`\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer;\n  color: var(--color-brand-600);\n  transition: all 0.3s;\n\n  &:hover {\n    color: var(--color-brand-800);\n  }\n\n  svg {\n    width: 1.6rem;\n    height: 1.6rem;\n  }\n`;\n\nconst PreFactorPreviewIcon = styled.div`\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer;\n  color: var(--color-indigo-600);\n  transition: all 0.3s;\n\n  &:hover {\n    color: var(--color-indigo-800);\n  }\n\n  svg {\n    width: 1.6rem;\n    height: 1.6rem;\n  }\n`;\n\nfunction ConfirmedOrderRow({ order }) {\n  const { isSending, sendFactor } = useAddFactorAndPrice();\n\n  if (!order) {\n    return <Table.Row>داده‌ای برای این سفارش یافت نشد.</Table.Row>;\n  }\n\n  return (\n    <Table.Row>\n      <Modal>\n        {/* ✅ آیکون پیش‌فاکتور برای باز کردن مودال */}\n        <Modal.Open opens=\"preFactor\">\n          <PreFactorPreviewIcon>\n            <BsCardChecklist />\n          </PreFactorPreviewIcon>\n        </Modal.Open>\n\n        {/* ✅ مودال پیش‌فاکتور */}\n        <Modal.Window name=\"preFactor\">\n          <Factor\n            orderDetails={order} // ✅ ارسال اطلاعات سفارش\n            onConfirm={sendFactor}\n            disabled={isSending}\n          />\n        </Modal.Window>\n\n        {/* ✅ نمایش قیمت */}\n        <Modal.Open opens=\"cost\">\n          <WatchIcon>\n            <GrMoney />\n          </WatchIcon>\n        </Modal.Open>\n\n        <Modal.Window name=\"cost\">\n          <FactorAndPriceWindow\n            orderDetails={order} \n            onConfirm={sendFactor}\n            disabled={isSending}\n          />\n        </Modal.Window>\n\n        <div>{order.order_name}</div>\n        <div>{order.order_id}</div>\n        <div>{order.project.title}</div>\n\n        <div>{order.project.user_fullname}</div>\n        <div>{order.project.user_phone}</div>\n        <div>{order.project.user_username}</div>\n        <div>{order.project.user_id}</div>\n      </Modal>\n    </Table.Row>\n  );\n}\n\nexport default ConfirmedOrderRow;\n"
+        }
+    ]
+}

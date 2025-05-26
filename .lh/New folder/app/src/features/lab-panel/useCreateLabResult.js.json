@@ -1,0 +1,18 @@
+{
+    "sourceFile": "New folder/app/src/features/lab-panel/useCreateLabResult.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1747905319576,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1747905319576,
+            "name": "Commit-0",
+            "content": "/*eslint-disable */\nimport { useMutation } from \"@tanstack/react-query\";\nimport { useParams } from \"react-router-dom\";\nimport toast from \"react-hot-toast\";\nimport { createLabResult as createLabResultApi } from \"../../services/apiLabPanel\";\n\nexport function useCreateLabResult() {\n  const { orderId } = useParams();\n  const { isLoading: isCreating, mutate: createLabResult } = useMutation({\n    mutationFn: (obj) => createLabResultApi(obj),\n\n    onSuccess: () => {\n      toast.success(\"نتیجه‌ی آزمایشگاه با موفقیت ایجاد شد!\");\n      window.location.href = `/dashboard/lab-panel/list/films/${orderId}`;\n    },\n    onError: (err) => {\n      toast.error(err.message);\n    },\n  });\n\n  return { isCreating, createLabResult };\n}\n"
+        }
+    ]
+}

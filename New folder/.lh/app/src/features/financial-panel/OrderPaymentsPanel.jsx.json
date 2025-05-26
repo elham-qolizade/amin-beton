@@ -1,0 +1,18 @@
+{
+    "sourceFile": "app/src/features/financial-panel/OrderPaymentsPanel.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1746606146674,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1746606146674,
+            "name": "Commit-0",
+            "content": "import { useEffect, useState } from \"react\";\r\nimport AddOrderPaymentForm from \"./AddOrderPaymentForm\"; // فرض بر اینه که این کامپوننت در همین پروژه هست\r\n\r\nfunction OrderPaymentsPanel({ orderId }) {\r\n  const [payments, setPayments] = useState([]);\r\n  const [showForm, setShowForm] = useState(false);\r\n  const [loading, setLoading] = useState(false);\r\n\r\n  const fetchPayments = async () => {\r\n    setLoading(true);\r\n    try {\r\n      const tokenData = JSON.parse(localStorage.getItem(\"token\"));\r\n      const token = tokenData?.access;\r\n\r\n      const response = await fetch(\r\n        `http://amin-beton-back.chbk.app/api/order-management/${orderId}/list-order-payments/`,\r\n        {\r\n          headers: {\r\n            Authorization: `Bearer ${token}`,\r\n          },\r\n        }\r\n      );\r\n      if (!response.ok) throw new Error(\"خطا در دریافت داده‌ها\");\r\n      const data = await response.json();\r\n      setPayments(data);\r\n    } catch (error) {\r\n      console.error(\"خطا:\", error);\r\n      alert(\"بارگذاری پرداخت‌ها با خطا مواجه شد.\");\r\n    } finally {\r\n      setLoading(false);\r\n    }\r\n  };\r\n\r\n  useEffect(() => {\r\n    fetchPayments();\r\n  }, []);\r\n\r\n  return (\r\n    <div style={{ maxWidth: \"800px\", margin: \"2rem auto\" }}>\r\n      <h2>لیست پرداخت‌های سفارش</h2>\r\n\r\n      <button\r\n        onClick={() => setShowForm(!showForm)}\r\n        style={{\r\n          marginBottom: \"1rem\",\r\n          padding: \"0.6rem 1.2rem\",\r\n          backgroundColor: \"#28a745\",\r\n          color: \"white\",\r\n          border: \"none\",\r\n          borderRadius: \"8px\",\r\n          cursor: \"pointer\",\r\n        }}\r\n      >\r\n        {showForm ? \"بستن فرم افزودن\" : \"افزودن پرداخت جدید\"}\r\n      </button>\r\n\r\n      {showForm && (\r\n        <AddOrderPaymentForm orderId={orderId} onSuccess={fetchPayments} />\r\n      )}\r\n\r\n      {loading ? (\r\n        <p>در حال بارگذاری...</p>\r\n      ) : (\r\n        <ul style={{ listStyle: \"none\", padding: 0 }}>\r\n          {payments.length === 0 ? (\r\n            <p>هیچ پرداختی ثبت نشده است.</p>\r\n          ) : (\r\n            payments.map((payment) => (\r\n              <li\r\n                key={payment.id}\r\n                style={{\r\n                  background: \"#f1f1f1\",\r\n                  padding: \"1rem\",\r\n                  marginBottom: \"1rem\",\r\n                  borderRadius: \"8px\",\r\n                }}\r\n              >\r\n                <strong>{payment.title}</strong> – مبلغ: {payment.amount} تومان\r\n                <br />\r\n                تاریخ: {new Date(payment.payment_datetime).toLocaleString()}\r\n                {payment.note && (\r\n                  <>\r\n                    <br />\r\n                    یادداشت: {payment.note}\r\n                  </>\r\n                )}\r\n              </li>\r\n            ))\r\n          )}\r\n        </ul>\r\n      )}\r\n    </div>\r\n  );\r\n}\r\n\r\nexport default OrderPaymentsPanel;\r\n"
+        }
+    ]
+}
