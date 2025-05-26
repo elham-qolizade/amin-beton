@@ -42,7 +42,7 @@ export default function Footer() {
           alt="کارخانه"
         />
         <span>آدرس کارخانه</span>
-        <p className="pt-2 px-2 text-right text-base max-w-full break-words sm:text-sm sm:pt-1">
+        <p className="pt-2 text-right text-base max-w-full break-words sm:text-sm sm:pt-1">
           تهران، کیلومتر ۱۰ جاده قدیم کرج، خیابان صنعت ۲، پلاک ۴۵، کارخانه امین
           بتن
         </p>
