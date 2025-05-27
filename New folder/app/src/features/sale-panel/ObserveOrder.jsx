@@ -22,7 +22,7 @@ import moment from "moment-jalaali";
 moment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
 
 const StyledObserveOrder = styled.div`
-  width: 75vw;
+  // width: 75vw;
   height: 70vh;
   overflow-y: scroll;
 `;
@@ -479,30 +479,7 @@ function ObserveOrder({ order, onUpdate }) {
 
   return (
     <StyledObserveOrder>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginBottom: "2rem",
-        }}
-      >
-        <button
-          type="button"
-          onClick={() => {
-            isEditMode ? handleSave() : toggleEdit();
-          }}
-          style={{
-            backgroundColor: "#3b82f6",
-            color: "white",
-            padding: "0.5rem 1.2rem",
-            borderRadius: "0.8rem",
-            fontSize: "1rem",
-            cursor: "pointer",
-          }}
-        >
-          {isEditMode ? "ذخیره تغییرات" : "ویرایش"}
-        </button>
-      </div>
+ 
 
       <Info>
         <SubTitle>اطلاعات پروژه</SubTitle>
@@ -695,7 +672,7 @@ function ObserveOrder({ order, onUpdate }) {
         <SubTitle>اطلاعات پمپ ها</SubTitle>
         <Pumps>
           {editableOrder.pumps.length === 0 ? (
-            <Empty>پمپی در این سفارش وجود ندارد!</Empty>
+            <div>پمپی در این سفارش وجود ندارد!</div>
           ) : (
             editableOrder.pumps.map((pump, index) => {
               const currentPumpId = pump.pump?.id;
@@ -850,7 +827,7 @@ function ObserveOrder({ order, onUpdate }) {
         <SubTitle>اطلاعات ویبراتورها</SubTitle>
         <Pumps>
           {editableOrder.vibrators?.length === 0 ? (
-            <Empty> ویبراتوری در این سفارش وجود ندارد!</Empty>
+            <div> ویبراتوری در این سفارش وجود ندارد!</div>
           ) : (
             editableOrder.vibrators.map((vib, index) => {
               const currentVibId = vib.vibrator?.id;
@@ -1028,20 +1005,28 @@ function ObserveOrder({ order, onUpdate }) {
         {/* ادامه بقیه فیلدها مشابه بالا ... */}
 
         <SubTitle>اطلاعات تکمیلی</SubTitle>
-
         <InfoItem className="half-row-1">
-          اجرا و نظارت آبندی:
-          {isEditMode ? (
-            <input
-              value={editableOrder.sealing_implementation}
-              onChange={(e) =>
-                handleChange("sealing_implementation", e.target.value)
-              }
-            />
-          ) : (
-            <span>{editableOrder.sealing_implementation}</span>
-          )}
-        </InfoItem>
+  اجرا و نظارت آبندی:
+  {isEditMode ? (
+    <>
+      <input
+        value={editableOrder.sealing_implementation}
+        onChange={(e) =>
+          handleChange("sealing_implementation", e.target.value)
+        }
+        className={`input ${errors.sealing_implementation ? "input-error" : ""}`}
+      />
+      {errors.sealing_implementation && (
+        <p className="text-red text-sm mt-1">
+          {errors.sealing_implementation}
+        </p>
+      )}
+    </>
+  ) : (
+    <span>{editableOrder.sealing_implementation}</span>
+  )}
+</InfoItem>
+
         <InfoItem className="half-row-2">
           تاریخ و ساعت درخواستی:
           {isEditMode ? (
@@ -1085,16 +1070,27 @@ function ObserveOrder({ order, onUpdate }) {
         </InfoItem>
 
         <InfoItem className="full-row">
-          نحوه تسویه:
-          {isEditMode ? (
-            <input
-              value={editableOrder.settlement_type}
-              onChange={(e) => handleChange("settlement_type", e.target.value)}
-            />
-          ) : (
-            <span>{editableOrder.settlement_type}</span>
-          )}
-        </InfoItem>
+  نحوه تسویه:
+  {isEditMode ? (
+    <>
+      <input
+        value={editableOrder.settlement_type}
+        onChange={(e) =>
+          handleChange("settlement_type", e.target.value)
+        }
+        className={`input ${errors.settlement_type ? "input-error" : ""}`}
+      />
+      {errors.settlement_type && (
+        <p className="text-red text-sm mt-1">
+          {errors.settlement_type}
+        </p>
+      )}
+    </>
+  ) : (
+    <span>{editableOrder.settlement_type}</span>
+  )}
+</InfoItem>
+
 
         <InfoItem className="full-row">
           توضیحات تکمیلی:
@@ -1111,6 +1107,31 @@ function ObserveOrder({ order, onUpdate }) {
           )}
         </InfoItem>
       </Info>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginBottom: "2rem",
+        }}
+      >
+        <button
+          type="button"
+          onClick={() => {
+            isEditMode ? handleSave() : toggleEdit();
+          }}
+          style={{
+            backgroundColor: "#3b82f6",
+            color: "white",
+            padding: "0.5rem 2rem",
+            borderRadius: "0.8rem",
+            fontSize: "1rem",
+            cursor: "pointer",
+            marginTop:"6px"
+          }}
+        >
+          {isEditMode ? "ذخیره تغییرات" : "ویرایش"}
+        </button>
+      </div>
     </StyledObserveOrder>
   );
 }

@@ -243,7 +243,7 @@ export default function OrdersPage() {
       {loading && (
         <p className="text-center text-white">در حال دریافت اطلاعات...</p>
       )}
-      {error && <p className="text-center text-red-500">{error}</p>}
+      {error && <p className="text-center text-red">{error}</p>}
 
       {!loading && !error && (
         <div className="flex flex-col items-center px-6 py-8">

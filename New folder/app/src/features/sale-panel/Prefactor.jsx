@@ -329,11 +329,18 @@ function InvoicesListWithForm({ orderDetails }) {
           <Title>ایجاد پیش‌فاکتور جدید</Title>
           <label>قیمت پیش‌فاکتور (تومان):</label>
           <InputField
-            type="number"
-            placeholder="مثلاً 1000000"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-          />
+  type="text"
+  inputMode="numeric"
+  pattern="[0-9۰-۹]*"
+  placeholder="مثلاً ۱۰۰۰۰۰۰"
+  value={price}
+  onChange={(e) => {
+    const persianToEnglishDigits = (str) =>
+      str.replace(/[۰-۹]/g, (w) => "۰۱۲۳۴۵۶۷۸۹".indexOf(w));
+    setPrice(persianToEnglishDigits(e.target.value));
+  }}
+/>
+
           <label>آپلود فایل پیش‌فاکتور:</label>
           <InputField
             type="file"

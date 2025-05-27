@@ -210,11 +210,18 @@ function FinalInvoiceSection({ orderDetails }) {
           <FormWrapper onSubmit={handleCreateFactor}>
             <label>قیمت فاکتور:</label>
             <InputField
-              type="number"
-              value={price}
-              placeholder="مثلاً 2000000"
-              onChange={(e) => setPrice(e.target.value)}
-            />
+  type="text"
+  inputMode="numeric"
+  pattern="[0-9۰-۹]*"
+  placeholder="مثلاً ۱۰۰۰۰۰۰"
+  value={price}
+  onChange={(e) => {
+    const persianToEnglishDigits = (str) =>
+      str.replace(/[۰-۹]/g, (w) => "۰۱۲۳۴۵۶۷۸۹".indexOf(w));
+    setPrice(persianToEnglishDigits(e.target.value));
+  }}
+/>
+
             <label>فایل فاکتور:</label>
             <InputField
               type="file"

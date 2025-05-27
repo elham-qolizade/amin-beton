@@ -2,6 +2,11 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 
 const StyledOrderNotes = styled.div`
+
+ width: 80rem;
+  max-width: 100%;
+  margin: 0 auto;
+      color: #888;
   h3 {
     margin-bottom: 3rem;
   }
@@ -21,6 +26,9 @@ const StyledOrderNotes = styled.div`
     justify-content: space-between;
     margin-bottom: 0.5rem;
   }
+    .zvhfD{
+      width: 400px;
+    }
   .panel-label {
     font-weight: bold;
     color: #555;
@@ -42,13 +50,15 @@ const StyledOrderNotes = styled.div`
     display: flex;
     flex-direction: column;
   }
-  textarea {
-    resize: vertical;
-    min-height: 80px;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-  }
+textarea {
+  resize: vertical;
+  min-height: 180px;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
   .error-message {
     color: red;
     margin-bottom: 1rem;
@@ -68,7 +78,28 @@ const StyledOrderNotes = styled.div`
     background-color: #ccc;
     color: #333;
   }
+  
 `;
+const NoteContainer = styled.div`
+  width: 80rem;
+  max-width: 100%;
+  margin: 0 auto;
+`;
+const ModalContainer = styled.div`
+  width: 80rem;
+  max-width: 95%;
+  background-color: var(--color-grey-0);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+  padding: 4rem 5rem;
+  transition: all 0.5s;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
 
 const panelLabels = {
   sales: "فروش",
@@ -204,6 +235,7 @@ function OrderNotesWrapper({ orderId, panel = "sales" }) {
   }
 
   const handleNoteAdded = () => {
+    
     setShowAddNote(false);
     fetchNotes();
   };
@@ -212,10 +244,10 @@ function OrderNotesWrapper({ orderId, panel = "sales" }) {
   if (error) return <p>خطا: {error}</p>;
 
   return (
-    <StyledOrderNotes>
+    <StyledOrderNotes >
       {!showAddNote && (
-        <>
-          <ul>
+        <NoteContainer>
+  <ul>
             {notes.length === 0 ? (
               <p>یادداشتی ثبت نشده است.</p>
             ) : (
@@ -238,7 +270,7 @@ function OrderNotesWrapper({ orderId, panel = "sales" }) {
           <button className="add-button" onClick={() => setShowAddNote(true)}>
             افزودن یادداشت
           </button>
-        </>
+      </NoteContainer>
       )}
 
       {showAddNote && (
