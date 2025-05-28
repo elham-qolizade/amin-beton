@@ -11,7 +11,7 @@ const StyledModal = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
-
+  width: 80rem;
   transform: translate(-50%, -50%);
   background-color: var(--color-grey-0);
   border-radius: var(--border-radius-lg);
