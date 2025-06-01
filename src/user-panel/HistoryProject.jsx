@@ -138,10 +138,7 @@ const HistoryProject = () => {
     (item) => item.category?.title === selectedCategory
   );
 
-  // مدیریت انتخاب دکمه‌ها
-  // const handleClick = (category) => {
-  //   setSelectedButton(category); // انتخاب دکمه
-  // };
+
   // تابع برای دریافت موقعیت
   const getLocation = async (imei) => {
     try {
@@ -310,44 +307,52 @@ const HistoryProject = () => {
     }
   };
 
-  const handleStatusChange = async (invoiceId, status, denyReason = "") => {
-    if (!invoiceId) {
+  const handleStatusChange = async () => {
+    console.log("📦 selectedInvoice object:", selectedInvoice);
+    console.log("📦 selectedInvoice.id:", selectedInvoice?.id);
+  
+    if (!selectedInvoice?.id) {
       console.error("❌ شناسه فاکتور معتبر نیست.");
       alert("⚠️ شناسه فاکتور معتبر نیست.");
       return;
     }
-
+  
+    if (!reviewChoice) {
+      alert("⚠️ لطفاً یک گزینه (تایید/رد) انتخاب کنید.");
+      return;
+    }
+  
     const data = {
-      invoice_id: invoiceId,
-      status: status === "approved" ? 1 : 2, // فرض بر اینکه وضعیت عددی است
-      deny_reason: status === "rejected" ? denyReason : "",
+      invoice_id: selectedInvoice.id,
+      status_choice: reviewChoice === "approve" ? "accept" : "deny",
+      denyReason: reviewChoice === "reject" ? denyReason : "",
     };
-
+    
+    console.log("📤 Data to be sent:", data);
+  
     try {
-      const url = `https://amin-beton-back.chbk.app/api/invoices/${invoiceId}/change-invoice-status/`;
-      console.log("API URL:", url); // لاگ URL برای بررسی
-
-      await axios.post(url, data, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      // لاگ کردن invoiceId، status و denyReason
-      console.log("Invoice ID:", invoiceId);
-      console.log("Status:", status);
-      console.log("Deny Reason:", denyReason);
-
-      // به‌روزرسانی لیست فاکتورها
-      getInvoices(); // اینجا تابعی است که لیست فاکتورها را دوباره می‌گیرد
-
-      alert("✅ وضعیت فاکتور با موفقیت تغییر کرد.");
+      await axios.post(
+        `https://amin-beton-back.chbk.app/api/invoices/${selectedInvoice.id}/change-invoice-status/`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      alert("✅ وضعیت با موفقیت ثبت شد.");
+      setIsModalOpen(false);
+      setSelectedInvoice(null);
     } catch (error) {
-      console.error("❌ خطا در تغییر وضعیت:", error);
-      alert("⚠️ تغییر وضعیت انجام نشد.");
+      console.error("خطا در ارسال:", error);
+      alert("⛔ خطا در ثبت وضعیت.");
     }
   };
+  
+
+
+
+  
 
   // Get Token from Local Storage
   const token = localStorage.getItem("accessToken");
@@ -607,7 +612,6 @@ const HistoryProject = () => {
       }
     }
   };
-
   const handleInvoiceReview = async () => {
     if (!selectedInvoice || !reviewChoice) return;
 
@@ -652,6 +656,7 @@ const HistoryProject = () => {
       setIsSubmitting(false);
     }
   };
+
 
   //   console.log("🔍 شروع گرفتن نتایج آزمایش برای سفارش:", orderId);
 
@@ -811,43 +816,7 @@ const HistoryProject = () => {
   useEffect(() => {
     fetchPaymentSteps(id);
   }, [id]);
-  // اگر orderId تغییر کند، دوباره داده‌ها گرفته می‌شود
 
-  // useEffect(() => {
-  //   const fetchOrders = async () => {
-  //     setLoading(true);
-  //     setError(null);
-
-  //     try {
-  //       const response = await fetch(
-  //         "",
-  //         {
-  //           method: "POST",
-  //           headers: {
-  //             "Content-Type": "application/json",
-
-  //           },
-  //           body: JSON.stringify({ project_id: id }),
-  //         }
-  //       );
-
-  //       if (!response.ok) {
-  //         throw new Error("خطا در دریافت سفارشات");
-  //       }
-
-  //       const data = await response.json();
-  //       setOrders(data);
-  //     } catch (err) {
-  //       setError(err.message || "خطای ناشناخته");
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   if (id) {
-  //     fetchOrders();
-  //   }
-  // }, [id]);
 
   const fetchOrders = async () => {
     setLoading(true);
@@ -1146,17 +1115,18 @@ const HistoryProject = () => {
                         </p>
                       </div>
                       <div className="flex flex-col items-center gap-2 md:items-start ">
-                        {invoice.status === 3 && invoice.deny_reason && (
-                          <div className="flex items-center text-center md:text-right">
-                            <p className="text-sm text-black md:text-lg">
-                              دلیل رد:
-                            </p>
-                            <p className="mr-2 text-sm md:text-lg text-red">
-                              {invoice.deny_reason}
-                            </p>
-                          </div>
-                        )}
-                      </div>
+  {invoice.status === 3 && invoice.deny_reason && (
+    <div className="flex items-center text-center md:text-right">
+      <p className="text-sm text-white md:text-lg">
+        دلیل رد:
+      </p>
+      <p className="mr-2 text-sm md:text-lg text-red">
+        {invoice.deny_reason}
+      </p>
+    </div>
+  )}
+</div>
+
                     </div>
                     <div className="flex flex-col items-center justify-center w-full gap-4 mt-4 md:w-auto">
                       {invoice.status === 1 && (
@@ -1536,42 +1506,58 @@ const HistoryProject = () => {
 
       {/* Review Modal */}
       {isModalOpen && selectedInvoice && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="relative p-6 bg-black rounded-lg w-96">
-            {/* دکمه بستن (×) */}
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="absolute text-xl font-bold transition-colors top-2 left-2 text-red"
-              aria-label="بستن"
-            >
-              ×
-            </button>
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="relative p-6 bg-black rounded-lg w-96">
+      <button
+        onClick={() => setIsModalOpen(false)}
+        className="absolute text-xl font-bold transition-colors top-2 left-2 text-red"
+        aria-label="بستن"
+      >
+        ×
+      </button>
 
-            <h3 className="mb-4 text-lg font-bold text-white">
-              بررسی پیش‌فاکتور
-            </h3>
+      <h3 className="mb-4 text-lg font-bold text-white">بررسی پیش‌فاکتور</h3>
 
-            <div className="flex gap-4 mb-4">
-              <button
-                onClick={() => setReviewChoice("approve")}
-                className={`flex-1 px-4 py-2 text-School-Bus rounded-lg ${
-                  reviewChoice === "approve" ? "bg-School-Bus" : "bg-gray-600"
-                }`}
-              >
-                تایید
-              </button>
-              <button
-                onClick={() => setReviewChoice("reject")}
-                className={`flex-1 px-4 py-2 text-red rounded-lg ${
-                  reviewChoice === "reject" ? "bg-School-Bus" : "bg-gray-600"
-                }`}
-              >
-                رد
-              </button>
-            </div>
-          </div>
-        </div>
+      <div className="flex gap-4 mb-4">
+        <button
+          onClick={() => setReviewChoice("approve")}
+          className={`flex-1 px-4 py-2 text-white rounded-lg ${
+            reviewChoice === "approve" ? "bg-School-Bus" : "bg-gray-600"
+          }`}
+        >
+          تایید
+        </button>
+        <button
+          onClick={() => setReviewChoice("reject")}
+          className={`flex-1 px-4 py-2 text-red rounded-lg ${
+            reviewChoice === "reject" ? "bg-School-Bus" : "bg-gray-600"
+          }`}
+        >
+          رد
+        </button>
+      </div>
+
+      {reviewChoice === "reject" && (
+        <textarea
+          className="w-full p-2 mt-2 text-black rounded-md"
+          placeholder="لطفاً دلیل رد را وارد کنید..."
+          value={denyReason}
+          onChange={(e) => setDenyReason(e.target.value)}
+        />
       )}
+
+<button
+  onClick={handleInvoiceReview}
+  disabled={isSubmitting}
+  className="w-full px-4 py-2 mt-2 text-white bg-green-600 rounded-lg hover:bg-green-700"
+>
+  {isSubmitting ? "در حال ارسال..." : "ارسال وضعیت"}
+</button>
+
+    </div>
+  </div>
+)}
+
     </div>
   );
 };
